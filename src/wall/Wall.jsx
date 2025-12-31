@@ -1,5 +1,6 @@
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 export default function Wall() {
   return (
     <section>
@@ -26,12 +27,17 @@ export default function Wall() {
       </div>
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
 export default function Wall() {
   // TODO: Replace with React Flow canvas and wall UI.
   return (
     <section>
       <h1>Anarchive Wall</h1>
       <p>Placeholder canvas shell.</p>
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
     </section>
   );

@@ -1,6 +1,7 @@
 # Anarchive
 
 <<<<<<< ours
+<<<<<<< ours
 An infinite “crazy wall” archive built with Vite + React. This repository currently contains only the initial scaffold so the site can be grown incrementally.
 
 ## Next steps
@@ -9,6 +10,8 @@ An infinite “crazy wall” archive built with Vite + React. This repository cu
 - Define data schemas for artifacts and boards.
 - Implement data loaders and UI components.
 =======
+=======
+>>>>>>> theirs
 Anarchive is a Vite + React static site scaffold for an infinite “crazy wall” archive.
 
 ## Development
@@ -30,4 +33,7 @@ This project targets GitHub Pages and DreamHost. The Vite base path is set to `/
 - Implement React Flow canvas behavior.
 - Define artifact and board data schemas.
 - Connect JSON loaders to the UI.
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
