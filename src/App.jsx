@@ -1,6 +1,7 @@
 import Wall from "./wall/Wall.jsx";
 
 export default function App() {
+<<<<<<< ours
   return (
     <main>
       <h1>Anarchive</h1>
@@ -8,4 +9,7 @@ export default function App() {
       <Wall />
     </main>
   );
+=======
+  return <Wall />;
+>>>>>>> theirs
 }
