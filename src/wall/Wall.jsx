@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactFlow, {
   Background,
   Controls,
   MiniMap,
+  applyEdgeChanges,
   useEdgesState,
   useNodesState,
 } from "reactflow";
@@ -10,6 +11,16 @@ import "reactflow/dist/style.css";
 import ArtifactDrawer from "./drawer/ArtifactDrawer.jsx";
 import YarnEdge from "./edges/YarnEdge.jsx";
 import ArtifactNode from "./nodes/ArtifactNode.jsx";
+import {
+  BOARD_STORAGE_KEY,
+  buildBoardSnapshot,
+  mapBoardEdgesToFlowEdges,
+  mapBoardNodesToFlowNodes,
+  normalizeBoard,
+  readBoardFromStorage,
+  removeStoredBoard,
+  writeBoardToStorage,
+} from "./utils/boardPersistence.js";
 
 const wallStyle = {
   width: "100vw",
@@ -128,19 +139,34 @@ const legendActionsStyle = {
 const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
 
 const fitViewOptions = { padding: 0.2 };
-const cameraStorageKey = "anarchive.camera";
 
 export default function Wall() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [allEdges, setAllEdges, onEdgesChange] = useEdgesState([]);
+  const [allEdges, setAllEdges] = useEdgesState([]);
   const [artifacts, setArtifacts] = useState([]);
   const [camera, setCamera] = useState(null);
+  const [defaultBoard, setDefaultBoard] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
+  const nodesRef = useRef(nodes);
+  const edgesRef = useRef(allEdges);
+  const cameraRef = useRef(camera);
+
+  useEffect(() => {
+    nodesRef.current = nodes;
+  }, [nodes]);
+
+  useEffect(() => {
+    edgesRef.current = allEdges;
+  }, [allEdges]);
+
+  useEffect(() => {
+    cameraRef.current = camera;
+  }, [camera]);
 
   const artifactsById = useMemo(() => {
     const map = new Map();
@@ -283,6 +309,54 @@ export default function Wall() {
     );
   }, [artifactsById, setNodes]);
 
+  const getCurrentCamera = useCallback(() => {
+    return (
+      cameraRef.current ??
+      reactFlowInstance?.getViewport?.() ?? { x: 0, y: 0, zoom: 1 }
+    );
+  }, [reactFlowInstance]);
+
+  const saveBoardSnapshot = useCallback(
+    (overrideCamera) => {
+      const snapshot = buildBoardSnapshot({
+        nodes: nodesRef.current,
+        edges: edgesRef.current,
+        camera: overrideCamera ?? getCurrentCamera(),
+      });
+      writeBoardToStorage(snapshot);
+      return snapshot;
+    },
+    [getCurrentCamera],
+  );
+
+  const exportBoardSnapshot = useCallback(() => {
+    const snapshot = buildBoardSnapshot({
+      nodes: nodesRef.current,
+      edges: edgesRef.current,
+      camera: getCurrentCamera(),
+    });
+    const json = JSON.stringify(snapshot, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "anarchive-board-default.json";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  }, [getCurrentCamera]);
+
+  const resetBoard = useCallback(() => {
+    if (!defaultBoard) {
+      return;
+    }
+    removeStoredBoard();
+    setNodes(mapBoardNodesToFlowNodes(defaultBoard.nodes, artifactsById));
+    setAllEdges(mapBoardEdgesToFlowEdges(defaultBoard.edges));
+    setCamera(defaultBoard.camera);
+  }, [artifactsById, defaultBoard, setAllEdges, setNodes]);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       const target = event.target;
@@ -337,100 +411,15 @@ export default function Wall() {
             nextArtifactsById.set(String(artifact.id), artifact);
           }
         });
-        const boardNodes = Array.isArray(boardPayload?.nodes)
-          ? boardPayload.nodes
-          : [];
-        const boardEdges = Array.isArray(boardPayload?.edges)
-          ? boardPayload.edges
-          : [];
-
-        let nextCamera = null;
-        if (typeof window !== "undefined") {
-          try {
-            const storedCamera = window.localStorage.getItem(cameraStorageKey);
-            if (storedCamera) {
-              const parsed = JSON.parse(storedCamera);
-              if (
-                typeof parsed?.x === "number" &&
-                typeof parsed?.y === "number" &&
-                typeof parsed?.zoom === "number"
-              ) {
-                nextCamera = {
-                  x: parsed.x,
-                  y: parsed.y,
-                  zoom: parsed.zoom,
-                };
-              }
-            }
-          } catch (storageError) {
-            console.warn("Unable to read stored camera.", storageError);
-          }
-        }
+        const normalizedDefaultBoard = normalizeBoard(boardPayload);
+        const storedBoard = readBoardFromStorage();
+        const activeBoard = storedBoard ?? normalizedDefaultBoard;
 
         setArtifacts(nextArtifacts);
-        setNodes(
-          boardNodes.map((node) => {
-            const hasTopLevelX = Number.isFinite(node?.x);
-            const hasTopLevelY = Number.isFinite(node?.y);
-            const position = {
-              x: hasTopLevelX
-                ? node.x
-                : Number.isFinite(node?.position?.x)
-                  ? node.position.x
-                  : 0,
-              y: hasTopLevelY
-                ? node.y
-                : Number.isFinite(node?.position?.y)
-                  ? node.position.y
-                  : 0,
-            };
-            return {
-              id: String(node.id),
-              position,
-              data: {
-                artifactId:
-                  node?.data?.artifactId ?? node?.artifactId ?? node?.id,
-                artifactsById: nextArtifactsById,
-              },
-              type: "artifact",
-              style: {
-                width: Number.isFinite(node?.w) ? node.w : undefined,
-                height: Number.isFinite(node?.h) ? node.h : undefined,
-              },
-            };
-          }),
-        );
-        setAllEdges(
-          boardEdges.map((edge) => {
-            const nextEdge = {
-              id: String(edge.id),
-              source: String(edge.source),
-              target: String(edge.target),
-              type: edge.type ?? "yarn",
-              data: {
-                kind: edge?.kind,
-              },
-              label: edge?.label,
-            };
-            if (edge?.sourceHandle) {
-              nextEdge.sourceHandle = edge.sourceHandle;
-            }
-            if (edge?.targetHandle) {
-              nextEdge.targetHandle = edge.targetHandle;
-            }
-            return nextEdge;
-          }),
-        );
-        if (!nextCamera && boardPayload?.camera) {
-          nextCamera = {
-            x: boardPayload.camera.x ?? 0,
-            y: boardPayload.camera.y ?? 0,
-            zoom: boardPayload.camera.zoom ?? 1,
-          };
-        }
-        if (nextCamera) {
-          setCamera(nextCamera);
-        }
+        setDefaultBoard(normalizedDefaultBoard);
+        setNodes(mapBoardNodesToFlowNodes(activeBoard.nodes, nextArtifactsById));
+        setAllEdges(mapBoardEdgesToFlowEdges(activeBoard.edges));
+        setCamera(activeBoard.camera);
       } catch (loadError) {
         if (isMounted) {
           setError(loadError.message || "Failed to load wall data.");
@@ -453,6 +442,32 @@ export default function Wall() {
     reactFlowInstance.setViewport(camera);
   }, [camera, reactFlowInstance]);
 
+  const handleEdgesChange = useCallback(
+    (changes) => {
+      setAllEdges((currentEdges) => {
+        const updatedEdges = applyEdgeChanges(changes, currentEdges);
+        edgesRef.current = updatedEdges;
+        if (isArrangeMode) {
+          saveBoardSnapshot();
+        }
+        return updatedEdges;
+      });
+    },
+    [isArrangeMode, saveBoardSnapshot, setAllEdges],
+  );
+
+  const handleNodeDragStop = useCallback(
+    (_, node) => {
+      if (!isArrangeMode) {
+        return;
+      }
+      if (node) {
+        saveBoardSnapshot();
+      }
+    },
+    [isArrangeMode, saveBoardSnapshot],
+  );
+
   return (
     <section style={wallStyle}>
       <ReactFlow
@@ -461,27 +476,19 @@ export default function Wall() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
+        onEdgesChange={handleEdgesChange}
         onInit={setReactFlowInstance}
         onNodeClick={(_, node) =>
           setSelectedArtifactId(String(node?.data?.artifactId ?? node.id))
         }
         onNodeDoubleClick={(_, node) => centerOnNode(node)}
+        onNodeDragStop={handleNodeDragStop}
         onMoveEnd={(_, viewport) => {
           if (!viewport) {
             return;
           }
           setCamera(viewport);
-          if (typeof window !== "undefined") {
-            try {
-              window.localStorage.setItem(
-                cameraStorageKey,
-                JSON.stringify(viewport),
-              );
-            } catch (storageError) {
-              console.warn("Unable to store camera.", storageError);
-            }
-          }
+          saveBoardSnapshot(viewport);
         }}
         fitView
         fitViewOptions={fitViewOptions}
@@ -514,6 +521,32 @@ export default function Wall() {
             {isArrangeMode ? "Arrange: ON" : "Arrange"}
           </button>
           <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+            Board
+          </div>
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={() => saveBoardSnapshot()}
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={exportBoardSnapshot}
+          >
+            Export JSON
+          </button>
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={resetBoard}
+          >
+            Reset
+          </button>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
