@@ -7,7 +7,8 @@
       "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
       "date": "2025-12-31",
       "thumb": "/assets/thumbs/hyp_print_01.webp",
-      "full": "/assets/full/hyp_print_01.jpg"
+      "full": "/assets/full/hyp_print_01.jpg",
+      "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
       "id": "a-print-02",
@@ -16,7 +17,8 @@
       "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
       "date": "2025-12-31",
       "thumb": "/assets/thumbs/hyp_print_02.webp",
-      "full": "/assets/full/hyp_print_02.jpg"
+      "full": "/assets/full/hyp_print_02.jpg",
+      "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
       "id": "a-print-03",
@@ -25,7 +27,8 @@
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
       "thumb": "/assets/thumbs/hyp_print_03.webp",
-      "full": "/assets/full/hyp_print_03.jpg"
+      "full": "/assets/full/hyp_print_03.jpg",
+      "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
       "id": "a-poem-01",

@@ -26,6 +26,8 @@ const TYPE_PREFIX = {
   text: 'txt',
   video: 'vid',
 };
+const FRAME_VARIANTS = new Set(['thinBlack', 'floatMount', 'none']);
+const MAT_VALUES = new Set([0, 8, 16, 24]);
 
 function usageError(message) {
   throw new Error(message);
@@ -38,8 +40,8 @@ function requireFlag(args, key) {
 }
 
 function validateDate(date) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    usageError('Date must be in YYYY-MM-DD format.');
+  if (!/^\d{4}(-\d{2}-\d{2})?$/.test(date)) {
+    usageError('Date must be in YYYY or YYYY-MM-DD format.');
   }
 }
 
@@ -52,6 +54,40 @@ function parseTags(value) {
     usageError('Tags must include at least one value.');
   }
   return tags;
+}
+
+function parseMat(value, label) {
+  if (value === undefined) {
+    return undefined;
+  }
+  const mat = toNumber(value, label);
+  if (!MAT_VALUES.has(mat)) {
+    usageError(`${label} must be one of: 0, 8, 16, 24.`);
+  }
+  return mat;
+}
+
+function resolveFrameConfig(variantValue, matValue, labelPrefix) {
+  if (!variantValue) {
+    if (matValue !== undefined) {
+      usageError(`--${labelPrefix}-mat requires --${labelPrefix}-frame.`);
+    }
+    return null;
+  }
+
+  if (!FRAME_VARIANTS.has(variantValue)) {
+    usageError(
+      `--${labelPrefix}-frame must be one of: thinBlack, floatMount, none.`
+    );
+  }
+
+  const mat = parseMat(matValue, `--${labelPrefix}-mat`);
+  if (mat !== undefined) {
+    return { variant: variantValue, mat };
+  }
+
+  const defaultMat = variantValue === 'floatMount' ? 16 : 0;
+  return { variant: variantValue, mat: defaultMat };
 }
 
 function generateArtifactId(date, type, existingIds) {
@@ -100,6 +136,29 @@ function buildDropPosition(args) {
   return { x: jitter(), y: jitter() };
 }
 
+function resolveDate(args) {
+  if (args.date && args.year) {
+    usageError('Use either --date or --year, not both.');
+  }
+  const date = args.date ?? args.year;
+  if (!date) {
+    usageError('Missing required flag: --date (or --year).');
+  }
+  validateDate(date);
+  return date;
+}
+
+function resolveArtifactsArray(artifactsData) {
+  if (Array.isArray(artifactsData)) {
+    return artifactsData;
+  }
+  if (Array.isArray(artifactsData.artifacts)) {
+    return artifactsData.artifacts;
+  }
+  usageError('artifacts.json does not contain an artifacts array.');
+  return [];
+}
+
 async function main() {
   try {
     const args = parseArgs(process.argv.slice(2));
@@ -107,9 +166,7 @@ async function main() {
     requireFlag(args, 'type');
     requireFlag(args, 'title');
     requireFlag(args, 'tags');
-    requireFlag(args, 'date');
-
-    validateDate(args.date);
+    const date = resolveDate(args);
 
     const type = args.type;
     if (!['image', 'text', 'video'].includes(type)) {
@@ -133,20 +190,35 @@ async function main() {
     }
 
     const artifactsData = await readJson(ARTIFACTS_PATH);
-    if (!Array.isArray(artifactsData.artifacts)) {
-      usageError('artifacts.json does not contain an artifacts array.');
-    }
+    const artifacts = resolveArtifactsArray(artifactsData);
 
-    const existingIds = new Set(artifactsData.artifacts.map((artifact) => artifact.id));
-    const newId = generateArtifactId(args.date, type, existingIds);
+    const existingIds = new Set(artifacts.map((artifact) => artifact.id));
+    const newId = generateArtifactId(date, type, existingIds);
+    const frameConfig = resolveFrameConfig(args.frame, args.mat, 'frame');
 
     const artifact = {
       id: newId,
       type,
       title: args.title,
       tags,
-      date: args.date,
+      date,
     };
+
+    if (args.medium) {
+      artifact.medium = args.medium;
+    }
+
+    if (args.dimensions) {
+      artifact.dimensions = args.dimensions;
+    }
+
+    if (args.caption) {
+      artifact.caption = args.caption;
+    }
+
+    if (frameConfig) {
+      artifact.frame = frameConfig;
+    }
 
     if (type === 'image') {
       const thumbPath = await copyWithCollision(args.thumb, THUMBS_DIR);
@@ -168,7 +240,7 @@ async function main() {
       artifact.excerpt = args.excerpt ? args.excerpt : createExcerpt(body);
     }
 
-    artifactsData.artifacts.push(artifact);
+    artifacts.push(artifact);
     await writeJson(ARTIFACTS_PATH, artifactsData);
 
     if (args.drop) {
@@ -179,16 +251,26 @@ async function main() {
       }
       const existingNodeIds = new Set(boardData.nodes.map((node) => node.id));
       const nodeId = generateNodeId(existingNodeIds);
-      const size = type === 'text' ? { w: 320, h: 220 } : { w: 280, h: 220 };
+      const sizeDefaults = type === 'text' ? { w: 320, h: 220 } : { w: 280, h: 220 };
+      const w = toNumber(args.w, '--w');
+      const h = toNumber(args.h, '--h');
       const position = buildDropPosition(args);
+      const nodeFrameOverride = resolveFrameConfig(
+        args['node-frame'],
+        args['node-mat'],
+        'node'
+      );
       const node = {
         id: nodeId,
         artifactId: newId,
         x: position.x,
         y: position.y,
-        w: size.w,
-        h: size.h,
+        w: w ?? sizeDefaults.w,
+        h: h ?? sizeDefaults.h,
       };
+      if (nodeFrameOverride) {
+        node.frameOverride = nodeFrameOverride;
+      }
       boardData.nodes.push(node);
       await writeJson(BOARD_PATH, boardData);
     }

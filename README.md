@@ -41,6 +41,33 @@ node scripts/add_artifact.mjs \
   --full /path/to/full.jpg
 ```
 
+### Image with default thin black frame + metadata
+
+```
+node scripts/add_artifact.mjs \
+  --type image \
+  --title "Signal Residue Bed" \
+  --tags hypnagnosis \
+  --thumb /path/to/thumb.webp \
+  --full /path/to/full.jpg \
+  --frame thinBlack \
+  --year 1997 \
+  --medium "Risograph print"
+```
+
+### Image with float mount + mat
+
+```
+node scripts/add_artifact.mjs \
+  --type image \
+  --title "Signal Residue Bed" \
+  --tags hypnagnosis \
+  --thumb /path/to/thumb.webp \
+  --full /path/to/full.jpg \
+  --frame floatMount \
+  --mat 24
+```
+
 ### Text example
 
 ```
@@ -70,6 +97,22 @@ Add `--drop` to also append a node to `public/data/boards/default.json`. You can
 
 ```
 node scripts/add_artifact.mjs ... --drop --x 40 --y -80
+```
+
+### Drop with node-level frame override
+
+```
+node scripts/add_artifact.mjs \
+  --type image \
+  --title "Signal Residue Bed" \
+  --thumb /path/to/thumb.webp \
+  --full /path/to/full.jpg \
+  --frame thinBlack \
+  --drop \
+  --node-frame floatMount \
+  --node-mat 24 \
+  --x 120 \
+  --y -80
 ```
 
 ## Next steps
