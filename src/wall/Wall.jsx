@@ -320,7 +320,6 @@ export default function Wall() {
         );
         setEdges(
           boardEdges.map((edge) => {
-            const edgeLabel = edge?.label;
             return {
               id: String(edge.id),
               source: String(edge.source),
@@ -328,9 +327,8 @@ export default function Wall() {
               type: edge.type ?? "yarn",
               data: {
                 kind: edge?.kind,
-                label: edgeLabel,
               },
-              label: edgeLabel,
+              label: edge?.label,
             };
           }),
         );

@@ -63,7 +63,7 @@ export default function YarnEdge({
   });
 
   const edgeKind = data?.kind ?? "sequence";
-  const edgeLabel = data?.label ?? label;
+  const edgeLabel = label;
   const baseStyle = getEdgeStyle(edgeKind);
   const shadowStyle = {
     stroke: baseStyle.stroke,
