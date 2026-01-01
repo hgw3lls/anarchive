@@ -127,6 +127,17 @@ const controlButtonStyle = {
   cursor: "pointer",
 };
 
+const inspectButtonStyle = {
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: 999,
+  background: "rgba(255, 255, 255, 0.08)",
+  color: "#f5f5f5",
+  fontSize: 11,
+  padding: "6px 12px",
+  cursor: "pointer",
+  alignSelf: "flex-start",
+};
+
 marked.setOptions({
   mangle: false,
   headerIds: false,
@@ -139,6 +150,7 @@ export default function ArtifactDrawer({
   onClose,
   onSelectRelated,
   onUpdateFrameOverride,
+  onInspect,
 }) {
   if (!artifact) {
     return null;
@@ -158,6 +170,8 @@ export default function ArtifactDrawer({
       : 0;
   const canEditFrame =
     (artifact.type === "image" || artifact.type === "video") && Boolean(node?.id);
+  const canInspect =
+    (artifact.type === "image" || artifact.type === "video") && Boolean(node?.id);
 
   return (
     <>
@@ -167,6 +181,11 @@ export default function ArtifactDrawer({
           ×
         </button>
         <div style={titleStyle}>{artifact.title ?? "Untitled"}</div>
+        {canInspect ? (
+          <button type="button" style={inspectButtonStyle} onClick={onInspect}>
+            Inspect
+          </button>
+        ) : null}
         {tags.length ? (
           <div style={tagListStyle}>
             {tags.map((tag) => (

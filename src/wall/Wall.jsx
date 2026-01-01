@@ -11,6 +11,7 @@ import "reactflow/dist/style.css";
 import ArtifactDrawer from "./drawer/ArtifactDrawer.jsx";
 import YarnEdge from "./edges/YarnEdge.jsx";
 import ArtifactNode from "./nodes/ArtifactNode.jsx";
+import InspectOverlay from "./components/InspectOverlay.jsx";
 import {
   buildBoardSnapshot,
   mapBoardEdgesToFlowEdges,
@@ -218,6 +219,8 @@ export default function Wall() {
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [isHudCollapsed, setIsHudCollapsed] = useState(false);
+  const [isInspectOpen, setIsInspectOpen] = useState(false);
+  const [inspectNodeId, setInspectNodeId] = useState(null);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [wallStyleName, setWallStyleName] = useState(() => {
     if (typeof window === "undefined") {
@@ -239,6 +242,7 @@ export default function Wall() {
   const nodesRef = useRef(nodes);
   const edgesRef = useRef(allEdges);
   const cameraRef = useRef(camera);
+  const ignoreNextMoveRef = useRef(false);
 
   useEffect(() => {
     nodesRef.current = nodes;
@@ -328,6 +332,39 @@ export default function Wall() {
     return match?.id ?? null;
   }, [nodes, selectedArtifactId]);
 
+  const inspectableNodes = useMemo(() => {
+    return nodes
+      .map((node) => {
+        const artifactId = node?.data?.artifactId;
+        if (!artifactId) {
+          return null;
+        }
+        const artifact = artifactsById.get(String(artifactId));
+        if (!artifact) {
+          return null;
+        }
+        if (artifact.type !== "image" && artifact.type !== "video") {
+          return null;
+        }
+        return {
+          id: node.id,
+          node,
+          artifact,
+        };
+      })
+      .filter(Boolean);
+  }, [artifactsById, nodes]);
+
+  const inspectIndex = useMemo(() => {
+    if (!inspectNodeId) {
+      return -1;
+    }
+    return inspectableNodes.findIndex((entry) => entry.id === inspectNodeId);
+  }, [inspectNodeId, inspectableNodes]);
+
+  const inspectEntry = inspectIndex >= 0 ? inspectableNodes[inspectIndex] : null;
+  const inspectArtifact = inspectEntry?.artifact ?? null;
+
   const searchResults = useMemo(() => {
     const trimmed = searchTerm.trim().toLowerCase();
     if (!trimmed) {
@@ -391,7 +428,54 @@ export default function Wall() {
     return results;
   }, [artifactsById, nodes, selectedNodeId, visibleEdges]);
 
-  const centerOnNode = (node) => {
+  const inspectLabel = useMemo(() => {
+    if (!inspectArtifact) {
+      return {
+        title: "",
+        meta: "",
+        tags: [],
+      };
+    }
+    const title = inspectArtifact.title ?? "Untitled";
+    const date = inspectArtifact.date;
+    const yearMatch = date ? String(date).match(/\d{4}/) : null;
+    const year = yearMatch ? yearMatch[0] : "";
+    const labelTitle = year ? `${title} (${year})` : title;
+    const meta = inspectArtifact.medium ?? "";
+    const tags = Array.isArray(inspectArtifact.tags)
+      ? inspectArtifact.tags
+      : inspectArtifact.tags
+        ? [inspectArtifact.tags]
+        : [];
+    return {
+      title: labelTitle,
+      meta,
+      tags,
+    };
+  }, [inspectArtifact]);
+
+  const inspectFrameConfig = useMemo(() => {
+    if (!inspectEntry) {
+      return { variant: "none", mat: 0 };
+    }
+    return (
+      inspectEntry.node?.data?.frameOverride ??
+      inspectEntry.artifact?.frame ?? { variant: "none", mat: 0 }
+    );
+  }, [inspectEntry]);
+
+  const markProgrammaticMove = useCallback((duration = 350) => {
+    ignoreNextMoveRef.current = true;
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.setTimeout(() => {
+      ignoreNextMoveRef.current = false;
+    }, duration);
+  }, []);
+
+  const centerOnNode = useCallback(
+    (node, { zoom, minZoom, duration = 0, skipSave = false } = {}) => {
     if (!reactFlowInstance || !node) {
       return;
     }
@@ -399,13 +483,21 @@ export default function Wall() {
     const width = node.width ?? 0;
     const height = node.height ?? 0;
     const currentZoom = reactFlowInstance.getZoom?.() ?? camera?.zoom ?? 1;
-    const zoom = Math.max(currentZoom, 1.4);
+    let nextZoom = zoom ?? currentZoom;
+    if (typeof minZoom === "number") {
+      nextZoom = Math.max(nextZoom, minZoom);
+    }
+    if (skipSave) {
+      markProgrammaticMove(duration + 100);
+    }
     reactFlowInstance.setCenter(
       position.x + width / 2,
       position.y + height / 2,
-      { zoom },
+      { zoom: nextZoom, duration },
     );
-  };
+  },
+  [camera?.zoom, markProgrammaticMove, reactFlowInstance],
+  );
 
   useEffect(() => {
     setNodes((currentNodes) =>
@@ -778,6 +870,89 @@ export default function Wall() {
     [saveBoardSnapshot, setNodes],
   );
 
+  const openInspectForNode = useCallback(
+    (nodeId) => {
+      if (!nodeId) {
+        return;
+      }
+      setInspectNodeId(nodeId);
+      setIsInspectOpen(true);
+    },
+    [setInspectNodeId, setIsInspectOpen],
+  );
+
+  const handleInspectNext = useCallback(() => {
+    if (!inspectableNodes.length) {
+      return;
+    }
+    const nextIndex =
+      inspectIndex >= 0 ? (inspectIndex + 1) % inspectableNodes.length : 0;
+    setInspectNodeId(inspectableNodes[nextIndex].id);
+  }, [inspectIndex, inspectableNodes]);
+
+  const handleInspectPrev = useCallback(() => {
+    if (!inspectableNodes.length) {
+      return;
+    }
+    const prevIndex =
+      inspectIndex >= 0
+        ? (inspectIndex - 1 + inspectableNodes.length) %
+          inspectableNodes.length
+        : 0;
+    setInspectNodeId(inspectableNodes[prevIndex].id);
+  }, [inspectIndex, inspectableNodes]);
+
+  useEffect(() => {
+    if (!isInspectOpen || !inspectEntry) {
+      return;
+    }
+    centerOnNode(inspectEntry.node, {
+      duration: 300,
+      zoom: reactFlowInstance?.getZoom?.() ?? camera?.zoom ?? 1,
+      skipSave: true,
+    });
+    const artifactId = inspectEntry.node?.data?.artifactId;
+    if (artifactId) {
+      setSelectedArtifactId(String(artifactId));
+    }
+  }, [
+    camera?.zoom,
+    centerOnNode,
+    inspectEntry,
+    isInspectOpen,
+    reactFlowInstance,
+  ]);
+
+  useEffect(() => {
+    if (!isInspectOpen) {
+      return;
+    }
+    const handleKeyDown = (event) => {
+      const target = event.target;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      if (event.key === "Escape") {
+        setIsInspectOpen(false);
+        return;
+      }
+      if (event.key === "ArrowLeft") {
+        handleInspectPrev();
+      }
+      if (event.key === "ArrowRight") {
+        handleInspectNext();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleInspectNext, handleInspectPrev, isInspectOpen]);
+
   const wallBackgroundStyle = WALL_STYLES[wallStyleName]?.style ?? WALL_STYLES.whiteCube.style;
 
   return (
@@ -798,10 +973,23 @@ export default function Wall() {
         onNodeClick={(_, node) =>
           setSelectedArtifactId(String(node?.data?.artifactId ?? node.id))
         }
-        onNodeDoubleClick={(_, node) => centerOnNode(node)}
+        onNodeDoubleClick={(_, node) => {
+          const artifactId = node?.data?.artifactId;
+          const artifact = artifactId
+            ? artifactsById.get(String(artifactId))
+            : null;
+          if (artifact && (artifact.type === "image" || artifact.type === "video")) {
+            openInspectForNode(node.id);
+            return;
+          }
+          centerOnNode(node, { minZoom: 1.4 });
+        }}
         onNodeDragStop={handleNodeDragStop}
         onMoveEnd={(_, viewport) => {
           if (!viewport) {
+            return;
+          }
+          if (ignoreNextMoveRef.current) {
             return;
           }
           setCamera(viewport);
@@ -1039,7 +1227,7 @@ export default function Wall() {
                         String(node?.data?.artifactId) === String(result.id),
                     );
                     if (nodeMatch) {
-                      centerOnNode(nodeMatch);
+                      centerOnNode(nodeMatch, { minZoom: 1.4 });
                     }
                   }}
                 >
@@ -1056,6 +1244,17 @@ export default function Wall() {
         ) : null}
       </div>
       {error ? <div style={overlayStyle}>{error}</div> : null}
+      <InspectOverlay
+        open={isInspectOpen && Boolean(inspectArtifact)}
+        artifact={inspectArtifact}
+        frameConfig={inspectFrameConfig}
+        labelText={inspectLabel.title}
+        labelMeta={inspectLabel.meta}
+        tags={inspectLabel.tags}
+        onClose={() => setIsInspectOpen(false)}
+        onNext={handleInspectNext}
+        onPrev={handleInspectPrev}
+      />
       <ArtifactDrawer
         artifact={selectedArtifact}
         node={selectedNode}
@@ -1065,6 +1264,7 @@ export default function Wall() {
           setSelectedArtifactId(String(artifactId))
         }
         onUpdateFrameOverride={updateNodeFrameOverride}
+        onInspect={() => openInspectForNode(selectedNode?.id)}
       />
     </section>
   );
