@@ -1,4 +1,7 @@
-export const BOARD_STORAGE_KEY = "anarchive.board.default";
+export const BOARD_STORAGE_PREFIX = "anarchive.board";
+
+export const getBoardStorageKey = (boardId = "default") =>
+  `${BOARD_STORAGE_PREFIX}.${boardId ?? "default"}`;
 
 const DEFAULT_CAMERA = { x: 0, y: 0, zoom: 1 };
 
@@ -19,13 +22,13 @@ export const normalizeBoard = (board) => {
   };
 };
 
-export const readBoardFromStorage = () => {
+export const readBoardFromStorage = (boardId) => {
   if (typeof window === "undefined") {
     return null;
   }
 
   try {
-    const stored = window.localStorage.getItem(BOARD_STORAGE_KEY);
+    const stored = window.localStorage.getItem(getBoardStorageKey(boardId));
     if (!stored) {
       return null;
     }
@@ -36,14 +39,14 @@ export const readBoardFromStorage = () => {
   }
 };
 
-export const writeBoardToStorage = (board) => {
+export const writeBoardToStorage = (boardId, board) => {
   if (typeof window === "undefined") {
     return false;
   }
 
   try {
     window.localStorage.setItem(
-      BOARD_STORAGE_KEY,
+      getBoardStorageKey(boardId),
       JSON.stringify(normalizeBoard(board)),
     );
     return true;
@@ -53,13 +56,13 @@ export const writeBoardToStorage = (board) => {
   }
 };
 
-export const removeStoredBoard = () => {
+export const removeStoredBoard = (boardId) => {
   if (typeof window === "undefined") {
     return;
   }
 
   try {
-    window.localStorage.removeItem(BOARD_STORAGE_KEY);
+    window.localStorage.removeItem(getBoardStorageKey(boardId));
   } catch (error) {
     console.warn("Unable to clear stored board.", error);
   }

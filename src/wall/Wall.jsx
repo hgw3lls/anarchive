@@ -12,7 +12,6 @@ import ArtifactDrawer from "./drawer/ArtifactDrawer.jsx";
 import YarnEdge from "./edges/YarnEdge.jsx";
 import ArtifactNode from "./nodes/ArtifactNode.jsx";
 import {
-  BOARD_STORAGE_KEY,
   buildBoardSnapshot,
   mapBoardEdgesToFlowEdges,
   mapBoardNodesToFlowNodes,
@@ -21,6 +20,7 @@ import {
   removeStoredBoard,
   writeBoardToStorage,
 } from "./utils/boardPersistence.js";
+import { downloadJson, toBoardSchema } from "./utils/boardIO.js";
 
 const wallStyle = {
   width: "100vw",
@@ -112,6 +112,26 @@ const toolbarButtonStyle = {
   cursor: "pointer",
 };
 
+const toolbarSelectStyle = {
+  width: "100%",
+  padding: "8px 10px",
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+};
+
+const toolbarInputStyle = {
+  width: "100%",
+  padding: "8px 10px",
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+};
+
 const toolbarHintStyle = {
   fontSize: 11,
   opacity: 0.7,
@@ -146,12 +166,18 @@ export default function Wall() {
   const [artifacts, setArtifacts] = useState([]);
   const [camera, setCamera] = useState(null);
   const [defaultBoard, setDefaultBoard] = useState(null);
+  const [boardIndex, setBoardIndex] = useState(null);
+  const [currentBoardId, setCurrentBoardId] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
+  const [editionTitle, setEditionTitle] = useState("");
+  const [editionTags, setEditionTags] = useState("");
+  const [editionIdInput, setEditionIdInput] = useState("");
+  const [publishNotice, setPublishNotice] = useState("");
   const nodesRef = useRef(nodes);
   const edgesRef = useRef(allEdges);
   const cameraRef = useRef(camera);
@@ -190,6 +216,35 @@ export default function Wall() {
     }),
     [],
   );
+  const baseUrl = import.meta.env.BASE_URL ?? "/";
+
+  const resolveBoardFilePath = useCallback(
+    (filePath) => {
+      if (!filePath) {
+        return null;
+      }
+      const trimmed = filePath.startsWith("/")
+        ? filePath.slice(1)
+        : filePath;
+      return `${baseUrl}${trimmed}`;
+    },
+    [baseUrl],
+  );
+
+  const boardEntries = useMemo(
+    () => (Array.isArray(boardIndex?.boards) ? boardIndex.boards : []),
+    [boardIndex],
+  );
+
+  const currentBoardEntry = useMemo(() => {
+    if (!currentBoardId) {
+      return null;
+    }
+    return boardEntries.find((entry) => entry.id === currentBoardId) ?? null;
+  }, [boardEntries, currentBoardId]);
+
+  const currentBoardTitle =
+    currentBoardEntry?.title ?? currentBoardId ?? "Board";
 
   const visibleEdges = useMemo(() => {
     return allEdges.filter((edge) => {
@@ -323,39 +378,128 @@ export default function Wall() {
         edges: edgesRef.current,
         camera: overrideCamera ?? getCurrentCamera(),
       });
-      writeBoardToStorage(snapshot);
+      writeBoardToStorage(currentBoardId, snapshot);
       return snapshot;
     },
-    [getCurrentCamera],
+    [currentBoardId, getCurrentCamera],
   );
 
   const exportBoardSnapshot = useCallback(() => {
-    const snapshot = buildBoardSnapshot({
+    const snapshot = toBoardSchema({
       nodes: nodesRef.current,
       edges: edgesRef.current,
-      camera: getCurrentCamera(),
+      viewport: getCurrentCamera(),
     });
-    const json = JSON.stringify(snapshot, null, 2);
-    const blob = new Blob([json], { type: "application/json" });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "anarchive-board-default.json";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(url);
-  }, [getCurrentCamera]);
+    const fileLabel = currentBoardId
+      ? `anarchive-board-${currentBoardId}`
+      : "anarchive-board";
+    downloadJson(`${fileLabel}.json`, snapshot);
+  }, [currentBoardId, getCurrentCamera]);
 
   const resetBoard = useCallback(() => {
     if (!defaultBoard) {
       return;
     }
-    removeStoredBoard();
+    removeStoredBoard(currentBoardId);
     setNodes(mapBoardNodesToFlowNodes(defaultBoard.nodes, artifactsById));
     setAllEdges(mapBoardEdgesToFlowEdges(defaultBoard.edges));
     setCamera(defaultBoard.camera);
-  }, [artifactsById, defaultBoard, setAllEdges, setNodes]);
+  }, [artifactsById, currentBoardId, defaultBoard, setAllEdges, setNodes]);
+
+  const toSlug = useCallback((value) => {
+    const base = String(value ?? "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "")
+      .replace(/-+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return base || "edition";
+  }, []);
+
+  const buildEditionId = useCallback(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    const baseSource = editionIdInput.trim()
+      ? editionIdInput.trim()
+      : `${editionTitle.trim() || "edition"}-${today}`;
+    const base = toSlug(baseSource);
+    const existingIds = new Set(boardEntries.map((entry) => entry.id));
+    let attempt = 0;
+    let candidate = base;
+    while (attempt < 10) {
+      const suffix = Math.random().toString(36).slice(2, 6);
+      candidate = `${base}-${suffix}`;
+      if (!existingIds.has(candidate)) {
+        return candidate;
+      }
+      attempt += 1;
+    }
+    const fallback = `${base}-${Date.now()}`;
+    return existingIds.has(fallback)
+      ? `${fallback}-${Math.random().toString(36).slice(2, 4)}`
+      : fallback;
+  }, [boardEntries, editionIdInput, editionTitle, toSlug]);
+
+  const buildEditionEntry = useCallback(
+    (editionId) => {
+      const today = new Date().toISOString().slice(0, 10);
+      const tags = editionTags
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+      return {
+        id: editionId,
+        title: editionTitle.trim() || "Untitled Edition",
+        file: `/data/boards/${editionId}.json`,
+        created: today,
+        updated: today,
+        tags,
+      };
+    },
+    [editionTags, editionTitle],
+  );
+
+  const copyToClipboard = useCallback(async (text) => {
+    try {
+      if (navigator?.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+      return true;
+    } catch (copyError) {
+      console.warn("Unable to copy JSON to clipboard.", copyError);
+      return false;
+    }
+  }, []);
+
+  const handlePublish = useCallback(async () => {
+    const editionId = buildEditionId();
+    const boardPayload = toBoardSchema({
+      nodes: nodesRef.current,
+      edges: edgesRef.current,
+      viewport: getCurrentCamera(),
+    });
+    const entry = buildEditionEntry(editionId);
+    downloadJson(`${editionId}.json`, boardPayload);
+    downloadJson("index.patch.json", entry);
+    setPublishNotice(`Published ${entry.title}.`);
+  }, [buildEditionEntry, buildEditionId, getCurrentCamera]);
+
+  const handleCopyIndexEntry = useCallback(async () => {
+    const editionId = buildEditionId();
+    const entry = buildEditionEntry(editionId);
+    const copied = await copyToClipboard(`${JSON.stringify(entry, null, 2)}\n`);
+    setPublishNotice(copied ? "Index entry copied." : "Unable to copy entry.");
+  }, [buildEditionEntry, buildEditionId, copyToClipboard]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -383,20 +527,20 @@ export default function Wall() {
 
     const loadData = async () => {
       try {
-        const [artifactsResponse, boardResponse] = await Promise.all([
-          fetch("/data/artifacts.json"),
-          fetch("/data/boards/default.json"),
+        const [artifactsResponse, indexResponse] = await Promise.all([
+          fetch(`${baseUrl}data/artifacts.json`),
+          fetch(`${baseUrl}data/boards/index.json`),
         ]);
 
         if (!artifactsResponse.ok) {
           throw new Error("Unable to load artifacts.");
         }
-        if (!boardResponse.ok) {
-          throw new Error("Unable to load board.");
+        if (!indexResponse.ok) {
+          throw new Error("Unable to load board index.");
         }
 
         const artifactsPayload = await artifactsResponse.json();
-        const boardPayload = await boardResponse.json();
+        const indexPayload = await indexResponse.json();
 
         if (!isMounted) {
           return;
@@ -405,21 +549,17 @@ export default function Wall() {
         const nextArtifacts = Array.isArray(artifactsPayload?.artifacts)
           ? artifactsPayload.artifacts
           : [];
-        const nextArtifactsById = new Map();
-        nextArtifacts.forEach((artifact) => {
-          if (artifact?.id !== undefined && artifact?.id !== null) {
-            nextArtifactsById.set(String(artifact.id), artifact);
-          }
-        });
-        const normalizedDefaultBoard = normalizeBoard(boardPayload);
-        const storedBoard = readBoardFromStorage();
-        const activeBoard = storedBoard ?? normalizedDefaultBoard;
+        const nextIndex = {
+          defaultBoardId: indexPayload?.defaultBoardId ?? "default",
+          boards: Array.isArray(indexPayload?.boards)
+            ? indexPayload.boards
+            : [],
+        };
 
         setArtifacts(nextArtifacts);
-        setDefaultBoard(normalizedDefaultBoard);
-        setNodes(mapBoardNodesToFlowNodes(activeBoard.nodes, nextArtifactsById));
-        setAllEdges(mapBoardEdgesToFlowEdges(activeBoard.edges));
-        setCamera(activeBoard.camera);
+        setBoardIndex(nextIndex);
+        setCurrentBoardId(nextIndex.defaultBoardId);
+        setError(null);
       } catch (loadError) {
         if (isMounted) {
           setError(loadError.message || "Failed to load wall data.");
@@ -432,7 +572,69 @@ export default function Wall() {
     return () => {
       isMounted = false;
     };
-  }, [setAllEdges, setNodes]);
+  }, [baseUrl]);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadBoard = async () => {
+      if (!currentBoardId || !boardIndex || !artifactsById.size) {
+        return;
+      }
+
+      try {
+        const entry =
+          boardEntries.find((board) => board.id === currentBoardId) ?? null;
+        if (!entry?.file) {
+          throw new Error("Unable to find board metadata.");
+        }
+
+        const boardUrl = resolveBoardFilePath(entry.file);
+        if (!boardUrl) {
+          throw new Error("Unable to resolve board file.");
+        }
+
+        const boardResponse = await fetch(boardUrl);
+        if (!boardResponse.ok) {
+          throw new Error("Unable to load board.");
+        }
+
+        const boardPayload = await boardResponse.json();
+        if (!isMounted) {
+          return;
+        }
+
+        const normalizedDefaultBoard = normalizeBoard(boardPayload);
+        const storedBoard = readBoardFromStorage(currentBoardId);
+        const activeBoard = storedBoard ?? normalizedDefaultBoard;
+
+        setDefaultBoard(normalizedDefaultBoard);
+        setNodes(mapBoardNodesToFlowNodes(activeBoard.nodes, artifactsById));
+        setAllEdges(mapBoardEdgesToFlowEdges(activeBoard.edges));
+        setCamera(activeBoard.camera);
+        setSelectedArtifactId(null);
+        setError(null);
+      } catch (loadError) {
+        if (isMounted) {
+          setError(loadError.message || "Failed to load board data.");
+        }
+      }
+    };
+
+    loadBoard();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [
+    artifactsById,
+    boardEntries,
+    boardIndex,
+    currentBoardId,
+    resolveBoardFilePath,
+    setAllEdges,
+    setNodes,
+  ]);
 
   useEffect(() => {
     if (!reactFlowInstance || !camera) {
@@ -524,6 +726,34 @@ export default function Wall() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+            Boards
+          </div>
+          <div style={{ fontSize: 12, opacity: 0.75 }}>
+            Current: {currentBoardTitle}
+          </div>
+          <select
+            style={toolbarSelectStyle}
+            value={currentBoardId ?? ""}
+            disabled={!boardEntries.length}
+            onChange={(event) => {
+              const nextId = event.target.value;
+              setCurrentBoardId(nextId);
+              setSelectedArtifactId(null);
+            }}
+          >
+            {boardEntries.length ? (
+              boardEntries.map((entry) => (
+                <option key={entry.id} value={entry.id}>
+                  {entry.title}
+                </option>
+              ))
+            ) : (
+              <option value="">Loading...</option>
+            )}
+          </select>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
             Board
           </div>
           <button
@@ -547,6 +777,49 @@ export default function Wall() {
           >
             Reset
           </button>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+            Publish Edition
+          </div>
+          <input
+            type="text"
+            placeholder="Edition Title"
+            value={editionTitle}
+            onChange={(event) => setEditionTitle(event.target.value)}
+            style={toolbarInputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Edition Tags (comma-separated)"
+            value={editionTags}
+            onChange={(event) => setEditionTags(event.target.value)}
+            style={toolbarInputStyle}
+          />
+          <input
+            type="text"
+            placeholder="Edition ID (optional)"
+            value={editionIdInput}
+            onChange={(event) => setEditionIdInput(event.target.value)}
+            style={toolbarInputStyle}
+          />
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={handlePublish}
+          >
+            Publish (Download JSON + Index Patch)
+          </button>
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={handleCopyIndexEntry}
+          >
+            Copy index entry JSON
+          </button>
+          {publishNotice ? (
+            <div style={toolbarHintStyle}>{publishNotice}</div>
+          ) : null}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
           <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
