@@ -65,15 +65,18 @@ export default function YarnEdge({
   const edgeKind = data?.kind ?? "sequence";
   const edgeLabel = label;
   const baseStyle = getEdgeStyle(edgeKind);
+
   const shadowStyle = {
     stroke: baseStyle.stroke,
     strokeWidth: baseStyle.strokeWidth + 2,
     strokeOpacity: baseStyle.strokeOpacity * 0.35,
   };
+
   const pathId = `yarn-edge-${id}`;
 
   return (
     <g>
+      {/* shadow / fiber glow */}
       <path
         id={`${pathId}-shadow`}
         d={edgePath}
@@ -83,8 +86,10 @@ export default function YarnEdge({
         strokeOpacity={shadowStyle.strokeOpacity}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="react-flow__edge-path"
+        // NOTE: intentionally no react-flow__edge-path class
       />
+
+      {/* main yarn */}
       <path
         id={pathId}
         d={edgePath}
@@ -96,8 +101,9 @@ export default function YarnEdge({
         strokeLinecap="round"
         strokeLinejoin="round"
         markerEnd={markerEnd}
-        className="react-flow__edge-path"
+        // NOTE: intentionally no react-flow__edge-path class
       />
+
       {edgeLabel ? (
         <EdgeLabelRenderer>
           <div
