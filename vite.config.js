@@ -6,7 +6,11 @@ export default defineConfig({
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
   base: "./"
+=======
+  base: "/"
+>>>>>>> theirs
 =======
   base: "/"
 >>>>>>> theirs

@@ -2,6 +2,7 @@
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 export default function Wall() {
   return (
     <section>
@@ -10,11 +11,14 @@ export default function Wall() {
 =======
 =======
 >>>>>>> theirs
+=======
+>>>>>>> theirs
 const wallStyle = {
   width: "100vw",
   height: "100vh",
   display: "flex",
   alignItems: "center",
+<<<<<<< ours
 <<<<<<< ours
   justifyContent: "center",
   backgroundColor: "#0f0f12",
@@ -44,6 +48,8 @@ export default function Wall() {
 =======
 >>>>>>> theirs
 =======
+=======
+>>>>>>> theirs
   justifyContent: "center"
 };
 
@@ -55,6 +61,9 @@ export default function Wall() {
         <h1>Wall</h1>
         <p>Full-screen placeholder.</p>
       </div>
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
     </section>
   );
