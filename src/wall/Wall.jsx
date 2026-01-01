@@ -1,17 +1,21 @@
 <<<<<<< ours
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
 export default function Wall() {
   return (
     <section>
       <h2>Wall</h2>
       <p>TODO: Render the React Flow infinite canvas.</p>
 =======
+=======
+>>>>>>> theirs
 const wallStyle = {
   width: "100vw",
   height: "100vh",
   display: "flex",
   alignItems: "center",
+<<<<<<< ours
   justifyContent: "center",
   backgroundColor: "#0f0f12",
   color: "#f5f5f5",
@@ -38,6 +42,19 @@ export default function Wall() {
 <<<<<<< ours
 >>>>>>> theirs
 =======
+>>>>>>> theirs
+=======
+  justifyContent: "center"
+};
+
+export default function Wall() {
+  // TODO: Replace with React Flow canvas and wall UI.
+  return (
+    <section style={wallStyle}>
+      <div>
+        <h1>Wall</h1>
+        <p>Full-screen placeholder.</p>
+      </div>
 >>>>>>> theirs
     </section>
   );

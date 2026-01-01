@@ -5,7 +5,11 @@ export default defineConfig({
   plugins: [react()],
 <<<<<<< ours
 <<<<<<< ours
+<<<<<<< ours
   base: "./"
+=======
+  base: "/"
+>>>>>>> theirs
 =======
   base: "/"
 >>>>>>> theirs
