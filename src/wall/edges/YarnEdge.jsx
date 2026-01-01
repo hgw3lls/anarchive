@@ -1,4 +1,4 @@
-import { getBezierPath } from "reactflow";
+import { EdgeLabelRenderer, getBezierPath } from "reactflow";
 
 const kindStyles = {
   sequence: {
@@ -53,7 +53,7 @@ export default function YarnEdge({
   data,
   label,
 }) {
-  const [edgePath] = getBezierPath({
+  const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
     targetX,
@@ -82,6 +82,8 @@ export default function YarnEdge({
         strokeWidth={shadowStyle.strokeWidth}
         strokeOpacity={shadowStyle.strokeOpacity}
         strokeLinecap="round"
+        strokeLinejoin="round"
+        className="react-flow__edge-path"
       />
       <path
         id={pathId}
@@ -92,22 +94,33 @@ export default function YarnEdge({
         strokeOpacity={baseStyle.strokeOpacity}
         strokeDasharray={baseStyle.strokeDasharray}
         strokeLinecap="round"
+        strokeLinejoin="round"
         markerEnd={markerEnd}
+        className="react-flow__edge-path"
       />
       {edgeLabel ? (
-        <text
-          fill="rgba(255, 255, 255, 0.7)"
-          fontSize={11}
-          letterSpacing="0.03em"
-        >
-          <textPath
-            href={`#${pathId}`}
-            startOffset="50%"
-            textAnchor="middle"
+        <EdgeLabelRenderer>
+          <div
+            className="nodrag nopan"
+            style={{
+              position: "absolute",
+              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+              background: "rgba(14, 14, 20, 0.7)",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              padding: "4px 8px",
+              borderRadius: 999,
+              color: "rgba(245, 245, 245, 0.78)",
+              fontSize: 11,
+              letterSpacing: "0.04em",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.35)",
+              pointerEvents: "none",
+            }}
           >
             {edgeLabel}
-          </textPath>
-        </text>
+          </div>
+        </EdgeLabelRenderer>
       ) : null}
     </g>
   );
