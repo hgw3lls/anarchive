@@ -1,7 +1,4 @@
 export default function ArtifactNode() {
-<<<<<<< ours
-=======
-  // TODO: Render an artifact node for the wall.
->>>>>>> theirs
+  // TODO: Render an artifact node for the wall (image/text/video thumbnail).
   return null;
 }

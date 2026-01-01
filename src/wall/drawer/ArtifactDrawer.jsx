@@ -1,7 +1,4 @@
 export default function ArtifactDrawer() {
-<<<<<<< ours
-=======
-  // TODO: Render the artifact detail drawer.
->>>>>>> theirs
+  // TODO: Render the artifact detail drawer (full image / full poem / video embed).
   return null;
 }
