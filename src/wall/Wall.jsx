@@ -7,6 +7,7 @@ import ReactFlow, {
   useNodesState,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import ArtifactDrawer from "./drawer/ArtifactDrawer.jsx";
 import ArtifactNode from "./nodes/ArtifactNode.jsx";
 
 const wallStyle = {
@@ -40,6 +41,7 @@ export default function Wall() {
   const [camera, setCamera] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
+  const [selectedArtifactId, setSelectedArtifactId] = useState(null);
 
   const artifactsById = useMemo(() => {
     const map = new Map();
@@ -57,6 +59,54 @@ export default function Wall() {
     }),
     [],
   );
+
+  const selectedArtifact = useMemo(() => {
+    if (!selectedArtifactId) {
+      return null;
+    }
+    return artifactsById.get(String(selectedArtifactId)) ?? null;
+  }, [artifactsById, selectedArtifactId]);
+
+  const selectedNodeId = useMemo(() => {
+    if (!selectedArtifactId) {
+      return null;
+    }
+    const match = nodes.find(
+      (node) => String(node?.data?.artifactId) === String(selectedArtifactId),
+    );
+    return match?.id ?? null;
+  }, [nodes, selectedArtifactId]);
+
+  const relatedArtifacts = useMemo(() => {
+    if (!selectedNodeId) {
+      return [];
+    }
+    const relatedIds = new Map();
+    edges.forEach((edge) => {
+      if (edge.source === selectedNodeId) {
+        relatedIds.set(edge.target, true);
+      }
+      if (edge.target === selectedNodeId) {
+        relatedIds.set(edge.source, true);
+      }
+    });
+    const results = [];
+    relatedIds.forEach((_, nodeId) => {
+      const relatedNode = nodes.find((node) => node.id === nodeId);
+      const artifactId = relatedNode?.data?.artifactId;
+      if (!artifactId) {
+        return;
+      }
+      const relatedArtifact = artifactsById.get(String(artifactId));
+      if (relatedArtifact) {
+        results.push({
+          id: String(artifactId),
+          title: relatedArtifact.title ?? String(artifactId),
+        });
+      }
+    });
+    return results;
+  }, [artifactsById, edges, nodes, selectedNodeId]);
 
   useEffect(() => {
     if (!artifactsById.size) {
@@ -175,6 +225,9 @@ export default function Wall() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onInit={setReactFlowInstance}
+        onNodeClick={(_, node) =>
+          setSelectedArtifactId(String(node?.data?.artifactId ?? node.id))
+        }
         fitView
         fitViewOptions={fitViewOptions}
         panOnScroll
@@ -194,6 +247,14 @@ export default function Wall() {
         />
       </ReactFlow>
       {error ? <div style={overlayStyle}>{error}</div> : null}
+      <ArtifactDrawer
+        artifact={selectedArtifact}
+        relatedArtifacts={relatedArtifacts}
+        onClose={() => setSelectedArtifactId(null)}
+        onSelectRelated={(artifactId) =>
+          setSelectedArtifactId(String(artifactId))
+        }
+      />
     </section>
   );
 }
