@@ -704,6 +704,7 @@ export default function Wall() {
         style={isLocked ? lockedFlowStyle : undefined}
         nodes={nodes}
         edges={visibleEdges}
+        proOptions={{ hideAttribution: true }}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
@@ -737,7 +738,7 @@ export default function Wall() {
         maxZoom={3}
       >
         <Background gap={32} size={1} />
-        <Controls />
+        <Controls showInteractive={false} />
         <MiniMap
           nodeColor="#6a6a6a"
           maskColor="rgba(15, 15, 18, 0.5)"
