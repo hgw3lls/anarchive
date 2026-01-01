@@ -663,29 +663,16 @@ export default function Wall() {
     setPublishNotice(copied ? "Index entry copied." : "Unable to copy entry.");
   }, [buildEditionEntry, buildEditionId, copyToClipboard]);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      const target = event.target;
-      if (
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.tagName === "SELECT" ||
-          target.isContentEditable)
-      ) {
-        return;
-      }
-      const key = event.key.toLowerCase();
-      if (key === "a") {
-        setIsArrangeMode((current) => !current);
-      }
-      if (key === "l") {
-        setIsLocked((current) => !current);
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+  const isTypingTarget = useCallback((target) => {
+    if (!target) {
+      return false;
+    }
+    return (
+      target.isContentEditable ||
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.tagName === "SELECT"
+    );
   }, []);
 
   useEffect(() => {
@@ -902,6 +889,55 @@ export default function Wall() {
     setInspectNodeId(inspectableNodes[prevIndex].id);
   }, [inspectIndex, inspectableNodes]);
 
+  const resolveInspectNodeId = useCallback(
+    (preferredNodeId) => {
+      if (preferredNodeId) {
+        const preferred = inspectableNodes.find(
+          (entry) => entry.id === preferredNodeId,
+        );
+        if (preferred) {
+          return preferred.id;
+        }
+      }
+      return inspectableNodes[0]?.id ?? null;
+    },
+    [inspectableNodes],
+  );
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (isTypingTarget(event.target)) {
+        return;
+      }
+      const key = event.key.toLowerCase();
+      if (key === "a") {
+        setIsArrangeMode((current) => !current);
+      }
+      if (key === "l") {
+        setIsLocked((current) => !current);
+      }
+      if (key === "i") {
+        if (isInspectOpen) {
+          setIsInspectOpen(false);
+          return;
+        }
+        const nodeId = resolveInspectNodeId(selectedNodeId);
+        if (nodeId) {
+          openInspectForNode(nodeId);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [
+    isInspectOpen,
+    isTypingTarget,
+    openInspectForNode,
+    resolveInspectNodeId,
+    selectedNodeId,
+  ]);
+
   useEffect(() => {
     if (!isInspectOpen || !inspectEntry) {
       return;
@@ -928,17 +964,14 @@ export default function Wall() {
       return;
     }
     const handleKeyDown = (event) => {
-      const target = event.target;
-      if (
-        target &&
-        (target.tagName === "INPUT" ||
-          target.tagName === "TEXTAREA" ||
-          target.tagName === "SELECT" ||
-          target.isContentEditable)
-      ) {
+      if (isTypingTarget(event.target)) {
         return;
       }
       if (event.key === "Escape") {
+        setIsInspectOpen(false);
+        return;
+      }
+      if (event.key.toLowerCase() === "i") {
         setIsInspectOpen(false);
         return;
       }
@@ -951,7 +984,12 @@ export default function Wall() {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleInspectNext, handleInspectPrev, isInspectOpen]);
+  }, [
+    handleInspectNext,
+    handleInspectPrev,
+    isInspectOpen,
+    isTypingTarget,
+  ]);
 
   const wallBackgroundStyle = WALL_STYLES[wallStyleName]?.style ?? WALL_STYLES.whiteCube.style;
 
