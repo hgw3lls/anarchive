@@ -280,18 +280,36 @@ export default function Wall() {
 
         setArtifacts(nextArtifacts);
         setNodes(
-          boardNodes.map((node) => ({
-            id: String(node.id),
-            position: {
-              x: node?.position?.x ?? 0,
-              y: node?.position?.y ?? 0,
-            },
-            data: {
-              artifactId: node?.data?.artifactId ?? node?.artifactId ?? node?.id,
-              artifactsById: nextArtifactsById,
-            },
-            type: "artifact",
-          })),
+          boardNodes.map((node) => {
+            const hasTopLevelX = Number.isFinite(node?.x);
+            const hasTopLevelY = Number.isFinite(node?.y);
+            const position = {
+              x: hasTopLevelX
+                ? node.x
+                : Number.isFinite(node?.position?.x)
+                  ? node.position.x
+                  : 0,
+              y: hasTopLevelY
+                ? node.y
+                : Number.isFinite(node?.position?.y)
+                  ? node.position.y
+                  : 0,
+            };
+            return {
+              id: String(node.id),
+              position,
+              data: {
+                artifactId:
+                  node?.data?.artifactId ?? node?.artifactId ?? node?.id,
+                artifactsById: nextArtifactsById,
+              },
+              type: "artifact",
+              style: {
+                width: Number.isFinite(node?.w) ? node.w : undefined,
+                height: Number.isFinite(node?.h) ? node.h : undefined,
+              },
+            };
+          }),
         );
         setEdges(
           boardEdges.map((edge) => ({
