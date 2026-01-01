@@ -23,13 +23,13 @@ const kindStyles = {
     stroke: "#91a1c4",
     strokeWidth: 1.6,
     strokeDasharray: "2 6",
-    strokeOpacity: 0.55,
+    strokeOpacity: 0.6,
   },
   witness: {
     stroke: "#d1d1d6",
     strokeWidth: 1.4,
     strokeDasharray: "1 7",
-    strokeOpacity: 0.35,
+    strokeOpacity: 0.45,
   },
 };
 
@@ -38,8 +38,32 @@ const getEdgeStyle = (kind) =>
     stroke: "#c9c3d1",
     strokeWidth: 1.8,
     strokeDasharray: "3 6",
-    strokeOpacity: 0.7,
+    strokeOpacity: 0.75,
   };
+
+const hashToUnit = (value) => {
+  let hash = 0;
+  const text = String(value ?? "");
+  for (let i = 0; i < text.length; i += 1) {
+    hash = (hash << 5) - hash + text.charCodeAt(i);
+    hash |= 0;
+  }
+  return (hash >>> 0) / 0xffffffff;
+};
+
+const buildStrands = (id, count) => {
+  const base = hashToUnit(id);
+  return Array.from({ length: count }, (_, index) => {
+    const seed = hashToUnit(`${id}-${index}`);
+    const angle = (seed + base) * Math.PI * 2;
+    const radius = 0.5 + seed * 1.1;
+    return {
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      dashOffset: Math.round((seed - 0.5) * 8),
+    };
+  });
+};
 
 export default function YarnEdge({
   id,
@@ -65,18 +89,25 @@ export default function YarnEdge({
   const edgeKind = data?.kind ?? "sequence";
   const edgeLabel = label;
   const baseStyle = getEdgeStyle(edgeKind);
+  const strands = buildStrands(id, 4);
 
   const shadowStyle = {
     stroke: baseStyle.stroke,
-    strokeWidth: baseStyle.strokeWidth + 2,
-    strokeOpacity: baseStyle.strokeOpacity * 0.35,
+    strokeWidth: baseStyle.strokeWidth + 3,
+    strokeOpacity: baseStyle.strokeOpacity * 0.3,
+  };
+
+  const highlightStyle = {
+    stroke: "#ffffff",
+    strokeWidth: Math.max(baseStyle.strokeWidth - 1, 0.6),
+    strokeOpacity: 0.12,
   };
 
   const pathId = `yarn-edge-${id}`;
 
   return (
     <g>
-      {/* shadow / fiber glow */}
+      {/* under-glow */}
       <path
         id={`${pathId}-shadow`}
         d={edgePath}
@@ -86,22 +117,45 @@ export default function YarnEdge({
         strokeOpacity={shadowStyle.strokeOpacity}
         strokeLinecap="round"
         strokeLinejoin="round"
-        // NOTE: intentionally no react-flow__edge-path class
+        pointerEvents="none"
       />
 
-      {/* main yarn */}
+      {/* main strands */}
+      {strands.map((strand, index) => (
+        <path
+          key={`${pathId}-strand-${index}`}
+          d={edgePath}
+          fill="none"
+          stroke={baseStyle.stroke}
+          strokeWidth={baseStyle.strokeWidth}
+          strokeOpacity={baseStyle.strokeOpacity}
+          strokeDasharray={baseStyle.strokeDasharray}
+          strokeDashoffset={
+            baseStyle.strokeDasharray === "0"
+              ? undefined
+              : strand.dashOffset
+          }
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          transform={`translate(${strand.x.toFixed(2)} ${strand.y.toFixed(2)})`}
+          markerEnd={index === 0 ? markerEnd : undefined}
+          pointerEvents="none"
+        />
+      ))}
+
+      {/* subtle highlight fiber */}
       <path
-        id={pathId}
+        id={`${pathId}-highlight`}
         d={edgePath}
         fill="none"
-        stroke={baseStyle.stroke}
-        strokeWidth={baseStyle.strokeWidth}
-        strokeOpacity={baseStyle.strokeOpacity}
+        stroke={highlightStyle.stroke}
+        strokeWidth={highlightStyle.strokeWidth}
+        strokeOpacity={highlightStyle.strokeOpacity}
         strokeDasharray={baseStyle.strokeDasharray}
         strokeLinecap="round"
         strokeLinejoin="round"
-        markerEnd={markerEnd}
-        // NOTE: intentionally no react-flow__edge-path class
+        transform="translate(0.6 -0.4)"
+        pointerEvents="none"
       />
 
       {edgeLabel ? (
