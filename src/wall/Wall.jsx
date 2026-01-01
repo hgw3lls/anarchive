@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactFlow, {
   Background,
-  ControlButton,
   Controls,
   MiniMap,
   applyEdgeChanges,
@@ -88,10 +87,6 @@ const searchResultButtonStyle = {
 };
 
 const toolbarStyle = {
-  position: "absolute",
-  top: 16,
-  right: 16,
-  zIndex: 13,
   display: "flex",
   flexDirection: "column",
   gap: 10,
@@ -101,6 +96,27 @@ const toolbarStyle = {
   border: "1px solid rgba(255, 255, 255, 0.1)",
   background: "rgba(18, 18, 24, 0.92)",
   boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+};
+
+const hudContainerStyle = {
+  position: "absolute",
+  top: 16,
+  right: 16,
+  zIndex: 13,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-end",
+  gap: 8,
+};
+
+const hudToggleStyle = {
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  borderRadius: 999,
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+  padding: "6px 12px",
+  cursor: "pointer",
 };
 
 const toolbarButtonStyle = {
@@ -180,6 +196,7 @@ export default function Wall() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
+  const [isHudCollapsed, setIsHudCollapsed] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [editionTitle, setEditionTitle] = useState("");
   const [editionTags, setEditionTags] = useState("");
@@ -520,8 +537,12 @@ export default function Wall() {
       ) {
         return;
       }
-      if (event.key.toLowerCase() === "a") {
+      const key = event.key.toLowerCase();
+      if (key === "a") {
         setIsArrangeMode((current) => !current);
+      }
+      if (key === "l") {
+        setIsLocked((current) => !current);
       }
     };
 
@@ -716,169 +737,170 @@ export default function Wall() {
         maxZoom={3}
       >
         <Background gap={32} size={1} />
-        <Controls>
-          <ControlButton
-            onClick={() => setIsLocked((current) => !current)}
-            title={isLocked ? "Unlock interactions" : "Lock interactions"}
-            aria-label={isLocked ? "Unlock interactions" : "Lock interactions"}
-          >
-            {isLocked ? "🔒" : "🔓"}
-          </ControlButton>
-        </Controls>
+        <Controls />
         <MiniMap
           nodeColor="#6a6a6a"
           maskColor="rgba(15, 15, 18, 0.5)"
         />
       </ReactFlow>
-      <div style={toolbarStyle}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={() => setIsArrangeMode((current) => !current)}
-          >
-            {isArrangeMode ? "Arrange: ON" : "Arrange"}
-          </button>
-          <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
-            Boards
-          </div>
-          <div style={{ fontSize: 12, opacity: 0.75 }}>
-            Current: {currentBoardTitle}
-          </div>
-          <select
-            style={toolbarSelectStyle}
-            value={currentBoardId ?? ""}
-            disabled={!boardEntries.length}
-            onChange={(event) => {
-              const nextId = event.target.value;
-              setCurrentBoardId(nextId);
-              setSelectedArtifactId(null);
-            }}
-          >
-            {boardEntries.length ? (
-              boardEntries.map((entry) => (
-                <option key={entry.id} value={entry.id}>
-                  {entry.title}
-                </option>
-              ))
-            ) : (
-              <option value="">Loading...</option>
-            )}
-          </select>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
-            Board
-          </div>
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={() => saveBoardSnapshot()}
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={exportBoardSnapshot}
-          >
-            Export JSON
-          </button>
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={resetBoard}
-          >
-            Reset
-          </button>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
-            Publish Edition
-          </div>
-          <input
-            type="text"
-            placeholder="Edition Title"
-            value={editionTitle}
-            onChange={(event) => setEditionTitle(event.target.value)}
-            style={toolbarInputStyle}
-          />
-          <input
-            type="text"
-            placeholder="Edition Tags (comma-separated)"
-            value={editionTags}
-            onChange={(event) => setEditionTags(event.target.value)}
-            style={toolbarInputStyle}
-          />
-          <input
-            type="text"
-            placeholder="Edition ID (optional)"
-            value={editionIdInput}
-            onChange={(event) => setEditionIdInput(event.target.value)}
-            style={toolbarInputStyle}
-          />
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={handlePublish}
-          >
-            Publish (Download JSON + Index Patch)
-          </button>
-          <button
-            type="button"
-            style={toolbarButtonStyle}
-            onClick={handleCopyIndexEntry}
-          >
-            Copy index entry JSON
-          </button>
-          {publishNotice ? (
-            <div style={toolbarHintStyle}>{publishNotice}</div>
-          ) : null}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
-            Relationships
-          </div>
-          <div style={legendListStyle}>
-            {ALL_KINDS.map((kind) => (
-              <label key={kind} style={legendRowStyle}>
-                <span style={{ textTransform: "capitalize" }}>{kind}</span>
-                <input
-                  type="checkbox"
-                  checked={enabledKinds.has(kind)}
-                  onChange={() =>
-                    setEnabledKinds((current) => {
-                      const next = new Set(current);
-                      if (next.has(kind)) {
-                        next.delete(kind);
-                      } else {
-                        next.add(kind);
-                      }
-                      return next;
-                    })
-                  }
-                />
-              </label>
-            ))}
-          </div>
-          <div style={legendActionsStyle}>
+      <div style={hudContainerStyle}>
+        <button
+          type="button"
+          style={hudToggleStyle}
+          onClick={() => setIsHudCollapsed((current) => !current)}
+        >
+          {isHudCollapsed ? "HUD ▸" : "HUD ▾"}
+        </button>
+        <div style={{ ...toolbarStyle, display: isHudCollapsed ? "none" : "" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <button
               type="button"
               style={toolbarButtonStyle}
-              onClick={() => setEnabledKinds(new Set(ALL_KINDS))}
+              onClick={() => setIsArrangeMode((current) => !current)}
             >
-              All
+              {isArrangeMode ? "Arrange: ON" : "Arrange"}
+            </button>
+            <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              Boards
+            </div>
+            <div style={{ fontSize: 12, opacity: 0.75 }}>
+              Current: {currentBoardTitle}
+            </div>
+            <select
+              style={toolbarSelectStyle}
+              value={currentBoardId ?? ""}
+              disabled={!boardEntries.length}
+              onChange={(event) => {
+                const nextId = event.target.value;
+                setCurrentBoardId(nextId);
+                setSelectedArtifactId(null);
+              }}
+            >
+              {boardEntries.length ? (
+                boardEntries.map((entry) => (
+                  <option key={entry.id} value={entry.id}>
+                    {entry.title}
+                  </option>
+                ))
+              ) : (
+                <option value="">Loading...</option>
+              )}
+            </select>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              Board
+            </div>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={() => saveBoardSnapshot()}
+            >
+              Save
             </button>
             <button
               type="button"
               style={toolbarButtonStyle}
-              onClick={() => setEnabledKinds(new Set())}
+              onClick={exportBoardSnapshot}
             >
-              None
+              Export JSON
             </button>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={resetBoard}
+            >
+              Reset
+            </button>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              Publish Edition
+            </div>
+            <input
+              type="text"
+              placeholder="Edition Title"
+              value={editionTitle}
+              onChange={(event) => setEditionTitle(event.target.value)}
+              style={toolbarInputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Edition Tags (comma-separated)"
+              value={editionTags}
+              onChange={(event) => setEditionTags(event.target.value)}
+              style={toolbarInputStyle}
+            />
+            <input
+              type="text"
+              placeholder="Edition ID (optional)"
+              value={editionIdInput}
+              onChange={(event) => setEditionIdInput(event.target.value)}
+              style={toolbarInputStyle}
+            />
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={handlePublish}
+            >
+              Publish (Download JSON + Index Patch)
+            </button>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={handleCopyIndexEntry}
+            >
+              Copy index entry JSON
+            </button>
+            {publishNotice ? (
+              <div style={toolbarHintStyle}>{publishNotice}</div>
+            ) : null}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              Relationships
+            </div>
+            <div style={legendListStyle}>
+              {ALL_KINDS.map((kind) => (
+                <label key={kind} style={legendRowStyle}>
+                  <span style={{ textTransform: "capitalize" }}>{kind}</span>
+                  <input
+                    type="checkbox"
+                    checked={enabledKinds.has(kind)}
+                    onChange={() =>
+                      setEnabledKinds((current) => {
+                        const next = new Set(current);
+                        if (next.has(kind)) {
+                          next.delete(kind);
+                        } else {
+                          next.add(kind);
+                        }
+                        return next;
+                      })
+                    }
+                  />
+                </label>
+              ))}
+            </div>
+            <div style={legendActionsStyle}>
+              <button
+                type="button"
+                style={toolbarButtonStyle}
+                onClick={() => setEnabledKinds(new Set(ALL_KINDS))}
+              >
+                All
+              </button>
+              <button
+                type="button"
+                style={toolbarButtonStyle}
+                onClick={() => setEnabledKinds(new Set())}
+              >
+                None
+              </button>
+            </div>
           </div>
         </div>
       </div>
