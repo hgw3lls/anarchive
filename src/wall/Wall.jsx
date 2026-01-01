@@ -66,17 +66,6 @@ const overlayStyle = {
   zIndex: 10,
 };
 
-const searchContainerStyle = {
-  position: "absolute",
-  top: 16,
-  left: 16,
-  width: 260,
-  zIndex: 12,
-  display: "flex",
-  flexDirection: "column",
-  gap: 8,
-};
-
 const searchInputStyle = {
   width: "100%",
   padding: "10px 12px",
@@ -135,6 +124,20 @@ const hudToggleStyle = {
   border: "1px solid rgba(255, 255, 255, 0.18)",
   borderRadius: 999,
   background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+  padding: "6px 12px",
+  cursor: "pointer",
+};
+
+const hudOpenButtonStyle = {
+  position: "absolute",
+  top: 16,
+  right: 16,
+  zIndex: 13,
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  borderRadius: 999,
+  background: "rgba(18, 18, 24, 0.85)",
   color: "#f5f5f5",
   fontSize: 12,
   padding: "6px 12px",
@@ -200,6 +203,50 @@ const lockedFlowStyle = {
   filter: "grayscale(0.35) brightness(0.85)",
 };
 
+const infoPanelStyle = {
+  position: "absolute",
+  right: 16,
+  bottom: 16,
+  zIndex: 13,
+  width: 260,
+  padding: 12,
+  borderRadius: 12,
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  background: "rgba(18, 18, 24, 0.92)",
+  color: "#f5f5f5",
+  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  fontSize: 12,
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+};
+
+const helpOverlayStyle = {
+  position: "absolute",
+  inset: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: "rgba(10, 10, 14, 0.75)",
+  color: "#f5f5f5",
+  zIndex: 14,
+  padding: 24,
+};
+
+const helpCardStyle = {
+  maxWidth: 360,
+  width: "100%",
+  padding: 16,
+  borderRadius: 12,
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  background: "rgba(18, 18, 24, 0.96)",
+  boxShadow: "0 18px 30px rgba(0, 0, 0, 0.4)",
+  fontSize: 13,
+  display: "flex",
+  flexDirection: "column",
+  gap: 10,
+};
+
 const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
 
 const fitViewOptions = { padding: 0.2 };
@@ -218,9 +265,11 @@ export default function Wall() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
-  const [isHudCollapsed, setIsHudCollapsed] = useState(false);
+  const [isHudCollapsed, setIsHudCollapsed] = useState(true);
   const [isInspectOpen, setIsInspectOpen] = useState(false);
   const [inspectNodeId, setInspectNodeId] = useState(null);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [wallStyleName, setWallStyleName] = useState(() => {
     if (typeof window === "undefined") {
@@ -243,6 +292,7 @@ export default function Wall() {
   const edgesRef = useRef(allEdges);
   const cameraRef = useRef(camera);
   const ignoreNextMoveRef = useRef(false);
+  const searchInputRef = useRef(null);
 
   useEffect(() => {
     nodesRef.current = nodes;
@@ -910,20 +960,47 @@ export default function Wall() {
         return;
       }
       const key = event.key.toLowerCase();
+      if (key === "/") {
+        event.preventDefault();
+        setIsHudCollapsed(false);
+        setIsHelpOpen(false);
+        window.requestAnimationFrame(() => {
+          searchInputRef.current?.focus();
+        });
+        return;
+      }
+      if (event.key === "?") {
+        event.preventDefault();
+        setIsHelpOpen((current) => !current);
+        return;
+      }
       if (key === "a") {
         setIsArrangeMode((current) => !current);
+        return;
       }
       if (key === "l") {
         setIsLocked((current) => !current);
+        return;
       }
       if (key === "i") {
+        setIsInfoOpen((current) => !current);
+        return;
+      }
+      if (event.key === "Escape") {
+        if (selectedArtifactId) {
+          setSelectedArtifactId(null);
+          return;
+        }
         if (isInspectOpen) {
           setIsInspectOpen(false);
           return;
         }
-        const nodeId = resolveInspectNodeId(selectedNodeId);
-        if (nodeId) {
-          openInspectForNode(nodeId);
+        if (!isHudCollapsed) {
+          setIsHudCollapsed(true);
+          return;
+        }
+        if (isHelpOpen) {
+          setIsHelpOpen(false);
         }
       }
     };
@@ -931,11 +1008,11 @@ export default function Wall() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [
+    isHelpOpen,
+    isHudCollapsed,
     isInspectOpen,
     isTypingTarget,
-    openInspectForNode,
-    resolveInspectNodeId,
-    selectedNodeId,
+    selectedArtifactId,
   ]);
 
   useEffect(() => {
@@ -965,14 +1042,6 @@ export default function Wall() {
     }
     const handleKeyDown = (event) => {
       if (isTypingTarget(event.target)) {
-        return;
-      }
-      if (event.key === "Escape") {
-        setIsInspectOpen(false);
-        return;
-      }
-      if (event.key.toLowerCase() === "i") {
-        setIsInspectOpen(false);
         return;
       }
       if (event.key === "ArrowLeft") {
@@ -1055,15 +1124,24 @@ export default function Wall() {
           maskColor="rgba(15, 15, 18, 0.5)"
         />
       </ReactFlow>
-      <div style={hudContainerStyle}>
+      {isHudCollapsed ? (
         <button
           type="button"
-          style={hudToggleStyle}
-          onClick={() => setIsHudCollapsed((current) => !current)}
+          style={hudOpenButtonStyle}
+          onClick={() => setIsHudCollapsed(false)}
         >
-          {isHudCollapsed ? "HUD ▸" : "HUD ▾"}
+          Open HUD
         </button>
-        <div style={{ ...toolbarStyle, display: isHudCollapsed ? "none" : "" }}>
+      ) : (
+        <div style={hudContainerStyle}>
+          <button
+            type="button"
+            style={hudToggleStyle}
+            onClick={() => setIsHudCollapsed(true)}
+          >
+            HUD ▾
+          </button>
+          <div style={toolbarStyle}>
           <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             <button
               type="button"
@@ -1073,6 +1151,49 @@ export default function Wall() {
               {isArrangeMode ? "Arrange: ON" : "Arrange"}
             </button>
             <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              Search
+            </div>
+            <input
+              ref={searchInputRef}
+              type="search"
+              placeholder="Search titles or tags..."
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              style={searchInputStyle}
+            />
+            {searchResults.length ? (
+              <ul style={searchResultsStyle}>
+                {searchResults.map((result) => (
+                  <li key={result.id}>
+                    <button
+                      type="button"
+                      style={searchResultButtonStyle}
+                      onClick={() => {
+                        setSelectedArtifactId(result.id);
+                        const nodeMatch = nodes.find(
+                          (node) =>
+                            String(node?.data?.artifactId) === String(result.id),
+                        );
+                        if (nodeMatch) {
+                          centerOnNode(nodeMatch, { minZoom: 1.4 });
+                        }
+                      }}
+                    >
+                      <div style={{ fontWeight: 600 }}>{result.title}</div>
+                      {result.tags.length ? (
+                        <div style={{ opacity: 0.65, marginTop: 2 }}>
+                          {result.tags.join(", ")}
+                        </div>
+                      ) : null}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <div style={toolbarHintStyle}>Press / to focus search</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
@@ -1100,6 +1221,14 @@ export default function Wall() {
                 onChange={(event) => setShowCaptions(event.target.checked)}
               />
             </label>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={() => setIsInfoOpen((current) => !current)}
+            >
+              {isInfoOpen ? "Info: ON" : "Info"}
+            </button>
+            <div style={toolbarHintStyle}>Press I for info</div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
@@ -1241,46 +1370,33 @@ export default function Wall() {
               </button>
             </div>
           </div>
+          </div>
         </div>
-      </div>
-      <div style={searchContainerStyle}>
-        <input
-          type="search"
-          placeholder="Search titles or tags..."
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-          style={searchInputStyle}
-        />
-        {searchResults.length ? (
-          <ul style={searchResultsStyle}>
-            {searchResults.map((result) => (
-              <li key={result.id}>
-                <button
-                  type="button"
-                  style={searchResultButtonStyle}
-                  onClick={() => {
-                    setSelectedArtifactId(result.id);
-                    const nodeMatch = nodes.find(
-                      (node) =>
-                        String(node?.data?.artifactId) === String(result.id),
-                    );
-                    if (nodeMatch) {
-                      centerOnNode(nodeMatch, { minZoom: 1.4 });
-                    }
-                  }}
-                >
-                  <div style={{ fontWeight: 600 }}>{result.title}</div>
-                  {result.tags.length ? (
-                    <div style={{ opacity: 0.65, marginTop: 2 }}>
-                      {result.tags.join(", ")}
-                    </div>
-                  ) : null}
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
+      )}
+      {isInfoOpen ? (
+        <aside style={infoPanelStyle}>
+          <div style={{ fontWeight: 600, letterSpacing: 0.4 }}>Info</div>
+          <div style={{ opacity: 0.8 }}>
+            Metadata panel placeholder. Add collection notes or board context
+            here.
+          </div>
+        </aside>
+      ) : null}
+      {isHelpOpen ? (
+        <div style={helpOverlayStyle}>
+          <div style={helpCardStyle}>
+            <div style={{ fontWeight: 600, fontSize: 14 }}>
+              Shortcuts
+            </div>
+            <div> / — Open HUD + focus search</div>
+            <div> I — Toggle info panel</div>
+            <div> ? — Toggle this help</div>
+            <div> Escape — Close drawer, then HUD</div>
+            <div> A — Toggle arrange mode</div>
+            <div> L — Toggle lock</div>
+          </div>
+        </div>
+      ) : null}
       {error ? <div style={overlayStyle}>{error}</div> : null}
       <InspectOverlay
         open={isInspectOpen && Boolean(inspectArtifact)}
