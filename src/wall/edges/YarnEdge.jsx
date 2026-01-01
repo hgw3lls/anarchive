@@ -103,6 +103,16 @@ export default function YarnEdge({
     strokeOpacity: 0.12,
   };
 
+  const tackStyle = {
+    fill: baseStyle.stroke,
+    opacity: Math.min(baseStyle.strokeOpacity + 0.1, 1),
+  };
+
+  const tackShadowStyle = {
+    fill: baseStyle.stroke,
+    opacity: baseStyle.strokeOpacity * 0.25,
+  };
+
   const pathId = `yarn-edge-${id}`;
 
   return (
@@ -155,6 +165,39 @@ export default function YarnEdge({
         strokeLinecap="round"
         strokeLinejoin="round"
         transform="translate(0.6 -0.4)"
+        pointerEvents="none"
+      />
+
+      <circle
+        cx={sourceX}
+        cy={sourceY}
+        r={6}
+        fill={tackShadowStyle.fill}
+        opacity={tackShadowStyle.opacity}
+        pointerEvents="none"
+      />
+      <circle
+        cx={targetX}
+        cy={targetY}
+        r={6}
+        fill={tackShadowStyle.fill}
+        opacity={tackShadowStyle.opacity}
+        pointerEvents="none"
+      />
+      <circle
+        cx={sourceX}
+        cy={sourceY}
+        r={3.4}
+        fill={tackStyle.fill}
+        opacity={tackStyle.opacity}
+        pointerEvents="none"
+      />
+      <circle
+        cx={targetX}
+        cy={targetY}
+        r={3.4}
+        fill={tackStyle.fill}
+        opacity={tackStyle.opacity}
         pointerEvents="none"
       />
 
