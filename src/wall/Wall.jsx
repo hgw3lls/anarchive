@@ -75,18 +75,72 @@ const searchResultButtonStyle = {
   cursor: "pointer",
 };
 
+const toolbarStyle = {
+  position: "absolute",
+  top: 16,
+  right: 16,
+  zIndex: 13,
+  display: "flex",
+  flexDirection: "column",
+  gap: 10,
+  minWidth: 220,
+  padding: 12,
+  borderRadius: 12,
+  border: "1px solid rgba(255, 255, 255, 0.1)",
+  background: "rgba(18, 18, 24, 0.92)",
+  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+};
+
+const toolbarButtonStyle = {
+  border: "1px solid rgba(255, 255, 255, 0.18)",
+  borderRadius: 10,
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+  padding: "8px 12px",
+  cursor: "pointer",
+};
+
+const toolbarHintStyle = {
+  fontSize: 11,
+  opacity: 0.7,
+};
+
+const legendListStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 6,
+};
+
+const legendRowStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  fontSize: 12,
+  color: "rgba(245, 245, 245, 0.85)",
+};
+
+const legendActionsStyle = {
+  display: "flex",
+  gap: 8,
+};
+
+const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
+
 const fitViewOptions = { padding: 0.2 };
 const cameraStorageKey = "anarchive.camera";
 
 export default function Wall() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [allEdges, setAllEdges, onEdgesChange] = useEdgesState([]);
   const [artifacts, setArtifacts] = useState([]);
   const [camera, setCamera] = useState(null);
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isArrangeMode, setIsArrangeMode] = useState(false);
+  const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
 
   const artifactsById = useMemo(() => {
     const map = new Map();
@@ -110,6 +164,13 @@ export default function Wall() {
     }),
     [],
   );
+
+  const visibleEdges = useMemo(() => {
+    return allEdges.filter((edge) => {
+      const kind = edge?.data?.kind ?? "sequence";
+      return enabledKinds.has(kind);
+    });
+  }, [allEdges, enabledKinds]);
 
   const selectedArtifact = useMemo(() => {
     if (!selectedArtifactId) {
@@ -165,7 +226,7 @@ export default function Wall() {
       return [];
     }
     const relatedIds = new Map();
-    edges.forEach((edge) => {
+    visibleEdges.forEach((edge) => {
       if (edge.source === selectedNodeId) {
         relatedIds.set(edge.target, true);
       }
@@ -189,7 +250,7 @@ export default function Wall() {
       }
     });
     return results;
-  }, [artifactsById, edges, nodes, selectedNodeId]);
+  }, [artifactsById, nodes, selectedNodeId, visibleEdges]);
 
   const centerOnNode = (node) => {
     if (!reactFlowInstance || !node) {
@@ -221,6 +282,27 @@ export default function Wall() {
       })),
     );
   }, [artifactsById, setNodes]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const target = event.target;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      if (event.key.toLowerCase() === "a") {
+        setIsArrangeMode((current) => !current);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -318,9 +400,9 @@ export default function Wall() {
             };
           }),
         );
-        setEdges(
+        setAllEdges(
           boardEdges.map((edge) => {
-            return {
+            const nextEdge = {
               id: String(edge.id),
               source: String(edge.source),
               target: String(edge.target),
@@ -330,6 +412,13 @@ export default function Wall() {
               },
               label: edge?.label,
             };
+            if (edge?.sourceHandle) {
+              nextEdge.sourceHandle = edge.sourceHandle;
+            }
+            if (edge?.targetHandle) {
+              nextEdge.targetHandle = edge.targetHandle;
+            }
+            return nextEdge;
           }),
         );
         if (!nextCamera && boardPayload?.camera) {
@@ -354,7 +443,7 @@ export default function Wall() {
     return () => {
       isMounted = false;
     };
-  }, [setEdges, setNodes]);
+  }, [setAllEdges, setNodes]);
 
   useEffect(() => {
     if (!reactFlowInstance || !camera) {
@@ -368,7 +457,7 @@ export default function Wall() {
     <section style={wallStyle}>
       <ReactFlow
         nodes={nodes}
-        edges={edges}
+        edges={visibleEdges}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
@@ -399,9 +488,12 @@ export default function Wall() {
         panOnScroll
         zoomOnScroll
         zoomOnPinch
-        nodesDraggable={false}
+        panOnDrag={!isArrangeMode}
+        nodesDraggable={isArrangeMode}
         nodesConnectable={false}
-        elementsSelectable={false}
+        elementsSelectable={isArrangeMode}
+        snapToGrid={isArrangeMode}
+        snapGrid={[16, 16]}
         minZoom={0.1}
         maxZoom={3}
       >
@@ -412,6 +504,61 @@ export default function Wall() {
           maskColor="rgba(15, 15, 18, 0.5)"
         />
       </ReactFlow>
+      <div style={toolbarStyle}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <button
+            type="button"
+            style={toolbarButtonStyle}
+            onClick={() => setIsArrangeMode((current) => !current)}
+          >
+            {isArrangeMode ? "Arrange: ON" : "Arrange"}
+          </button>
+          <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+            Relationships
+          </div>
+          <div style={legendListStyle}>
+            {ALL_KINDS.map((kind) => (
+              <label key={kind} style={legendRowStyle}>
+                <span style={{ textTransform: "capitalize" }}>{kind}</span>
+                <input
+                  type="checkbox"
+                  checked={enabledKinds.has(kind)}
+                  onChange={() =>
+                    setEnabledKinds((current) => {
+                      const next = new Set(current);
+                      if (next.has(kind)) {
+                        next.delete(kind);
+                      } else {
+                        next.add(kind);
+                      }
+                      return next;
+                    })
+                  }
+                />
+              </label>
+            ))}
+          </div>
+          <div style={legendActionsStyle}>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={() => setEnabledKinds(new Set(ALL_KINDS))}
+            >
+              All
+            </button>
+            <button
+              type="button"
+              style={toolbarButtonStyle}
+              onClick={() => setEnabledKinds(new Set())}
+            >
+              None
+            </button>
+          </div>
+        </div>
+      </div>
       <div style={searchContainerStyle}>
         <input
           type="search"

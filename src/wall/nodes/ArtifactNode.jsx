@@ -1,3 +1,5 @@
+import { Handle, Position } from "reactflow";
+
 const cardStyle = {
   width: 220,
   borderRadius: 12,
@@ -12,6 +14,7 @@ const cardStyle = {
   fontSize: 12,
   lineHeight: 1.4,
   wordBreak: "break-word",
+  position: "relative",
 };
 
 const titleStyle = {
@@ -39,6 +42,10 @@ const overlayStyle = {
   textShadow: "0 4px 10px rgba(0, 0, 0, 0.45)",
 };
 
+const handleStyle = {
+  opacity: 0,
+};
+
 export default function ArtifactNode({ data }) {
   const artifactId = data?.artifactId;
   const artifactsById = data?.artifactsById;
@@ -47,6 +54,8 @@ export default function ArtifactNode({ data }) {
   if (!artifactId) {
     return (
       <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Missing artifact
         </div>
@@ -58,6 +67,8 @@ export default function ArtifactNode({ data }) {
   if (!artifact) {
     return (
       <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Artifact {String(artifactId)}
         </div>
@@ -78,6 +89,8 @@ export default function ArtifactNode({ data }) {
   if (artifact?.type === "image") {
     return (
       <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         {artifact?.thumb ? (
           <img
             src={artifact.thumb}
@@ -94,6 +107,8 @@ export default function ArtifactNode({ data }) {
   if (artifact?.type === "text") {
     return (
       <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={titleStyle}>{title}</div>
         {excerpt ? <div style={{ opacity: 0.8 }}>{excerpt}</div> : null}
       </div>
@@ -103,6 +118,8 @@ export default function ArtifactNode({ data }) {
   if (artifact?.type === "video") {
     return (
       <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={{ position: "relative" }}>
           {artifact?.thumb ? (
             <img
@@ -121,6 +138,8 @@ export default function ArtifactNode({ data }) {
 
   return (
     <div style={cardStyle}>
+      <Handle type="target" position={Position.Left} style={handleStyle} />
+      <Handle type="source" position={Position.Right} style={handleStyle} />
       <div style={titleStyle}>{title}</div>
       <div style={{ opacity: 0.7 }}>Unsupported artifact type.</div>
     </div>
