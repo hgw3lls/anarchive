@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ReactFlow, {
   Background,
+  ControlButton,
   Controls,
   MiniMap,
   applyEdgeChanges,
@@ -156,6 +157,11 @@ const legendActionsStyle = {
   gap: 8,
 };
 
+const lockedFlowStyle = {
+  transition: "filter 0.2s ease",
+  filter: "grayscale(0.35) brightness(0.85)",
+};
+
 const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
 
 const fitViewOptions = { padding: 0.2 };
@@ -173,6 +179,7 @@ export default function Wall() {
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
+  const [isLocked, setIsLocked] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [editionTitle, setEditionTitle] = useState("");
   const [editionTags, setEditionTags] = useState("");
@@ -673,6 +680,7 @@ export default function Wall() {
   return (
     <section style={wallStyle}>
       <ReactFlow
+        style={isLocked ? lockedFlowStyle : undefined}
         nodes={nodes}
         edges={visibleEdges}
         nodeTypes={nodeTypes}
@@ -694,20 +702,29 @@ export default function Wall() {
         }}
         fitView
         fitViewOptions={fitViewOptions}
-        panOnScroll
-        zoomOnScroll
-        zoomOnPinch
-        panOnDrag={!isArrangeMode}
-        nodesDraggable={isArrangeMode}
+        panOnScroll={!isLocked}
+        zoomOnScroll={!isLocked}
+        zoomOnPinch={!isLocked}
+        zoomOnDoubleClick={!isLocked}
+        panOnDrag={!isLocked && !isArrangeMode}
+        nodesDraggable={!isLocked && isArrangeMode}
         nodesConnectable={false}
-        elementsSelectable={isArrangeMode}
+        elementsSelectable={!isLocked}
         snapToGrid={isArrangeMode}
         snapGrid={[16, 16]}
         minZoom={0.1}
         maxZoom={3}
       >
         <Background gap={32} size={1} />
-        <Controls />
+        <Controls>
+          <ControlButton
+            onClick={() => setIsLocked((current) => !current)}
+            title={isLocked ? "Unlock interactions" : "Lock interactions"}
+            aria-label={isLocked ? "Unlock interactions" : "Lock interactions"}
+          >
+            {isLocked ? "🔒" : "🔓"}
+          </ControlButton>
+        </Controls>
         <MiniMap
           nodeColor="#6a6a6a"
           maskColor="rgba(15, 15, 18, 0.5)"
