@@ -1,23 +1,16 @@
 import { Handle, Position } from "reactflow";
+import Frame from "../components/Frame.jsx";
 
 const cardStyle = {
   width: 220,
-  borderRadius: 12,
-  backgroundColor: "#f5f0e6",
-  backgroundImage:
-    "linear-gradient(135deg, rgba(255, 255, 255, 0.65), rgba(240, 232, 218, 0.92)), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.025) 0, rgba(0, 0, 0, 0.025) 1px, transparent 1px, transparent 4px)",
-  color: "#2f2a24",
-  border: "1px solid rgba(0, 0, 0, 0.08)",
-  boxShadow: "0 12px 24px rgba(0, 0, 0, 0.32)",
-  padding: 12,
+  color: "#1f1f1f",
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: 10,
   fontSize: 12,
   lineHeight: 1.4,
   wordBreak: "break-word",
   position: "relative",
-  transformOrigin: "center",
 };
 
 const titleStyle = {
@@ -27,11 +20,10 @@ const titleStyle = {
 
 const thumbStyle = {
   width: "100%",
-  height: 120,
-  borderRadius: 10,
-  objectFit: "cover",
+  height: "auto",
+  borderRadius: 3,
   display: "block",
-  background: "rgba(0, 0, 0, 0.08)",
+  background: "rgba(0, 0, 0, 0.05)",
 };
 
 const overlayStyle = {
@@ -43,82 +35,51 @@ const overlayStyle = {
   color: "rgba(255, 255, 255, 0.9)",
   fontSize: 28,
   textShadow: "0 4px 10px rgba(0, 0, 0, 0.45)",
+  pointerEvents: "none",
 };
 
 const handleStyle = {
   opacity: 0,
 };
 
-const pinStyle = {
-  position: "absolute",
-  width: 8,
-  height: 8,
-  borderRadius: "50%",
-  background: "#b85a52",
-  boxShadow:
-    "0 2px 4px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4)",
-  pointerEvents: "none",
+const textCardStyle = {
+  padding: 12,
+  borderRadius: 12,
+  background: "rgba(255, 255, 255, 0.85)",
+  border: "1px solid rgba(0, 0, 0, 0.08)",
+  boxShadow: "0 10px 18px rgba(0, 0, 0, 0.12)",
 };
 
-const pinOffsets = [
-  { top: 6, left: 6 },
-  { top: 6, right: 6 },
-  { bottom: 6, left: 6 },
-  { bottom: 6, right: 6 },
-];
-
-const hashToUnit = (value) => {
-  let hash = 0;
-  const text = String(value ?? "");
-  for (let i = 0; i < text.length; i += 1) {
-    hash = (hash << 5) - hash + text.charCodeAt(i);
-    hash |= 0;
+const buildCaption = (artifact) => {
+  const title = artifact?.title ?? "Untitled";
+  const date = artifact?.date;
+  const yearMatch = date ? String(date).match(/\d{4}/) : null;
+  const year = yearMatch ? yearMatch[0] : null;
+  const medium = artifact?.medium;
+  let caption = title;
+  if (year) {
+    caption += ` (${year})`;
   }
-  return (hash >>> 0) / 0xffffffff;
-};
-
-const rotationForId = (value) => {
-  const rotation = Math.round(hashToUnit(value) * 24) - 12;
-  return rotation / 10;
-};
-
-const pinsForId = (value) => {
-  const seed = Math.round(hashToUnit(value) * 1000);
-  const count = 2 + (seed % 3);
-  const startIndex = seed % pinOffsets.length;
-  const ordered = [
-    ...pinOffsets.slice(startIndex),
-    ...pinOffsets.slice(0, startIndex),
-  ];
-  return ordered.slice(0, count);
+  if (medium) {
+    caption += ` — ${medium}`;
+  }
+  return caption;
 };
 
 export default function ArtifactNode({ data }) {
   const artifactId = data?.artifactId;
   const artifactsById = data?.artifactsById;
   const artifact = artifactId ? artifactsById?.get(String(artifactId)) : null;
-  const cardRotation = rotationForId(artifactId ?? "missing");
-  const pins = pinsForId(artifactId ?? "missing");
-  const cardStyleWithRotation = {
-    ...cardStyle,
-    transform: `rotate(${cardRotation}deg)`,
+  const showCaptions = data?.showCaptions ?? false;
+  const frameConfig = data?.frameOverride ?? artifact?.frame ?? {
+    variant: "none",
   };
-  const pinElements = pins.map((offsets, index) => (
-    <div
-      key={`pin-${index}`}
-      style={{
-        ...pinStyle,
-        ...offsets,
-      }}
-    />
-  ));
 
   if (!artifactId) {
     return (
-      <div style={cardStyleWithRotation}>
+      <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        {pinElements}
         <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Missing artifact
         </div>
@@ -129,10 +90,9 @@ export default function ArtifactNode({ data }) {
 
   if (!artifact) {
     return (
-      <div style={cardStyleWithRotation}>
+      <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        {pinElements}
         <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Artifact {String(artifactId)}
         </div>
@@ -152,42 +112,15 @@ export default function ArtifactNode({ data }) {
 
   if (artifact?.type === "image") {
     return (
-      <div style={cardStyleWithRotation}>
+      <div style={cardStyle}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        {pinElements}
-        {artifact?.thumb ? (
-          <img
-            src={artifact.thumb}
-            alt={title}
-            loading="lazy"
-            style={thumbStyle}
-          />
-        ) : null}
-        {artifact?.title ? <div style={titleStyle}>{artifact.title}</div> : null}
-      </div>
-    );
-  }
-
-  if (artifact?.type === "text") {
-    return (
-      <div style={cardStyleWithRotation}>
-        <Handle type="target" position={Position.Left} style={handleStyle} />
-        <Handle type="source" position={Position.Right} style={handleStyle} />
-        {pinElements}
-        <div style={titleStyle}>{title}</div>
-        {excerpt ? <div style={{ opacity: 0.8 }}>{excerpt}</div> : null}
-      </div>
-    );
-  }
-
-  if (artifact?.type === "video") {
-    return (
-      <div style={cardStyleWithRotation}>
-        <Handle type="target" position={Position.Left} style={handleStyle} />
-        <Handle type="source" position={Position.Right} style={handleStyle} />
-        {pinElements}
-        <div style={{ position: "relative" }}>
+        <Frame
+          variant={frameConfig?.variant ?? "none"}
+          mat={frameConfig?.mat ?? 0}
+          caption={buildCaption(artifact)}
+          showCaption={showCaptions}
+        >
           {artifact?.thumb ? (
             <img
               src={artifact.thumb}
@@ -196,18 +129,53 @@ export default function ArtifactNode({ data }) {
               style={thumbStyle}
             />
           ) : null}
-          <div style={overlayStyle}>▶</div>
-        </div>
+        </Frame>
+      </div>
+    );
+  }
+
+  if (artifact?.type === "text") {
+    return (
+      <div style={{ ...cardStyle, ...textCardStyle }}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={titleStyle}>{title}</div>
+        {excerpt ? <div style={{ opacity: 0.8 }}>{excerpt}</div> : null}
+      </div>
+    );
+  }
+
+  if (artifact?.type === "video") {
+    return (
+      <div style={cardStyle}>
+        <Handle type="target" position={Position.Left} style={handleStyle} />
+        <Handle type="source" position={Position.Right} style={handleStyle} />
+        <Frame
+          variant={frameConfig?.variant ?? "none"}
+          mat={frameConfig?.mat ?? 0}
+          caption={buildCaption(artifact)}
+          showCaption={showCaptions}
+        >
+          <div style={{ position: "relative", width: "100%" }}>
+            {artifact?.thumb ? (
+              <img
+                src={artifact.thumb}
+                alt={title}
+                loading="lazy"
+                style={thumbStyle}
+              />
+            ) : null}
+            <div style={overlayStyle}>▶</div>
+          </div>
+        </Frame>
       </div>
     );
   }
 
   return (
-    <div style={cardStyleWithRotation}>
+    <div style={{ ...cardStyle, ...textCardStyle }}>
       <Handle type="target" position={Position.Left} style={handleStyle} />
       <Handle type="source" position={Position.Right} style={handleStyle} />
-      {pinElements}
       <div style={titleStyle}>{title}</div>
       <div style={{ opacity: 0.7 }}>Unsupported artifact type.</div>
     </div>

@@ -99,6 +99,34 @@ const markdownStyle = {
   lineHeight: 1.6,
 };
 
+const controlLabelStyle = {
+  fontSize: 12,
+  opacity: 0.8,
+  display: "flex",
+  flexDirection: "column",
+  gap: 6,
+};
+
+const controlSelectStyle = {
+  width: "100%",
+  padding: "8px 10px",
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.16)",
+  background: "rgba(18, 18, 24, 0.8)",
+  color: "#f5f5f5",
+  fontSize: 12,
+};
+
+const controlButtonStyle = {
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: 10,
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
+  fontSize: 12,
+  padding: "8px 12px",
+  cursor: "pointer",
+};
+
 marked.setOptions({
   mangle: false,
   headerIds: false,
@@ -106,9 +134,11 @@ marked.setOptions({
 
 export default function ArtifactDrawer({
   artifact,
+  node,
   relatedArtifacts,
   onClose,
   onSelectRelated,
+  onUpdateFrameOverride,
 }) {
   if (!artifact) {
     return null;
@@ -116,6 +146,18 @@ export default function ArtifactDrawer({
 
   const tags = Array.isArray(artifact.tags) ? artifact.tags : [];
   const markdown = artifact.body ? marked.parse(artifact.body) : "";
+  const nodeFrameOverride = node?.data?.frameOverride ?? null;
+  const effectiveFrame = nodeFrameOverride ?? artifact?.frame ?? {
+    variant: "none",
+    mat: 0,
+  };
+  const effectiveMat = Number.isFinite(effectiveFrame?.mat)
+    ? effectiveFrame.mat
+    : effectiveFrame.variant === "floatMount"
+      ? 16
+      : 0;
+  const canEditFrame =
+    (artifact.type === "image" || artifact.type === "video") && Boolean(node?.id);
 
   return (
     <>
@@ -165,6 +207,56 @@ export default function ArtifactDrawer({
               />
             ) : null}
           </div>
+        ) : null}
+        {canEditFrame ? (
+          <section>
+            <div style={sectionTitleStyle}>Frame</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <label style={controlLabelStyle}>
+                Variant
+                <select
+                  style={controlSelectStyle}
+                  value={effectiveFrame.variant ?? "none"}
+                  onChange={(event) => {
+                    const variant = event.target.value;
+                    const mat = variant === "floatMount" ? 16 : 0;
+                    onUpdateFrameOverride?.(node?.id, { variant, mat });
+                  }}
+                >
+                  <option value="none">None</option>
+                  <option value="thinBlack">Thin Black</option>
+                  <option value="floatMount">Float Mount</option>
+                </select>
+              </label>
+              <label style={controlLabelStyle}>
+                Mat size
+                <select
+                  style={controlSelectStyle}
+                  value={effectiveMat}
+                  disabled={effectiveFrame.variant !== "floatMount"}
+                  onChange={(event) =>
+                    onUpdateFrameOverride?.(node?.id, {
+                      variant: "floatMount",
+                      mat: Number(event.target.value),
+                    })
+                  }
+                >
+                  <option value={0}>0</option>
+                  <option value={8}>8</option>
+                  <option value={16}>16</option>
+                  <option value={24}>24</option>
+                </select>
+              </label>
+              <button
+                type="button"
+                style={controlButtonStyle}
+                onClick={() => onUpdateFrameOverride?.(node?.id, null)}
+                disabled={!nodeFrameOverride}
+              >
+                Clear Override
+              </button>
+            </div>
+          </section>
         ) : null}
         {relatedArtifacts?.length ? (
           <section>

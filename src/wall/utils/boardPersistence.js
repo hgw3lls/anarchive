@@ -90,6 +90,7 @@ export const mapBoardNodesToFlowNodes = (nodes, artifactsById) => {
       position,
       data: {
         artifactId: node?.data?.artifactId ?? node?.artifactId ?? node?.id,
+        frameOverride: node?.frameOverride ?? node?.data?.frameOverride,
         artifactsById,
       },
       type: "artifact",
@@ -142,6 +143,7 @@ export const mapFlowNodesToBoardNodes = (nodes) => {
     return {
       id: String(node.id),
       artifactId: node?.data?.artifactId ?? node?.id,
+      frameOverride: node?.data?.frameOverride,
       x: Number.isFinite(node?.position?.x) ? node.position.x : 0,
       y: Number.isFinite(node?.position?.y) ? node.position.y : 0,
       w: width,

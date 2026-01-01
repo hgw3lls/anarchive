@@ -22,14 +22,35 @@ import {
 } from "./utils/boardPersistence.js";
 import { downloadJson, toBoardSchema } from "./utils/boardIO.js";
 
+const WALL_STYLE_STORAGE_KEY = "anarchive.wallStyle";
+const CAPTION_STORAGE_KEY = "anarchive.showCaptions";
+
 const wallStyle = {
   width: "100vw",
   height: "100vh",
   position: "relative",
-  backgroundColor: "#0f0f12",
-  color: "#f5f5f5",
+  color: "#1f1f1f",
   fontFamily:
     "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+};
+
+const WALL_STYLES = {
+  whiteCube: {
+    label: "White Cube",
+    style: {
+      backgroundColor: "#f6f4ef",
+      backgroundImage:
+        "radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.95), rgba(246, 244, 239, 0.9) 42%, rgba(234, 231, 224, 0.95) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.1) 100%)",
+    },
+  },
+  warmGallery: {
+    label: "Warm Gallery",
+    style: {
+      backgroundColor: "#f3eee4",
+      backgroundImage:
+        "radial-gradient(circle at 50% 0%, rgba(255, 251, 246, 0.95), rgba(243, 238, 228, 0.92) 45%, rgba(228, 218, 206, 0.96) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(90, 70, 50, 0.12) 100%)",
+    },
+  },
 };
 
 const overlayStyle = {
@@ -198,6 +219,19 @@ export default function Wall() {
   const [isLocked, setIsLocked] = useState(false);
   const [isHudCollapsed, setIsHudCollapsed] = useState(false);
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
+  const [wallStyleName, setWallStyleName] = useState(() => {
+    if (typeof window === "undefined") {
+      return "whiteCube";
+    }
+    const stored = window.localStorage.getItem(WALL_STYLE_STORAGE_KEY);
+    return stored && WALL_STYLES[stored] ? stored : "whiteCube";
+  });
+  const [showCaptions, setShowCaptions] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+    return window.localStorage.getItem(CAPTION_STORAGE_KEY) === "true";
+  });
   const [editionTitle, setEditionTitle] = useState("");
   const [editionTags, setEditionTags] = useState("");
   const [editionIdInput, setEditionIdInput] = useState("");
@@ -374,19 +408,31 @@ export default function Wall() {
   };
 
   useEffect(() => {
-    if (!artifactsById.size) {
-      return;
-    }
     setNodes((currentNodes) =>
       currentNodes.map((node) => ({
         ...node,
         data: {
           ...node.data,
           artifactsById,
+          showCaptions,
         },
       })),
     );
-  }, [artifactsById, setNodes]);
+  }, [artifactsById, setNodes, showCaptions]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.localStorage.setItem(WALL_STYLE_STORAGE_KEY, wallStyleName);
+  }, [wallStyleName]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.localStorage.setItem(CAPTION_STORAGE_KEY, showCaptions ? "true" : "false");
+  }, [showCaptions]);
 
   const getCurrentCamera = useCallback(() => {
     return (
@@ -698,10 +744,49 @@ export default function Wall() {
     [isArrangeMode, saveBoardSnapshot],
   );
 
+  const selectedNode = useMemo(
+    () => nodes.find((node) => node.id === selectedNodeId) ?? null,
+    [nodes, selectedNodeId],
+  );
+
+  const updateNodeFrameOverride = useCallback(
+    (nodeId, frameOverride) => {
+      if (!nodeId) {
+        return;
+      }
+      setNodes((currentNodes) => {
+        const nextNodes = currentNodes.map((node) => {
+          if (node.id !== nodeId) {
+            return node;
+          }
+          const nextData = { ...node.data };
+          if (!frameOverride) {
+            delete nextData.frameOverride;
+          } else {
+            nextData.frameOverride = frameOverride;
+          }
+          return {
+            ...node,
+            data: nextData,
+          };
+        });
+        nodesRef.current = nextNodes;
+        return nextNodes;
+      });
+      saveBoardSnapshot();
+    },
+    [saveBoardSnapshot, setNodes],
+  );
+
+  const wallBackgroundStyle = WALL_STYLES[wallStyleName]?.style ?? WALL_STYLES.whiteCube.style;
+
   return (
     <section style={wallStyle}>
       <ReactFlow
-        style={isLocked ? lockedFlowStyle : undefined}
+        style={{
+          ...wallBackgroundStyle,
+          ...(isLocked ? lockedFlowStyle : null),
+        }}
         nodes={nodes}
         edges={visibleEdges}
         proOptions={{ hideAttribution: true }}
@@ -737,7 +822,7 @@ export default function Wall() {
         minZoom={0.1}
         maxZoom={3}
       >
-        <Background gap={32} size={1} />
+        <Background gap={32} size={1} color="rgba(0, 0, 0, 0.04)" />
         <Controls showInteractive={false} />
         <MiniMap
           nodeColor="#6a6a6a"
@@ -762,6 +847,33 @@ export default function Wall() {
               {isArrangeMode ? "Arrange: ON" : "Arrange"}
             </button>
             <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+              View
+            </div>
+            <label style={{ fontSize: 12, opacity: 0.8 }}>
+              Wall style
+              <select
+                style={{ ...toolbarSelectStyle, marginTop: 6 }}
+                value={wallStyleName}
+                onChange={(event) => setWallStyleName(event.target.value)}
+              >
+                {Object.entries(WALL_STYLES).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label style={legendRowStyle}>
+              <span>Captions</span>
+              <input
+                type="checkbox"
+                checked={showCaptions}
+                onChange={(event) => setShowCaptions(event.target.checked)}
+              />
+            </label>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
@@ -946,11 +1058,13 @@ export default function Wall() {
       {error ? <div style={overlayStyle}>{error}</div> : null}
       <ArtifactDrawer
         artifact={selectedArtifact}
+        node={selectedNode}
         relatedArtifacts={relatedArtifacts}
         onClose={() => setSelectedArtifactId(null)}
         onSelectRelated={(artifactId) =>
           setSelectedArtifactId(String(artifactId))
         }
+        onUpdateFrameOverride={updateNodeFrameOverride}
       />
     </section>
   );
