@@ -8,6 +8,7 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import ArtifactDrawer from "./drawer/ArtifactDrawer.jsx";
+import YarnEdge from "./edges/YarnEdge.jsx";
 import ArtifactNode from "./nodes/ArtifactNode.jsx";
 
 const wallStyle = {
@@ -100,6 +101,12 @@ export default function Wall() {
   const nodeTypes = useMemo(
     () => ({
       artifact: ArtifactNode,
+    }),
+    [],
+  );
+  const edgeTypes = useMemo(
+    () => ({
+      yarn: YarnEdge,
     }),
     [],
   );
@@ -312,13 +319,20 @@ export default function Wall() {
           }),
         );
         setEdges(
-          boardEdges.map((edge) => ({
-            id: String(edge.id),
-            source: String(edge.source),
-            target: String(edge.target),
-            type: edge.type,
-            data: edge.data,
-          })),
+          boardEdges.map((edge) => {
+            const edgeLabel = edge?.label;
+            return {
+              id: String(edge.id),
+              source: String(edge.source),
+              target: String(edge.target),
+              type: edge.type ?? "yarn",
+              data: {
+                kind: edge?.kind,
+                label: edgeLabel,
+              },
+              label: edgeLabel,
+            };
+          }),
         );
         if (!nextCamera && boardPayload?.camera) {
           nextCamera = {
@@ -358,6 +372,7 @@ export default function Wall() {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onInit={setReactFlowInstance}
