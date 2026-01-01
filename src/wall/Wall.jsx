@@ -32,7 +32,50 @@ const overlayStyle = {
   zIndex: 10,
 };
 
+const searchContainerStyle = {
+  position: "absolute",
+  top: 16,
+  left: 16,
+  width: 260,
+  zIndex: 12,
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+};
+
+const searchInputStyle = {
+  width: "100%",
+  padding: "10px 12px",
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.12)",
+  background: "rgba(18, 18, 24, 0.92)",
+  color: "#f5f5f5",
+  fontSize: 13,
+};
+
+const searchResultsStyle = {
+  listStyle: "none",
+  margin: 0,
+  padding: 0,
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  background: "rgba(18, 18, 24, 0.96)",
+  overflow: "hidden",
+};
+
+const searchResultButtonStyle = {
+  width: "100%",
+  textAlign: "left",
+  padding: "10px 12px",
+  border: "none",
+  background: "transparent",
+  color: "#f5f5f5",
+  fontSize: 12,
+  cursor: "pointer",
+};
+
 const fitViewOptions = { padding: 0.2 };
+const cameraStorageKey = "anarchive.camera";
 
 export default function Wall() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
@@ -42,6 +85,7 @@ export default function Wall() {
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const artifactsById = useMemo(() => {
     const map = new Map();
@@ -77,6 +121,38 @@ export default function Wall() {
     return match?.id ?? null;
   }, [nodes, selectedArtifactId]);
 
+  const searchResults = useMemo(() => {
+    const trimmed = searchTerm.trim().toLowerCase();
+    if (!trimmed) {
+      return [];
+    }
+    return artifacts
+      .map((artifact) => {
+        if (!artifact?.id) {
+          return null;
+        }
+        const title = artifact.title ?? String(artifact.id);
+        const tags = Array.isArray(artifact.tags)
+          ? artifact.tags
+          : artifact.tags
+            ? [artifact.tags]
+            : [];
+        const searchTarget = [title, ...tags]
+          .map((value) => String(value ?? ""))
+          .join(" ")
+          .toLowerCase();
+        if (!searchTarget.includes(trimmed)) {
+          return null;
+        }
+        return {
+          id: String(artifact.id),
+          title,
+          tags,
+        };
+      })
+      .filter(Boolean);
+  }, [artifacts, searchTerm]);
+
   const relatedArtifacts = useMemo(() => {
     if (!selectedNodeId) {
       return [];
@@ -107,6 +183,22 @@ export default function Wall() {
     });
     return results;
   }, [artifactsById, edges, nodes, selectedNodeId]);
+
+  const centerOnNode = (node) => {
+    if (!reactFlowInstance || !node) {
+      return;
+    }
+    const position = node.positionAbsolute ?? node.position ?? { x: 0, y: 0 };
+    const width = node.width ?? 0;
+    const height = node.height ?? 0;
+    const currentZoom = reactFlowInstance.getZoom?.() ?? camera?.zoom ?? 1;
+    const zoom = Math.max(currentZoom, 1.4);
+    reactFlowInstance.setCenter(
+      position.x + width / 2,
+      position.y + height / 2,
+      { zoom },
+    );
+  };
 
   useEffect(() => {
     if (!artifactsById.size) {
@@ -163,6 +255,29 @@ export default function Wall() {
           ? boardPayload.edges
           : [];
 
+        let nextCamera = null;
+        if (typeof window !== "undefined") {
+          try {
+            const storedCamera = window.localStorage.getItem(cameraStorageKey);
+            if (storedCamera) {
+              const parsed = JSON.parse(storedCamera);
+              if (
+                typeof parsed?.x === "number" &&
+                typeof parsed?.y === "number" &&
+                typeof parsed?.zoom === "number"
+              ) {
+                nextCamera = {
+                  x: parsed.x,
+                  y: parsed.y,
+                  zoom: parsed.zoom,
+                };
+              }
+            }
+          } catch (storageError) {
+            console.warn("Unable to read stored camera.", storageError);
+          }
+        }
+
         setArtifacts(nextArtifacts);
         setNodes(
           boardNodes.map((node) => ({
@@ -187,12 +302,15 @@ export default function Wall() {
             data: edge.data,
           })),
         );
-        if (boardPayload?.camera) {
-          setCamera({
+        if (!nextCamera && boardPayload?.camera) {
+          nextCamera = {
             x: boardPayload.camera.x ?? 0,
             y: boardPayload.camera.y ?? 0,
             zoom: boardPayload.camera.zoom ?? 1,
-          });
+          };
+        }
+        if (nextCamera) {
+          setCamera(nextCamera);
         }
       } catch (loadError) {
         if (isMounted) {
@@ -228,6 +346,23 @@ export default function Wall() {
         onNodeClick={(_, node) =>
           setSelectedArtifactId(String(node?.data?.artifactId ?? node.id))
         }
+        onNodeDoubleClick={(_, node) => centerOnNode(node)}
+        onMoveEnd={(_, viewport) => {
+          if (!viewport) {
+            return;
+          }
+          setCamera(viewport);
+          if (typeof window !== "undefined") {
+            try {
+              window.localStorage.setItem(
+                cameraStorageKey,
+                JSON.stringify(viewport),
+              );
+            } catch (storageError) {
+              console.warn("Unable to store camera.", storageError);
+            }
+          }
+        }}
         fitView
         fitViewOptions={fitViewOptions}
         panOnScroll
@@ -246,6 +381,44 @@ export default function Wall() {
           maskColor="rgba(15, 15, 18, 0.5)"
         />
       </ReactFlow>
+      <div style={searchContainerStyle}>
+        <input
+          type="search"
+          placeholder="Search titles or tags..."
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+          style={searchInputStyle}
+        />
+        {searchResults.length ? (
+          <ul style={searchResultsStyle}>
+            {searchResults.map((result) => (
+              <li key={result.id}>
+                <button
+                  type="button"
+                  style={searchResultButtonStyle}
+                  onClick={() => {
+                    setSelectedArtifactId(result.id);
+                    const nodeMatch = nodes.find(
+                      (node) =>
+                        String(node?.data?.artifactId) === String(result.id),
+                    );
+                    if (nodeMatch) {
+                      centerOnNode(nodeMatch);
+                    }
+                  }}
+                >
+                  <div style={{ fontWeight: 600 }}>{result.title}</div>
+                  {result.tags.length ? (
+                    <div style={{ opacity: 0.65, marginTop: 2 }}>
+                      {result.tags.join(", ")}
+                    </div>
+                  ) : null}
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
       {error ? <div style={overlayStyle}>{error}</div> : null}
       <ArtifactDrawer
         artifact={selectedArtifact}
