@@ -1,27 +1,24 @@
 {
+  "camera": { "x": 0, "y": 0, "zoom": 1 },
   "nodes": [
-    {
-      "id": "image-01",
-      "position": { "x": -220, "y": -60 },
-      "data": { "artifactId": "image-01" }
-    },
-    {
-      "id": "text-01",
-      "position": { "x": 120, "y": -40 },
-      "data": { "artifactId": "text-01" }
-    },
-    {
-      "id": "video-01",
-      "position": { "x": -40, "y": 200 },
-      "data": { "artifactId": "video-01" }
-    }
+    { "id": "n-01", "artifactId": "a-print-02", "x": -780, "y": -220, "w": 260, "h": 220 },
+    { "id": "n-02", "artifactId": "a-poem-01",  "x": -520, "y":  60,  "w": 320, "h": 220 },
+    { "id": "n-03", "artifactId": "a-video-01", "x": -880, "y":  220, "w": 280, "h": 200 },
+
+    { "id": "n-04", "artifactId": "a-print-01", "x": -120, "y":  40,  "w": 260, "h": 220 },
+
+    { "id": "n-05", "artifactId": "a-print-03", "x":  420, "y": -160, "w": 280, "h": 220 },
+    { "id": "n-06", "artifactId": "a-poem-02",  "x":  320, "y":  180, "w": 320, "h": 220 }
   ],
   "edges": [
-    {
-      "id": "edge-image-text",
-      "source": "image-01",
-      "target": "text-01"
-    }
-  ],
-  "camera": { "x": 0, "y": 0, "zoom": 1 }
+    { "id": "e-01", "source": "n-01", "target": "n-02", "kind": "sequence",  "label": "loops into language" },
+    { "id": "e-02", "source": "n-03", "target": "n-02", "kind": "samples",   "label": "signal excerpt" },
+    { "id": "e-03", "source": "n-01", "target": "n-04", "kind": "echoes",    "label": "false-awakening bleed" },
+
+    { "id": "e-04", "source": "n-04", "target": "n-05", "kind": "threshold", "label": "bed → building" },
+    { "id": "e-05", "source": "n-05", "target": "n-06", "kind": "witness",   "label": "undocumented path" },
+
+    { "id": "e-06", "source": "n-02", "target": "n-04", "kind": "sequence",  "label": "transmission artifact" },
+    { "id": "e-07", "source": "n-06", "target": "n-05", "kind": "echoes",    "label": "blueprint drift" }
+  ]
 }

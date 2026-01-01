@@ -1,24 +1,57 @@
 {
   "artifacts": [
     {
-      "id": "image-01",
+      "id": "a-print-01",
       "type": "image",
-      "title": "Golden Hour Boardwalk",
-      "thumb": "/assets/thumbs/golden-hour.jpg",
-      "full": "/assets/full/golden-hour.jpg"
+      "title": "HYPNAGNOSIS PRINT 01 — Signal Residue Bed",
+      "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
+      "date": "2025-12-31",
+      "thumb": "/assets/thumbs/hyp_print_01.webp",
+      "full": "/assets/full/hyp_print_01.jpg"
     },
     {
-      "id": "text-01",
+      "id": "a-print-02",
+      "type": "image",
+      "title": "HYPNAGNOSIS PRINT 02 — False Awakening Diagram",
+      "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
+      "date": "2025-12-31",
+      "thumb": "/assets/thumbs/hyp_print_02.webp",
+      "full": "/assets/full/hyp_print_02.jpg"
+    },
+    {
+      "id": "a-print-03",
+      "type": "image",
+      "title": "HYPNAGNOSIS PRINT 03 — Undocumented Stair / Blueprints Drift",
+      "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
+      "date": "2025-12-31",
+      "thumb": "/assets/thumbs/hyp_print_03.webp",
+      "full": "/assets/full/hyp_print_03.jpg"
+    },
+    {
+      "id": "a-poem-01",
       "type": "text",
-      "title": "Field Notes: South Ridge",
-      "body": "Morning light rolls across the ridge like a soft blanket. We marked the trailhead, noted the shifting cloud cover, and logged the wind as it bent the grasses. The day ended with a slow climb and a surprising view of the valley.",
-      "excerpt": "Morning light rolls across the ridge like a soft blanket. We marked the trailhead, noted the shifting cloud cover, and logged the wind..."
+      "title": "POEM — SIMULCAST, 1997 (excerpted transmission)",
+      "tags": ["hypnagnosis", "broadcast", "simulcast", "loop", "analog-dread", "signal"],
+      "date": "2025-12-31",
+      "excerpt": "The past wasn’t remembered — it was transmitted. Station ID burns in. Weather lies politely. The rerun arrives early.",
+      "body": "# SIMULCAST, 1997\n\nThe past wasn’t remembered — it was **transmitted**.\n\nA station ID loops until it becomes a prayer.\nWeather updates arrive **days ahead** of the sky.\nAds sell you a feeling you haven’t had yet.\n\nWe call it archival.\nBut it’s rehearsal.\n\nAnd somewhere behind the CRT glow,\n**the city learns your name**\nby repeating it wrong.\n"
     },
     {
-      "id": "video-01",
+      "id": "a-poem-02",
+      "type": "text",
+      "title": "POEM — Door To Nowhere (Threshold Notes)",
+      "tags": ["hypnagnosis", "threshold", "door", "infrastructure", "witness", "residue"],
+      "date": "2025-12-31",
+      "excerpt": "A door that opens into maintenance light. A hallway that remembers you. A map that edits itself when you look away.",
+      "body": "# Door To Nowhere (Threshold Notes)\n\nA door that opens into **maintenance light**.\nA hallway that remembers you.\n\nBlueprints say *no*.\nThe wall says *almost*.\n\nYou step once.\nThe floor corrects your story.\n\nSomewhere, a stairwell keeps going\n**after the building stops**.\n"
+    },
+    {
+      "id": "a-video-01",
       "type": "video",
-      "title": "Night Market Walkthrough",
-      "thumb": "/assets/thumbs/night-market.jpg",
+      "title": "VIDEO — HYPNAGNOSIS: Crawlspace Witness (teaser)",
+      "tags": ["hypnagnosis", "video", "witness", "crawlspace", "infrastructure", "noir"],
+      "date": "2025-12-31",
+      "thumb": "/assets/thumbs/hyp_video_01.webp",
       "youtubeId": "dQw4w9WgXcQ"
     }
   ]
