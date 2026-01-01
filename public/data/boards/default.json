@@ -1,5 +1,27 @@
 {
-  "nodes": [],
-  "edges": [],
+  "nodes": [
+    {
+      "id": "image-01",
+      "position": { "x": -220, "y": -60 },
+      "data": { "artifactId": "image-01" }
+    },
+    {
+      "id": "text-01",
+      "position": { "x": 120, "y": -40 },
+      "data": { "artifactId": "text-01" }
+    },
+    {
+      "id": "video-01",
+      "position": { "x": -40, "y": 200 },
+      "data": { "artifactId": "video-01" }
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-image-text",
+      "source": "image-01",
+      "target": "text-01"
+    }
+  ],
   "camera": { "x": 0, "y": 0, "zoom": 1 }
 }

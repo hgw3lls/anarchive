@@ -1,3 +1,25 @@
 {
-  "artifacts": []
+  "artifacts": [
+    {
+      "id": "image-01",
+      "type": "image",
+      "title": "Golden Hour Boardwalk",
+      "thumb": "/assets/thumbs/golden-hour.jpg",
+      "full": "/assets/full/golden-hour.jpg"
+    },
+    {
+      "id": "text-01",
+      "type": "text",
+      "title": "Field Notes: South Ridge",
+      "body": "Morning light rolls across the ridge like a soft blanket. We marked the trailhead, noted the shifting cloud cover, and logged the wind as it bent the grasses. The day ended with a slow climb and a surprising view of the valley.",
+      "excerpt": "Morning light rolls across the ridge like a soft blanket. We marked the trailhead, noted the shifting cloud cover, and logged the wind..."
+    },
+    {
+      "id": "video-01",
+      "type": "video",
+      "title": "Night Market Walkthrough",
+      "thumb": "/assets/thumbs/night-market.jpg",
+      "youtubeId": "dQw4w9WgXcQ"
+    }
+  ]
 }

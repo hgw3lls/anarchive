@@ -53,12 +53,25 @@ export default function Wall() {
 
   const nodeTypes = useMemo(
     () => ({
-      artifact: (props) => (
-        <ArtifactNode {...props} artifactsById={artifactsById} />
-      ),
+      artifact: ArtifactNode,
     }),
-    [artifactsById],
+    [],
   );
+
+  useEffect(() => {
+    if (!artifactsById.size) {
+      return;
+    }
+    setNodes((currentNodes) =>
+      currentNodes.map((node) => ({
+        ...node,
+        data: {
+          ...node.data,
+          artifactsById,
+        },
+      })),
+    );
+  }, [artifactsById, setNodes]);
 
   useEffect(() => {
     let isMounted = true;
@@ -87,6 +100,12 @@ export default function Wall() {
         const nextArtifacts = Array.isArray(artifactsPayload?.artifacts)
           ? artifactsPayload.artifacts
           : [];
+        const nextArtifactsById = new Map();
+        nextArtifacts.forEach((artifact) => {
+          if (artifact?.id !== undefined && artifact?.id !== null) {
+            nextArtifactsById.set(String(artifact.id), artifact);
+          }
+        });
         const boardNodes = Array.isArray(boardPayload?.nodes)
           ? boardPayload.nodes
           : [];
@@ -104,6 +123,7 @@ export default function Wall() {
             },
             data: {
               artifactId: node?.data?.artifactId ?? node?.artifactId ?? node?.id,
+              artifactsById: nextArtifactsById,
             },
             type: "artifact",
           })),
