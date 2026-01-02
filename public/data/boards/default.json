@@ -1,25 +1,414 @@
 {
-  "camera": { "x": 0, "y": 0, "zoom": 1 },
+  "camera": {
+    "x": 0,
+    "y": 0,
+    "zoom": 0.85
+  },
   "nodes": [
-    { "id": "n-01", "artifactId": "a-print-02", "x": -780, "y": -220, "w": 260, "h": 220 },
-    { "id": "n-02", "artifactId": "a-poem-01",  "x": -520, "y":  60,  "w": 320, "h": 220 },
-    { "id": "n-03", "artifactId": "a-video-01", "x": -880, "y":  220, "w": 280, "h": 200 },
-
-    { "id": "n-04", "artifactId": "a-print-01", "x": -120, "y":  40,  "w": 260, "h": 220 },
-
-    { "id": "n-05", "artifactId": "a-print-03", "x":  420, "y": -160, "w": 280, "h": 220 },
-    { "id": "n-06", "artifactId": "a-print-04", "x":  20, "y": -160, "w": 280, "h": 220 },
-    { "id": "n-07", "artifactId": "a-poem-02",  "x":  320, "y":  180, "w": 320, "h": 220 }
+    {
+      "id": "n-01",
+      "artifactId": "am-before-sleep-2024",
+      "x": -980,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-02",
+      "artifactId": "where-motion-lets-go-2024",
+      "x": -640,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-03",
+      "artifactId": "when-motion-takes-hold-2024",
+      "x": -300,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-04",
+      "artifactId": "collapse-index-2024",
+      "x": -980,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-05",
+      "artifactId": "eye-slow-collapse-2024",
+      "x": -640,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-06",
+      "artifactId": "melted-ascent-2024",
+      "x": -300,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-07",
+      "artifactId": "chronostasis-2024",
+      "x": 40,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-08",
+      "artifactId": "visitation-field-2024",
+      "x": -980,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-09",
+      "artifactId": "contamination-field",
+      "x": -640,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-10",
+      "artifactId": "extraction-event",
+      "x": -300,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-11",
+      "artifactId": "mark-of-authorization",
+      "x": 40,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-12",
+      "artifactId": "paralytic-sun-2025",
+      "x": 420,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-13",
+      "artifactId": "sun-of-the-sleeper-2024",
+      "x": 760,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-14",
+      "artifactId": "sleep-demon-03-2024",
+      "x": 1100,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-15",
+      "artifactId": "sleeper-suspect-2025",
+      "x": 420,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-16",
+      "artifactId": "split-face-communion-2025",
+      "x": 760,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-17",
+      "artifactId": "spirit-animal-2025",
+      "x": 1100,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-18",
+      "artifactId": "spectral-breath-study-2024",
+      "x": 420,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-19",
+      "artifactId": "aperture-assembly-2025",
+      "x": 760,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-20",
+      "artifactId": "exhaust-of-the-crowd",
+      "x": 1100,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-21",
+      "artifactId": "brain-root-atlas",
+      "x": 1440,
+      "y": 120,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-22",
+      "artifactId": "shutdown-stack",
+      "x": 1440,
+      "y": 480,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-23",
+      "artifactId": "screen-lock",
+      "x": 1440,
+      "y": -220,
+      "w": 320,
+      "h": 260
+    },
+    {
+      "id": "n-24",
+      "artifactId": "flesh-parade",
+      "x": 420,
+      "y": -560,
+      "w": 480,
+      "h": 270
+    },
+    {
+      "id": "n-25",
+      "artifactId": "double-exposure",
+      "x": 760,
+      "y": -560,
+      "w": 280,
+      "h": 360
+    }
   ],
   "edges": [
-    { "id": "e-01", "source": "n-01", "target": "n-02", "kind": "sequence",  "label": "loops into language" },
-    { "id": "e-02", "source": "n-03", "target": "n-02", "kind": "samples",   "label": "signal excerpt" },
-    { "id": "e-03", "source": "n-01", "target": "n-04", "kind": "echoes",    "label": "false-awakening bleed" },
-
-    { "id": "e-04", "source": "n-04", "target": "n-05", "kind": "threshold", "label": "bed → building" },
-    { "id": "e-05", "source": "n-05", "target": "n-06", "kind": "witness",   "label": "undocumented path" },
-
-    { "id": "e-06", "source": "n-02", "target": "n-04", "kind": "sequence",  "label": "transmission artifact" },
-    { "id": "e-07", "source": "n-06", "target": "n-05", "kind": "echoes",    "label": "blueprint drift" }
+    {
+      "id": "e-01",
+      "source": "n-01",
+      "target": "n-02",
+      "kind": "sequence",
+      "label": "motion \u2192 release"
+    },
+    {
+      "id": "e-02",
+      "source": "n-02",
+      "target": "n-03",
+      "kind": "sequence",
+      "label": "release \u2192 hold"
+    },
+    {
+      "id": "e-03",
+      "source": "n-03",
+      "target": "n-01",
+      "kind": "echoes",
+      "label": "loop-back"
+    },
+    {
+      "id": "e-04",
+      "source": "n-04",
+      "target": "n-05",
+      "kind": "sequence",
+      "label": "index \u2192 witness"
+    },
+    {
+      "id": "e-05",
+      "source": "n-05",
+      "target": "n-06",
+      "kind": "sequence",
+      "label": "witness \u2192 deformation"
+    },
+    {
+      "id": "e-06",
+      "source": "n-06",
+      "target": "n-07",
+      "kind": "threshold",
+      "label": "deform \u2192 time-stall"
+    },
+    {
+      "id": "e-07",
+      "source": "n-07",
+      "target": "n-04",
+      "kind": "echoes",
+      "label": "system repeats"
+    },
+    {
+      "id": "e-08",
+      "source": "n-08",
+      "target": "n-09",
+      "kind": "sequence",
+      "label": "field \u2192 contamination"
+    },
+    {
+      "id": "e-09",
+      "source": "n-09",
+      "target": "n-10",
+      "kind": "sequence",
+      "label": "contamination \u2192 extraction"
+    },
+    {
+      "id": "e-10",
+      "source": "n-11",
+      "target": "n-09",
+      "kind": "samples",
+      "label": "authorizes drift"
+    },
+    {
+      "id": "e-11",
+      "source": "n-11",
+      "target": "n-10",
+      "kind": "samples",
+      "label": "authorizes event"
+    },
+    {
+      "id": "e-12",
+      "source": "n-12",
+      "target": "n-13",
+      "kind": "echoes",
+      "label": "shared radiance"
+    },
+    {
+      "id": "e-13",
+      "source": "n-13",
+      "target": "n-14",
+      "kind": "threshold",
+      "label": "sun \u2192 entity"
+    },
+    {
+      "id": "e-14",
+      "source": "n-14",
+      "target": "n-12",
+      "kind": "witness",
+      "label": "paralysis circuit"
+    },
+    {
+      "id": "e-15",
+      "source": "n-15",
+      "target": "n-16",
+      "kind": "threshold",
+      "label": "case \u2192 communion"
+    },
+    {
+      "id": "e-16",
+      "source": "n-16",
+      "target": "n-17",
+      "kind": "echoes",
+      "label": "entity residue"
+    },
+    {
+      "id": "e-17",
+      "source": "n-18",
+      "target": "n-12",
+      "kind": "echoes",
+      "label": "breath \u2192 paralysis"
+    },
+    {
+      "id": "e-18",
+      "source": "n-19",
+      "target": "n-20",
+      "kind": "sequence",
+      "label": "assembly \u2192 crowd"
+    },
+    {
+      "id": "e-19",
+      "source": "n-20",
+      "target": "n-04",
+      "kind": "echoes",
+      "label": "pressure collapse"
+    },
+    {
+      "id": "e-20",
+      "source": "n-21",
+      "target": "n-22",
+      "kind": "sequence",
+      "label": "mapping \u2192 stack"
+    },
+    {
+      "id": "e-21",
+      "source": "n-22",
+      "target": "n-23",
+      "kind": "threshold",
+      "label": "shutdown \u2192 lock"
+    },
+    {
+      "id": "e-22",
+      "source": "n-23",
+      "target": "n-11",
+      "kind": "samples",
+      "label": "control surface"
+    },
+    {
+      "id": "e-23",
+      "source": "n-24",
+      "target": "n-12",
+      "kind": "witness",
+      "label": "swarm at the bed"
+    },
+    {
+      "id": "e-24",
+      "source": "n-24",
+      "target": "n-14",
+      "kind": "echoes",
+      "label": "entity procession"
+    },
+    {
+      "id": "e-25",
+      "source": "n-24",
+      "target": "n-15",
+      "kind": "threshold",
+      "label": "casefile nightmare"
+    },
+    {
+      "id": "e-26",
+      "source": "n-24",
+      "target": "n-04",
+      "kind": "echoes",
+      "label": "collapse made visceral"
+    },
+    {
+      "id": "e-27",
+      "source": "n-25",
+      "target": "n-16",
+      "kind": "echoes",
+      "label": "double / split"
+    },
+    {
+      "id": "e-28",
+      "source": "n-25",
+      "target": "n-19",
+      "kind": "sequence",
+      "label": "aperture \u2192 exposure"
+    },
+    {
+      "id": "e-29",
+      "source": "n-25",
+      "target": "n-15",
+      "kind": "echoes",
+      "label": "noir duplication"
+    }
   ]
 }

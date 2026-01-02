@@ -1,71 +1,492 @@
 {
   "artifacts": [
     {
-      "id": "a-print-01",
+      "id": "am-before-sleep-2024",
       "type": "image",
-      "title": "Spirit Animal",
-      "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/SpiritAnimal.png",
-      "full": "/assets/full/SpiritAnimal.png",
-      "frame": { "variant": "thinBlack", "mat": 0 }
+      "title": "After Motion, Before Sleep",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "motion",
+        "sleep",
+        "sequence"
+      ],
+      "thumb": "/assets/thumbs/AfterMotionBeforeSleep.png",
+      "full": "/assets/full/AfterMotionBeforeSleep.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     },
     {
-      "id": "a-print-02",
-      "type": "image",
-      "title": "The Melted Ascent",
-      "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/MeltedAscent.png",
-      "full": "/assets/full/MeltedAscent.png",
-      "frame": { "variant": "thinBlack", "mat": 0 }
-    },
-    {
-      "id": "a-print-03",
+      "id": "collapse-index-2024",
       "type": "image",
       "title": "The Collapse Index",
-      "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
-      "date": "2025-12-31",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "collapse",
+        "index",
+        "systems"
+      ],
       "thumb": "/assets/thumbs/CollapseIndex.png",
       "full": "/assets/full/CollapseIndex.png",
-      "frame": { "variant": "thinBlack", "mat": 0 }
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     },
     {
-      "id": "a-print-04",
+      "id": "chronostasis-2024",
+      "type": "image",
+      "title": "Chronostasis",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "time",
+        "pause",
+        "stasis"
+      ],
+      "thumb": "/assets/thumbs/Chronostasis.png",
+      "full": "/assets/full/Chronostasis.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "melted-ascent-2024",
+      "type": "image",
+      "title": "The Melted Ascent",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "collapse",
+        "ascent",
+        "deformation"
+      ],
+      "thumb": "/assets/thumbs/MeltedAscent.png",
+      "full": "/assets/full/MeltedAscent.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "eye-slow-collapse-2024",
+      "type": "image",
+      "title": "Eye of the Slow Collapse",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "collapse",
+        "eye",
+        "witness"
+      ],
+      "thumb": "/assets/thumbs/EyeSlowCollapse.png",
+      "full": "/assets/full/EyeSlowCollapse.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "where-motion-lets-go-2024",
+      "type": "image",
+      "title": "Where Motion Lets Go",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "motion",
+        "release",
+        "sequence"
+      ],
+      "thumb": "/assets/thumbs/WhereMotionLetsGo.png",
+      "full": "/assets/full/WhereMotionLetsGo.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "when-motion-takes-hold-2024",
+      "type": "image",
+      "title": "When Motion Takes Hold",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "motion",
+        "capture",
+        "sequence"
+      ],
+      "thumb": "/assets/thumbs/WhenMotionTakesHold.png",
+      "full": "/assets/full/WhenMotionTakesHold.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "sleeper-suspect-2025",
       "type": "image",
       "title": "Sleeper Suspect",
-      "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
-      "date": "2025-12-31",
+      "year": 2025,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "noir",
+        "sleep",
+        "casefile"
+      ],
       "thumb": "/assets/thumbs/SleeperSuspect.png",
       "full": "/assets/full/SleeperSuspect.png",
-      "frame": { "variant": "thinBlack", "mat": 0 }
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     },
     {
-      "id": "a-poem-01",
-      "type": "text",
-      "title": "POEM — SIMULCAST, 1997 (excerpted transmission)",
-      "tags": ["hypnagnosis", "broadcast", "simulcast", "loop", "analog-dread", "signal"],
-      "date": "2025-12-31",
-      "excerpt": "The past wasn’t remembered — it was transmitted. Station ID burns in. Weather lies politely. The rerun arrives early.",
-      "body": "# SIMULCAST, 1997\n\nThe past wasn’t remembered — it was **transmitted**.\n\nA station ID loops until it becomes a prayer.\nWeather updates arrive **days ahead** of the sky.\nAds sell you a feeling you haven’t had yet.\n\nWe call it archival.\nBut it’s rehearsal.\n\nAnd somewhere behind the CRT glow,\n**the city learns your name**\nby repeating it wrong.\n"
+      "id": "split-face-communion-2025",
+      "type": "image",
+      "title": "The Split Face Communion",
+      "year": 2025,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "identity",
+        "double",
+        "ritual"
+      ],
+      "thumb": "/assets/thumbs/SplitFaceComm.png",
+      "full": "/assets/full/SplitFaceComm.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     },
     {
-      "id": "a-poem-02",
-      "type": "text",
-      "title": "POEM — Door To Nowhere (Threshold Notes)",
-      "tags": ["hypnagnosis", "threshold", "door", "infrastructure", "witness", "residue"],
-      "date": "2025-12-31",
-      "excerpt": "A door that opens into maintenance light. A hallway that remembers you. A map that edits itself when you look away.",
-      "body": "# Door To Nowhere (Threshold Notes)\n\nA door that opens into **maintenance light**.\nA hallway that remembers you.\n\nBlueprints say *no*.\nThe wall says *almost*.\n\nYou step once.\nThe floor corrects your story.\n\nSomewhere, a stairwell keeps going\n**after the building stops**.\n"
+      "id": "aperture-assembly-2025",
+      "type": "image",
+      "title": "Aperture Assembly",
+      "year": 2025,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "assembly",
+        "aperture",
+        "signal"
+      ],
+      "thumb": "/assets/thumbs/ApertureAssembly..png",
+      "full": "/assets/full/ApertureAssembly..png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     },
     {
-      "id": "a-video-01",
-      "type": "video",
-      "title": "VIDEO — HYPNAGNOSIS: Crawlspace Witness (teaser)",
-      "tags": ["hypnagnosis", "video", "witness", "crawlspace", "infrastructure", "noir"],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/hyp_video_01.webp",
-      "youtubeId": "dQw4w9WgXcQ"
+      "id": "spectral-breath-study-2024",
+      "type": "image",
+      "title": "Spectral Breath Study",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "breath",
+        "spectral",
+        "body"
+      ],
+      "thumb": "/assets/thumbs/SpectralBreathStudy..png",
+      "full": "/assets/full/SpectralBreathStudy..png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "spirit-animal-2025",
+      "type": "image",
+      "title": "Spirit Animal",
+      "year": 2025,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "animal",
+        "entity",
+        "guardian"
+      ],
+      "thumb": "/assets/thumbs/SpiritAnimal.png",
+      "full": "/assets/full/SpiritAnimal.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "paralytic-sun-2025",
+      "type": "image",
+      "title": "Paralytic Sun",
+      "year": 2025,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "sleep-paralysis",
+        "sun",
+        "radiance"
+      ],
+      "thumb": "/assets/thumbs/ParalyticSun.png",
+      "full": "/assets/full/ParalyticSun.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "sleep-demon-03-2024",
+      "type": "image",
+      "title": "Sleep Demon No. 3",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "sleep-demon",
+        "entity",
+        "paralysis"
+      ],
+      "thumb": "/assets/thumbs/SleepDemonNo3.png",
+      "full": "/assets/full/SleepDemonNo3.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "sun-of-the-sleeper-2024",
+      "type": "image",
+      "title": "Sun of the Sleeper",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "sleep",
+        "sun",
+        "radiance"
+      ],
+      "thumb": "/assets/thumbs/SunSleeper.png",
+      "full": "/assets/full/SunSleeper.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "visitation-field-2024",
+      "type": "image",
+      "title": "The Visitation Field",
+      "year": 2024,
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "field",
+        "visitation",
+        "presence"
+      ],
+      "thumb": "/assets/thumbs/VisitationField.png",
+      "full": "/assets/full/VisitationField.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "mark-of-authorization",
+      "type": "image",
+      "title": "The Mark of Authorization",
+      "tags": [
+        "hypnagnosis",
+        "authorization",
+        "seal",
+        "institution"
+      ],
+      "thumb": "/assets/thumbs/MarkofAuthorization.png",
+      "full": "/assets/full/MarkofAuthorization.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "contamination-field",
+      "type": "image",
+      "title": "The Contamination Field",
+      "tags": [
+        "hypnagnosis",
+        "field",
+        "contamination",
+        "drift"
+      ],
+      "thumb": "/assets/thumbs/ContaminationField.png",
+      "full": "/assets/full/ContaminationField.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "extraction-event",
+      "type": "image",
+      "title": "The Extraction Event",
+      "tags": [
+        "hypnagnosis",
+        "extraction",
+        "event",
+        "harvest"
+      ],
+      "thumb": "/assets/thumbs/ExtractionEvent.png",
+      "full": "/assets/full/ExtractionEvent.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "shutdown-stack",
+      "type": "image",
+      "title": "Shutdown Stack",
+      "tags": [
+        "hypnagnosis",
+        "stack",
+        "shutdown",
+        "collapse"
+      ],
+      "thumb": "/assets/thumbs/ShutdownStack.png",
+      "full": "/assets/full/ShutdownStack.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "brain-root-atlas",
+      "type": "image",
+      "title": "Brain-Root Atlas",
+      "tags": [
+        "hypnagnosis",
+        "atlas",
+        "brain-root",
+        "mapping"
+      ],
+      "thumb": "/assets/thumbs/BrainRootAxis.png",
+      "full": "/assets/full/BrainRootAxis.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "exhaust-of-the-crowd",
+      "type": "image",
+      "title": "Exhaust of the Crowd",
+      "tags": [
+        "hypnagnosis",
+        "crowd",
+        "exhaust",
+        "pressure"
+      ],
+      "thumb": "/assets/thumbs/ExhaustCrowd.png",
+      "full": "/assets/full/ExhaustCrowd.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "screen-lock",
+      "type": "image",
+      "title": "Screen Lock",
+      "tags": [
+        "hypnagnosis",
+        "screen",
+        "lock",
+        "control"
+      ],
+      "thumb": "/assets/thumbs/ScreenLock.png",
+      "full": "/assets/full/ScreenLock.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "flesh-parade",
+      "type": "image",
+      "title": "Flesh Parade",
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "flesh-parade",
+        "hallucination",
+        "cataplexy",
+        "bed",
+        "swarm"
+      ],
+      "thumb": "/assets/thumbs/FleshParade.png",
+      "full": "/assets/full/FleshParade.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
+    },
+    {
+      "id": "double-exposure",
+      "type": "image",
+      "title": "Double Exposure",
+      "medium": "Risograph",
+      "tags": [
+        "hypnagnosis",
+        "double",
+        "exposure",
+        "threshold",
+        "noir",
+        "duplication"
+      ],
+      "thumb": "/assets/thumbs/DoubleExposure.png",
+      "full": "/assets/full/DoubleExposure.png",
+      "presentation": {
+        "frame": "thin-black",
+        "mount": "float",
+        "mat": "none"
+      }
     }
   ]
 }
