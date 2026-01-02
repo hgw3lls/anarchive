@@ -8,7 +8,8 @@
     { "id": "n-04", "artifactId": "a-print-01", "x": -120, "y":  40,  "w": 260, "h": 220 },
 
     { "id": "n-05", "artifactId": "a-print-03", "x":  420, "y": -160, "w": 280, "h": 220 },
-    { "id": "n-06", "artifactId": "a-poem-02",  "x":  320, "y":  180, "w": 320, "h": 220 }
+    { "id": "n-06", "artifactId": "a-print-04", "x":  20, "y": -160, "w": 280, "h": 220 },
+    { "id": "n-07", "artifactId": "a-poem-02",  "x":  320, "y":  180, "w": 320, "h": 220 }
   ],
   "edges": [
     { "id": "e-01", "source": "n-01", "target": "n-02", "kind": "sequence",  "label": "loops into language" },

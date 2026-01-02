@@ -3,31 +3,41 @@
     {
       "id": "a-print-01",
       "type": "image",
-      "title": "HYPNAGNOSIS PRINT 01 — Signal Residue Bed",
+      "title": "Spirit Animal",
       "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
       "date": "2025-12-31",
-      "thumb": "/assets/thumbs/hyp_print_01.webp",
-      "full": "/assets/full/hyp_print_01.jpg",
+      "thumb": "assets/thumbs/SpiritAnimal.png",
+      "full": "assets/full/SpiritAnimal.png",
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
       "id": "a-print-02",
       "type": "image",
-      "title": "HYPNAGNOSIS PRINT 02 — False Awakening Diagram",
+      "title": "The Melted Ascent",
       "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
       "date": "2025-12-31",
-      "thumb": "/assets/thumbs/hyp_print_02.webp",
-      "full": "/assets/full/hyp_print_02.jpg",
+      "thumb": "/anarchive/assets/thumbs/MeltedAscent.png",
+      "full": "/anarchive/assets/full/MeltedAscent.png",
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
       "id": "a-print-03",
       "type": "image",
-      "title": "HYPNAGNOSIS PRINT 03 — Undocumented Stair / Blueprints Drift",
+      "title": "The Collapse Index",
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
-      "thumb": "/assets/thumbs/hyp_print_03.webp",
-      "full": "/assets/full/hyp_print_03.jpg",
+      "thumb": "/anarchive/assets/thumbs/CollapseIndex.png",
+      "full": "/anarchive/assets/full/CollapseIndex.png",
+      "frame": { "variant": "thinBlack", "mat": 0 }
+    },
+    {
+      "id": "a-print-04",
+      "type": "image",
+      "title": "Sleeper Suspect",
+      "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
+      "date": "2025-12-31",
+      "thumb": "/anarchive/assets/thumbs/SleeperSuspect.png",
+      "full": "/anarchive/assets/full/SleeperSuspect.png",
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
