@@ -6,8 +6,13 @@
       "title": "Spirit Animal",
       "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
       "date": "2025-12-31",
+<<<<<<< ours
       "thumb": "assets/thumbs/SpiritAnimal.png",
       "full": "assets/full/SpiritAnimal.png",
+=======
+      "thumb": "/assets/thumbs/SpiritAnimal.png",
+      "full": "/assets/full/SpiritAnimal.png",
+>>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
@@ -16,8 +21,13 @@
       "title": "The Melted Ascent",
       "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
       "date": "2025-12-31",
+<<<<<<< ours
       "thumb": "/anarchive/assets/thumbs/MeltedAscent.png",
       "full": "/anarchive/assets/full/MeltedAscent.png",
+=======
+      "thumb": "/assets/thumbs/MeltedAscent.png",
+      "full": "/assets/full/MeltedAscent.png",
+>>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
@@ -26,8 +36,13 @@
       "title": "The Collapse Index",
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
+<<<<<<< ours
       "thumb": "/anarchive/assets/thumbs/CollapseIndex.png",
       "full": "/anarchive/assets/full/CollapseIndex.png",
+=======
+      "thumb": "/assets/thumbs/CollapseIndex.png",
+      "full": "/assets/full/CollapseIndex.png",
+>>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
@@ -36,8 +51,13 @@
       "title": "Sleeper Suspect",
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
+<<<<<<< ours
       "thumb": "/anarchive/assets/thumbs/SleeperSuspect.png",
       "full": "/anarchive/assets/full/SleeperSuspect.png",
+=======
+      "thumb": "/assets/thumbs/SleeperSuspect.png",
+      "full": "/assets/full/SleeperSuspect.png",
+>>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
     },
     {
