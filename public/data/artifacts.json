@@ -4,162 +4,56 @@
       "id": "a-print-01",
       "type": "image",
       "title": "Spirit Animal",
-<<<<<<< ours
       "tags": ["hypnagnosis", "sleep", "signal", "residue", "bed", "archive"],
       "date": "2025-12-31",
-<<<<<<< ours
-      "thumb": "assets/thumbs/SpiritAnimal.png",
-      "full": "assets/full/SpiritAnimal.png",
-=======
       "thumb": "/assets/thumbs/SpiritAnimal.png",
       "full": "/assets/full/SpiritAnimal.png",
->>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
-=======
-      "tags": [
-        "hypnagnosis",
-        "sleep",
-        "signal",
-        "residue",
-        "bed",
-        "archive"
-      ],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/SpiritAnimal.png",
-      "full": "/assets/full/SpiritAnimal.png",
-      "frame": {
-        "variant": "thinBlack",
-        "mat": 0
-      }
->>>>>>> theirs
     },
     {
       "id": "a-print-02",
       "type": "image",
       "title": "The Melted Ascent",
-<<<<<<< ours
       "tags": ["hypnagnosis", "false-awakening", "loop", "diagram", "broadcast", "threshold"],
       "date": "2025-12-31",
-<<<<<<< ours
-      "thumb": "/anarchive/assets/thumbs/MeltedAscent.png",
-      "full": "/anarchive/assets/full/MeltedAscent.png",
-=======
       "thumb": "/assets/thumbs/MeltedAscent.png",
       "full": "/assets/full/MeltedAscent.png",
->>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
-=======
-      "tags": [
-        "hypnagnosis",
-        "false-awakening",
-        "loop",
-        "diagram",
-        "broadcast",
-        "threshold"
-      ],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/MeltedAscent.png",
-      "full": "/assets/full/MeltedAscent.png",
-      "frame": {
-        "variant": "thinBlack",
-        "mat": 0
-      }
->>>>>>> theirs
     },
     {
       "id": "a-print-03",
       "type": "image",
       "title": "The Collapse Index",
-<<<<<<< ours
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
-<<<<<<< ours
-      "thumb": "/anarchive/assets/thumbs/CollapseIndex.png",
-      "full": "/anarchive/assets/full/CollapseIndex.png",
-=======
       "thumb": "/assets/thumbs/CollapseIndex.png",
       "full": "/assets/full/CollapseIndex.png",
->>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
-=======
-      "tags": [
-        "hypnagnosis",
-        "infrastructure",
-        "undocumented",
-        "stairwell",
-        "blueprints",
-        "drift"
-      ],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/CollapseIndex.png",
-      "full": "/assets/full/CollapseIndex.png",
-      "frame": {
-        "variant": "thinBlack",
-        "mat": 0
-      }
->>>>>>> theirs
     },
     {
       "id": "a-print-04",
       "type": "image",
       "title": "Sleeper Suspect",
-<<<<<<< ours
       "tags": ["hypnagnosis", "infrastructure", "undocumented", "stairwell", "blueprints", "drift"],
       "date": "2025-12-31",
-<<<<<<< ours
-      "thumb": "/anarchive/assets/thumbs/SleeperSuspect.png",
-      "full": "/anarchive/assets/full/SleeperSuspect.png",
-=======
       "thumb": "/assets/thumbs/SleeperSuspect.png",
       "full": "/assets/full/SleeperSuspect.png",
->>>>>>> theirs
       "frame": { "variant": "thinBlack", "mat": 0 }
-=======
-      "tags": [
-        "hypnagnosis",
-        "infrastructure",
-        "undocumented",
-        "stairwell",
-        "blueprints",
-        "drift"
-      ],
-      "date": "2025-12-31",
-      "thumb": "/assets/thumbs/SleeperSuspect.png",
-      "full": "/assets/full/SleeperSuspect.png",
-      "frame": {
-        "variant": "thinBlack",
-        "mat": 0
-      }
->>>>>>> theirs
     },
     {
       "id": "a-poem-01",
       "type": "text",
-      "title": "POEM \u2014 SIMULCAST, 1997 (excerpted transmission)",
-      "tags": [
-        "hypnagnosis",
-        "broadcast",
-        "simulcast",
-        "loop",
-        "analog-dread",
-        "signal"
-      ],
+      "title": "POEM — SIMULCAST, 1997 (excerpted transmission)",
+      "tags": ["hypnagnosis", "broadcast", "simulcast", "loop", "analog-dread", "signal"],
       "date": "2025-12-31",
-      "excerpt": "The past wasn\u2019t remembered \u2014 it was transmitted. Station ID burns in. Weather lies politely. The rerun arrives early.",
-      "body": "# SIMULCAST, 1997\n\nThe past wasn\u2019t remembered \u2014 it was **transmitted**.\n\nA station ID loops until it becomes a prayer.\nWeather updates arrive **days ahead** of the sky.\nAds sell you a feeling you haven\u2019t had yet.\n\nWe call it archival.\nBut it\u2019s rehearsal.\n\nAnd somewhere behind the CRT glow,\n**the city learns your name**\nby repeating it wrong.\n"
+      "excerpt": "The past wasn’t remembered — it was transmitted. Station ID burns in. Weather lies politely. The rerun arrives early.",
+      "body": "# SIMULCAST, 1997\n\nThe past wasn’t remembered — it was **transmitted**.\n\nA station ID loops until it becomes a prayer.\nWeather updates arrive **days ahead** of the sky.\nAds sell you a feeling you haven’t had yet.\n\nWe call it archival.\nBut it’s rehearsal.\n\nAnd somewhere behind the CRT glow,\n**the city learns your name**\nby repeating it wrong.\n"
     },
     {
       "id": "a-poem-02",
       "type": "text",
-      "title": "POEM \u2014 Door To Nowhere (Threshold Notes)",
-      "tags": [
-        "hypnagnosis",
-        "threshold",
-        "door",
-        "infrastructure",
-        "witness",
-        "residue"
-      ],
+      "title": "POEM — Door To Nowhere (Threshold Notes)",
+      "tags": ["hypnagnosis", "threshold", "door", "infrastructure", "witness", "residue"],
       "date": "2025-12-31",
       "excerpt": "A door that opens into maintenance light. A hallway that remembers you. A map that edits itself when you look away.",
       "body": "# Door To Nowhere (Threshold Notes)\n\nA door that opens into **maintenance light**.\nA hallway that remembers you.\n\nBlueprints say *no*.\nThe wall says *almost*.\n\nYou step once.\nThe floor corrects your story.\n\nSomewhere, a stairwell keeps going\n**after the building stops**.\n"
@@ -167,15 +61,8 @@
     {
       "id": "a-video-01",
       "type": "video",
-      "title": "VIDEO \u2014 HYPNAGNOSIS: Crawlspace Witness (teaser)",
-      "tags": [
-        "hypnagnosis",
-        "video",
-        "witness",
-        "crawlspace",
-        "infrastructure",
-        "noir"
-      ],
+      "title": "VIDEO — HYPNAGNOSIS: Crawlspace Witness (teaser)",
+      "tags": ["hypnagnosis", "video", "witness", "crawlspace", "infrastructure", "noir"],
       "date": "2025-12-31",
       "thumb": "/assets/thumbs/hyp_video_01.webp",
       "youtubeId": "dQw4w9WgXcQ"
