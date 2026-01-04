@@ -3,12 +3,12 @@ import Frame from "./Frame.jsx";
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "rgba(10, 10, 14, 0.82)",
+  background: "var(--overlay)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   zIndex: 50,
-  color: "#f5f5f5",
+  color: "var(--text-inverse)",
 };
 
 const contentStyle = {
@@ -36,7 +36,7 @@ const mediaStyle = {
   maxHeight: "80vh",
   display: "block",
   objectFit: "contain",
-  borderRadius: 3,
+  borderRadius: "var(--radius-sm)",
 };
 
 const labelStyle = {
@@ -45,6 +45,12 @@ const labelStyle = {
   flexDirection: "column",
   gap: 6,
   maxWidth: "68ch",
+  background: "var(--surface)",
+  color: "var(--text)",
+  border: "2px solid var(--border)",
+  boxShadow: "var(--shadow-hard)",
+  borderRadius: "var(--radius-md)",
+  padding: "12px 16px",
 };
 
 const labelTitleStyle = {
@@ -55,7 +61,7 @@ const labelTitleStyle = {
 
 const labelMetaStyle = {
   fontSize: 13,
-  opacity: 0.75,
+  color: "var(--text-muted)",
 };
 
 const tagRowStyle = {
@@ -69,9 +75,10 @@ const tagRowStyle = {
 const tagStyle = {
   padding: "3px 10px",
   borderRadius: 999,
-  border: "1px solid rgba(255, 255, 255, 0.2)",
+  border: "2px solid var(--border)",
+  background: "var(--surface-muted)",
   fontSize: 11,
-  opacity: 0.75,
+  color: "var(--text)",
 };
 
 const closeButtonStyle = {
@@ -79,22 +86,23 @@ const closeButtonStyle = {
   top: 18,
   right: 18,
   borderRadius: 999,
-  border: "1px solid rgba(255, 255, 255, 0.3)",
-  background: "rgba(20, 20, 26, 0.8)",
-  color: "#f5f5f5",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   width: 36,
   height: 36,
   fontSize: 18,
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const navButtonStyle = {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
-  border: "none",
-  background: "rgba(20, 20, 26, 0.6)",
-  color: "#f5f5f5",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   width: 56,
   height: 56,
   borderRadius: 999,
@@ -103,11 +111,12 @@ const navButtonStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  boxShadow: "var(--shadow-hard)",
 };
 
 const hintStyle = {
   fontSize: 11,
-  opacity: 0.55,
+  color: "var(--text-muted)",
   display: "flex",
   gap: 12,
   alignItems: "center",

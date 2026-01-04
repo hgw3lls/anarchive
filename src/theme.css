@@ -1,11 +1,134 @@
-/* Global theme (created to satisfy patch expectations) */
-:root{
-  --bg:#0b0c10;
-  --panel:#111218;
-  --text:#eaeaf0;
-  --muted:#a6a7b3;
-  --line:rgba(255,255,255,.12);
-  --accent:#6ee7ff;
+/* Global theme */
+:root {
+  --bg: #f6f2ea;
+  --surface: #fffdf6;
+  --surface-muted: #efe9df;
+  --text: #111111;
+  --text-muted: #454545;
+  --text-inverse: #ffffff;
+  --border: #111111;
+  --accent: #ff5a1f;
+  --grid: rgba(0, 0, 0, 0.06);
+  --overlay: rgba(12, 12, 12, 0.86);
+  --shadow-hard: 4px 4px 0 var(--border);
+  --shadow-soft: 2px 2px 0 var(--border);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --motion-fast: 160ms;
+  --font-sans: "Space Grotesk", "Inter", "Segoe UI", system-ui, -apple-system,
+    sans-serif;
+  --wall-paper: #f7f3ec;
+  --wall-archive: #f1ede4;
 }
-html,body,#root{height:100%}
-body{margin:0;background:var(--bg);color:var(--text)}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  letter-spacing: 0.01em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text-inverse);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+input[type="text"],
+input[type="search"],
+select,
+textarea {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  padding: 8px 10px;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+
+button {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.react-flow__controls,
+.react-flow__minimap {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-hard);
+}
+
+.react-flow__controls-button {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  color: var(--text);
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none;
+}
+
+.react-flow__minimap-node {
+  fill: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

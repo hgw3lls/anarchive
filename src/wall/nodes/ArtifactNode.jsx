@@ -3,7 +3,7 @@ import Frame from "../components/Frame.jsx";
 
 const cardStyle = {
   width: 220,
-  color: "#1f1f1f",
+  color: "var(--text)",
   display: "flex",
   flexDirection: "column",
   gap: 10,
@@ -21,9 +21,9 @@ const titleStyle = {
 const thumbStyle = {
   width: "100%",
   height: "auto",
-  borderRadius: 3,
+  borderRadius: "var(--radius-sm)",
   display: "block",
-  background: "rgba(0, 0, 0, 0.05)",
+  background: "var(--surface-muted)",
 };
 
 const overlayStyle = {
@@ -32,9 +32,9 @@ const overlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "rgba(255, 255, 255, 0.9)",
+  color: "var(--text-inverse)",
   fontSize: 28,
-  textShadow: "0 4px 10px rgba(0, 0, 0, 0.45)",
+  textShadow: "2px 2px 0 rgba(0, 0, 0, 0.35)",
   pointerEvents: "none",
 };
 
@@ -44,10 +44,10 @@ const handleStyle = {
 
 const textCardStyle = {
   padding: 12,
-  borderRadius: 12,
-  background: "rgba(255, 255, 255, 0.85)",
-  border: "1px solid rgba(0, 0, 0, 0.08)",
-  boxShadow: "0 10px 18px rgba(0, 0, 0, 0.12)",
+  borderRadius: "var(--radius-md)",
+  background: "var(--surface)",
+  border: "2px solid var(--border)",
+  boxShadow: "var(--shadow-hard)",
 };
 
 const buildCaption = (artifact) => {

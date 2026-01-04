@@ -30,26 +30,21 @@ const wallStyle = {
   width: "100vw",
   height: "100vh",
   position: "relative",
-  color: "#1f1f1f",
-  fontFamily:
-    "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+  color: "var(--text)",
+  fontFamily: "var(--font-sans)",
 };
 
 const WALL_STYLES = {
   whiteCube: {
-    label: "White Cube",
+    label: "Paper White",
     style: {
-      backgroundColor: "#f6f4ef",
-      backgroundImage:
-        "radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.95), rgba(246, 244, 239, 0.9) 42%, rgba(234, 231, 224, 0.95) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.1) 100%)",
+      backgroundColor: "var(--wall-paper)",
     },
   },
   warmGallery: {
-    label: "Warm Gallery",
+    label: "Archive Warm",
     style: {
-      backgroundColor: "#f3eee4",
-      backgroundImage:
-        "radial-gradient(circle at 50% 0%, rgba(255, 251, 246, 0.95), rgba(243, 238, 228, 0.92) 45%, rgba(228, 218, 206, 0.96) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(90, 70, 50, 0.12) 100%)",
+      backgroundColor: "var(--wall-archive)",
     },
   },
 };
@@ -60,41 +55,48 @@ const overlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(15, 15, 18, 0.9)",
-  color: "#f5f5f5",
+  backgroundColor: "var(--overlay)",
+  color: "var(--text-inverse)",
   fontSize: 16,
+  fontWeight: 600,
   zIndex: 10,
 };
 
 const searchInputStyle = {
   width: "100%",
   padding: "10px 12px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.12)",
-  background: "rgba(18, 18, 24, 0.92)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 13,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const searchResultsStyle = {
   listStyle: "none",
   margin: 0,
-  padding: 0,
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  background: "rgba(18, 18, 24, 0.96)",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  boxShadow: "var(--shadow-hard)",
   overflow: "hidden",
+  display: "grid",
+  gap: 8,
+  padding: 8,
 };
 
 const searchResultButtonStyle = {
   width: "100%",
   textAlign: "left",
   padding: "10px 12px",
-  border: "none",
-  background: "transparent",
-  color: "#f5f5f5",
+  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-sm)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const toolbarStyle = {
@@ -103,10 +105,10 @@ const toolbarStyle = {
   gap: 10,
   minWidth: 220,
   padding: 12,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.92)",
-  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  boxShadow: "var(--shadow-hard)",
 };
 
 const hudContainerStyle = {
@@ -121,13 +123,14 @@ const hudContainerStyle = {
 };
 
 const hudToggleStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.18)",
+  border: "2px solid var(--border)",
   borderRadius: 999,
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
   padding: "6px 12px",
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const hudOpenButtonStyle = {
@@ -135,48 +138,52 @@ const hudOpenButtonStyle = {
   top: 16,
   right: 16,
   zIndex: 13,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
+  border: "2px solid var(--border)",
   borderRadius: 999,
-  background: "rgba(18, 18, 24, 0.85)",
-  color: "#f5f5f5",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
   padding: "6px 12px",
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const toolbarButtonStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  borderRadius: 10,
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-sm)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
   padding: "8px 12px",
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const toolbarSelectStyle = {
   width: "100%",
   padding: "8px 10px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const toolbarInputStyle = {
   width: "100%",
   padding: "8px 10px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const toolbarHintStyle = {
   fontSize: 11,
-  opacity: 0.7,
+  color: "var(--text-muted)",
 };
 
 const legendListStyle = {
@@ -190,7 +197,7 @@ const legendRowStyle = {
   alignItems: "center",
   justifyContent: "space-between",
   fontSize: 12,
-  color: "rgba(245, 245, 245, 0.85)",
+  color: "var(--text)",
 };
 
 const legendActionsStyle = {
@@ -199,8 +206,8 @@ const legendActionsStyle = {
 };
 
 const lockedFlowStyle = {
-  transition: "filter 0.2s ease",
-  filter: "grayscale(0.35) brightness(0.85)",
+  transition: "filter var(--motion-fast) ease",
+  filter: "grayscale(0.2) contrast(0.95)",
 };
 
 const infoPanelStyle = {
@@ -210,11 +217,11 @@ const infoPanelStyle = {
   zIndex: 13,
   width: 260,
   padding: 12,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.92)",
-  color: "#f5f5f5",
-  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
+  boxShadow: "var(--shadow-hard)",
   fontSize: 12,
   display: "flex",
   flexDirection: "column",
@@ -227,8 +234,8 @@ const helpOverlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(10, 10, 14, 0.75)",
-  color: "#f5f5f5",
+  backgroundColor: "var(--overlay)",
+  color: "var(--text-inverse)",
   zIndex: 14,
   padding: 24,
 };
@@ -237,10 +244,11 @@ const helpCardStyle = {
   maxWidth: 360,
   width: "100%",
   padding: 16,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.96)",
-  boxShadow: "0 18px 30px rgba(0, 0, 0, 0.4)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
+  boxShadow: "var(--shadow-hard)",
   fontSize: 13,
   display: "flex",
   flexDirection: "column",
@@ -1117,11 +1125,11 @@ export default function Wall() {
         minZoom={0.1}
         maxZoom={3}
       >
-        <Background gap={32} size={1} color="rgba(0, 0, 0, 0.04)" />
+        <Background gap={32} size={1} color="var(--grid)" />
         <Controls showInteractive={false} />
         <MiniMap
-          nodeColor="#6a6a6a"
-          maskColor="rgba(15, 15, 18, 0.5)"
+          nodeColor="var(--text)"
+          maskColor="rgba(0, 0, 0, 0.12)"
         />
       </ReactFlow>
       {isHudCollapsed ? (

@@ -3,7 +3,7 @@ import { marked } from "marked";
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "rgba(8, 8, 12, 0.55)",
+  background: "var(--overlay)",
   zIndex: 20,
 };
 
@@ -13,10 +13,10 @@ const drawerStyle = {
   right: 0,
   height: "100vh",
   width: "min(420px, 92vw)",
-  background: "rgba(20, 20, 26, 0.98)",
-  color: "#f5f5f5",
-  borderLeft: "1px solid rgba(255, 255, 255, 0.08)",
-  boxShadow: "-12px 0 24px rgba(0, 0, 0, 0.35)",
+  background: "var(--surface)",
+  color: "var(--text)",
+  borderLeft: "2px solid var(--border)",
+  boxShadow: "var(--shadow-hard)",
   padding: "24px 20px",
   overflowY: "auto",
   zIndex: 30,
@@ -26,9 +26,9 @@ const closeButtonStyle = {
   position: "absolute",
   top: 16,
   right: 16,
-  background: "transparent",
-  color: "#f5f5f5",
-  border: "1px solid rgba(255, 255, 255, 0.2)",
+  background: "var(--surface)",
+  color: "var(--text)",
+  border: "2px solid var(--border)",
   borderRadius: 999,
   width: 32,
   height: 32,
@@ -37,6 +37,7 @@ const closeButtonStyle = {
   justifyContent: "center",
   cursor: "pointer",
   fontSize: 16,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const titleStyle = {
@@ -56,7 +57,8 @@ const tagListStyle = {
 const tagStyle = {
   padding: "4px 10px",
   borderRadius: 999,
-  background: "rgba(255, 255, 255, 0.08)",
+  background: "var(--accent)",
+  color: "var(--text)",
   fontSize: 12,
 };
 
@@ -64,15 +66,17 @@ const sectionTitleStyle = {
   fontSize: 12,
   letterSpacing: 0.12,
   textTransform: "uppercase",
-  opacity: 0.6,
+  color: "var(--text-muted)",
   marginTop: 20,
   marginBottom: 8,
 };
 
 const imageStyle = {
   width: "100%",
-  borderRadius: 12,
-  background: "rgba(255, 255, 255, 0.04)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  background: "var(--surface-muted)",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const relatedListStyle = {
@@ -86,13 +90,14 @@ const relatedListStyle = {
 const relatedButtonStyle = {
   width: "100%",
   textAlign: "left",
-  background: "rgba(255, 255, 255, 0.06)",
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  borderRadius: 10,
+  background: "var(--surface)",
+  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-sm)",
   padding: "10px 12px",
-  color: "#f5f5f5",
+  color: "var(--text)",
   cursor: "pointer",
   fontSize: 13,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const markdownStyle = {
@@ -101,7 +106,7 @@ const markdownStyle = {
 
 const controlLabelStyle = {
   fontSize: 12,
-  opacity: 0.8,
+  color: "var(--text-muted)",
   display: "flex",
   flexDirection: "column",
   gap: 6,
@@ -110,32 +115,35 @@ const controlLabelStyle = {
 const controlSelectStyle = {
   width: "100%",
   padding: "8px 10px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.16)",
-  background: "rgba(18, 18, 24, 0.8)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
+  boxShadow: "var(--shadow-soft)",
 };
 
 const controlButtonStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.2)",
-  borderRadius: 10,
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-sm)",
+  background: "var(--surface)",
+  color: "var(--text)",
   fontSize: 12,
   padding: "8px 12px",
   cursor: "pointer",
+  boxShadow: "var(--shadow-soft)",
 };
 
 const inspectButtonStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.2)",
+  border: "2px solid var(--border)",
   borderRadius: 999,
-  background: "rgba(255, 255, 255, 0.08)",
-  color: "#f5f5f5",
+  background: "var(--accent)",
+  color: "var(--text)",
   fontSize: 11,
   padding: "6px 12px",
   cursor: "pointer",
   alignSelf: "flex-start",
+  boxShadow: "var(--shadow-soft)",
 };
 
 marked.setOptions({
@@ -215,14 +223,23 @@ export default function ArtifactDrawer({
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                style={{ borderRadius: 12 }}
+                style={{
+                  borderRadius: "var(--radius-md)",
+                  border: "2px solid var(--border)",
+                  boxShadow: "var(--shadow-soft)",
+                }}
               />
             ) : null}
             {!artifact.youtubeId && artifact.mp4 ? (
               <video
                 controls
                 src={artifact.mp4}
-                style={{ width: "100%", borderRadius: 12 }}
+                style={{
+                  width: "100%",
+                  borderRadius: "var(--radius-md)",
+                  border: "2px solid var(--border)",
+                  boxShadow: "var(--shadow-soft)",
+                }}
               />
             ) : null}
           </div>

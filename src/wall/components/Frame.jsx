@@ -1,6 +1,6 @@
 const captionStyle = {
   fontSize: 11,
-  color: "rgba(40, 40, 40, 0.7)",
+  color: "var(--text-muted)",
   letterSpacing: 0.2,
   lineHeight: 1.4,
   pointerEvents: "none",
@@ -15,10 +15,10 @@ const containerBaseStyle = {
 };
 
 const thinBlackFrameStyle = {
-  border: "1px solid #111",
-  background: "#0d0d0d",
-  borderRadius: 6,
-  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.18)",
+  border: "2px solid var(--border)",
+  background: "var(--border)",
+  borderRadius: "var(--radius-sm)",
+  boxShadow: "var(--shadow-hard)",
   padding: 1,
   display: "inline-flex",
   width: "100%",
@@ -26,18 +26,20 @@ const thinBlackFrameStyle = {
 };
 
 const floatMountFrameStyle = {
-  background: "#f5f2ea",
-  borderRadius: 8,
-  boxShadow: "0 10px 24px rgba(0, 0, 0, 0.18)",
+  background: "var(--surface-muted)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  boxShadow: "var(--shadow-hard)",
   display: "inline-flex",
   width: "100%",
   boxSizing: "border-box",
 };
 
 const floatInnerStyle = {
-  background: "#fffdfa",
-  borderRadius: 4,
-  boxShadow: "0 3px 10px rgba(0, 0, 0, 0.2)",
+  background: "var(--surface)",
+  borderRadius: "var(--radius-sm)",
+  border: "2px solid var(--border)",
+  boxShadow: "var(--shadow-soft)",
   display: "inline-flex",
   width: "100%",
   boxSizing: "border-box",
