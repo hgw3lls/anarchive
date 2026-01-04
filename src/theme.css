@@ -1,0 +1,11 @@
+/* Global theme (created to satisfy patch expectations) */
+:root{
+  --bg:#0b0c10;
+  --panel:#111218;
+  --text:#eaeaf0;
+  --muted:#a6a7b3;
+  --line:rgba(255,255,255,.12);
+  --accent:#6ee7ff;
+}
+html,body,#root{height:100%}
+body{margin:0;background:var(--bg);color:var(--text)}
