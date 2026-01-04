@@ -3,12 +3,12 @@ import Frame from "./Frame.jsx";
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "rgba(10, 10, 14, 0.82)",
+  background: "var(--color-overlay)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   zIndex: 50,
-  color: "#f5f5f5",
+  color: "var(--color-white)",
 };
 
 const contentStyle = {
@@ -36,7 +36,7 @@ const mediaStyle = {
   maxHeight: "80vh",
   display: "block",
   objectFit: "contain",
-  borderRadius: 3,
+  borderRadius: "var(--radius-sm)",
 };
 
 const labelStyle = {
@@ -68,46 +68,50 @@ const tagRowStyle = {
 
 const tagStyle = {
   padding: "3px 10px",
-  borderRadius: 999,
-  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: "var(--radius-pill)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
+  fontWeight: 600,
   fontSize: 11,
-  opacity: 0.75,
 };
 
 const closeButtonStyle = {
   position: "absolute",
   top: 18,
   right: 18,
-  borderRadius: 999,
-  border: "1px solid rgba(255, 255, 255, 0.3)",
-  background: "rgba(20, 20, 26, 0.8)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-pill)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   width: 36,
   height: 36,
   fontSize: 18,
   cursor: "pointer",
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const navButtonStyle = {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
-  border: "none",
-  background: "rgba(20, 20, 26, 0.6)",
-  color: "#f5f5f5",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   width: 56,
   height: 56,
-  borderRadius: 999,
+  borderRadius: "var(--radius-pill)",
   cursor: "pointer",
   fontSize: 28,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const hintStyle = {
   fontSize: 11,
-  opacity: 0.55,
+  opacity: 0.7,
   display: "flex",
   gap: 12,
   alignItems: "center",

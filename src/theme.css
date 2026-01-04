@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light;
+  --color-black: #111111;
+  --color-white: #ffffff;
+  --color-offwhite: #f7f3eb;
+  --color-offwhite-alt: #efe7dd;
+  --color-accent: #ff4d1a;
+  --color-text: #111111;
+  --color-text-muted: #3e3e3e;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f7f3eb;
+  --color-panel: #ffffff;
+  --color-panel-text: #111111;
+  --color-overlay: rgba(10, 10, 12, 0.82);
+  --color-overlay-soft: rgba(10, 10, 12, 0.55);
+  --color-overlay-strong: rgba(10, 10, 12, 0.92);
+  --color-border: #111111;
+  --color-border-muted: rgba(17, 17, 17, 0.2);
+  --shadow-hard: 4px 4px 0 rgba(17, 17, 17, 0.9);
+  --shadow-hard-sm: 2px 2px 0 rgba(17, 17, 17, 0.9);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", "IBM Plex Sans", "Inter", system-ui, sans-serif;
+  background: var(--color-offwhite);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+#root,
+.anarchive-wall {
+  width: 100%;
+  height: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--color-accent);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.react-flow__controls {
+  border: 2px solid var(--color-black);
+  background: var(--color-white);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+.react-flow__controls-button {
+  border-bottom: 2px solid var(--color-black);
+  background: var(--color-white);
+}
+
+.react-flow__controls-button:last-child {
+  border-bottom: none;
+}
+
+.react-flow__controls-button svg {
+  fill: var(--color-black);
+}
+
+.react-flow__minimap {
+  border: 2px solid var(--color-black);
+  box-shadow: var(--shadow-hard-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

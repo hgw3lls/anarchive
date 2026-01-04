@@ -2,43 +2,43 @@ import { EdgeLabelRenderer, getBezierPath } from "reactflow";
 
 const kindStyles = {
   sequence: {
-    stroke: "#d8c48a",
+    stroke: "var(--color-black)",
     strokeWidth: 2.2,
+    strokeDasharray: "0",
+    strokeOpacity: 0.75,
+  },
+  echoes: {
+    stroke: "var(--color-black)",
+    strokeWidth: 1.8,
+    strokeDasharray: "4 6",
+    strokeOpacity: 0.55,
+  },
+  threshold: {
+    stroke: "var(--color-accent)",
+    strokeWidth: 2.6,
     strokeDasharray: "0",
     strokeOpacity: 0.9,
   },
-  echoes: {
-    stroke: "#b39df0",
-    strokeWidth: 1.8,
-    strokeDasharray: "4 6",
-    strokeOpacity: 0.8,
-  },
-  threshold: {
-    stroke: "#f09b7a",
-    strokeWidth: 2.6,
-    strokeDasharray: "0",
-    strokeOpacity: 0.95,
-  },
   samples: {
-    stroke: "#91a1c4",
+    stroke: "var(--color-black)",
     strokeWidth: 1.6,
     strokeDasharray: "2 6",
-    strokeOpacity: 0.6,
+    strokeOpacity: 0.45,
   },
   witness: {
-    stroke: "#d1d1d6",
+    stroke: "var(--color-black)",
     strokeWidth: 1.4,
     strokeDasharray: "1 7",
-    strokeOpacity: 0.45,
+    strokeOpacity: 0.3,
   },
 };
 
 const getEdgeStyle = (kind) =>
   kindStyles[kind] ?? {
-    stroke: "#c9c3d1",
+    stroke: "var(--color-black)",
     strokeWidth: 1.8,
     strokeDasharray: "3 6",
-    strokeOpacity: 0.75,
+    strokeOpacity: 0.5,
   };
 
 const hashToUnit = (value) => {
@@ -98,7 +98,7 @@ export default function YarnEdge({
   };
 
   const highlightStyle = {
-    stroke: "#ffffff",
+    stroke: "var(--color-white)",
     strokeWidth: Math.max(baseStyle.strokeWidth - 1, 0.6),
     strokeOpacity: 0.12,
   };
@@ -208,16 +208,16 @@ export default function YarnEdge({
             style={{
               position: "absolute",
               transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
-              background: "rgba(14, 14, 20, 0.7)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              background: "var(--color-white)",
+              border: "2px solid var(--color-black)",
               padding: "4px 8px",
-              borderRadius: 999,
-              color: "rgba(245, 245, 245, 0.78)",
+              borderRadius: "var(--radius-pill)",
+              color: "var(--color-black)",
               fontSize: 11,
               letterSpacing: "0.04em",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
-              boxShadow: "0 2px 10px rgba(0, 0, 0, 0.35)",
+              boxShadow: "var(--shadow-hard-sm)",
               pointerEvents: "none",
             }}
           >

@@ -30,26 +30,22 @@ const wallStyle = {
   width: "100vw",
   height: "100vh",
   position: "relative",
-  color: "#1f1f1f",
+  color: "var(--color-text)",
   fontFamily:
-    "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif",
+    "\"Space Grotesk\", \"IBM Plex Sans\", \"Inter\", system-ui, sans-serif",
 };
 
 const WALL_STYLES = {
   whiteCube: {
     label: "White Cube",
     style: {
-      backgroundColor: "#f6f4ef",
-      backgroundImage:
-        "radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.95), rgba(246, 244, 239, 0.9) 42%, rgba(234, 231, 224, 0.95) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.1) 100%)",
+      backgroundColor: "var(--color-offwhite)",
     },
   },
   warmGallery: {
     label: "Warm Gallery",
     style: {
-      backgroundColor: "#f3eee4",
-      backgroundImage:
-        "radial-gradient(circle at 50% 0%, rgba(255, 251, 246, 0.95), rgba(243, 238, 228, 0.92) 45%, rgba(228, 218, 206, 0.96) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0) 62%, rgba(90, 70, 50, 0.12) 100%)",
+      backgroundColor: "var(--color-offwhite-alt)",
     },
   },
 };
@@ -60,8 +56,8 @@ const overlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(15, 15, 18, 0.9)",
-  color: "#f5f5f5",
+  backgroundColor: "var(--color-overlay-strong)",
+  color: "var(--color-white)",
   fontSize: 16,
   zIndex: 10,
 };
@@ -69,21 +65,23 @@ const overlayStyle = {
 const searchInputStyle = {
   width: "100%",
   padding: "10px 12px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.12)",
-  background: "rgba(18, 18, 24, 0.92)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   fontSize: 13,
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const searchResultsStyle = {
   listStyle: "none",
   margin: 0,
   padding: 0,
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.08)",
-  background: "rgba(18, 18, 24, 0.96)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
   overflow: "hidden",
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const searchResultButtonStyle = {
@@ -91,10 +89,11 @@ const searchResultButtonStyle = {
   textAlign: "left",
   padding: "10px 12px",
   border: "none",
-  background: "transparent",
-  color: "#f5f5f5",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   fontSize: 12,
   cursor: "pointer",
+  borderBottom: "2px solid var(--color-black)",
 };
 
 const toolbarStyle = {
@@ -103,10 +102,10 @@ const toolbarStyle = {
   gap: 10,
   minWidth: 220,
   padding: 12,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.92)",
-  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-panel)",
+  boxShadow: "var(--shadow-hard)",
 };
 
 const hudContainerStyle = {
@@ -121,13 +120,15 @@ const hudContainerStyle = {
 };
 
 const hudToggleStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  borderRadius: 999,
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  border: "2px solid var(--color-black)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
   fontSize: 12,
   padding: "6px 12px",
   cursor: "pointer",
+  fontWeight: 600,
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const hudOpenButtonStyle = {
@@ -135,48 +136,53 @@ const hudOpenButtonStyle = {
   top: 16,
   right: 16,
   zIndex: 13,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  borderRadius: 999,
-  background: "rgba(18, 18, 24, 0.85)",
-  color: "#f5f5f5",
+  border: "2px solid var(--color-black)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
   fontSize: 12,
   padding: "6px 12px",
   cursor: "pointer",
+  fontWeight: 600,
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarButtonStyle = {
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  borderRadius: 10,
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  border: "2px solid var(--color-black)",
+  borderRadius: "var(--radius-md)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   fontSize: 12,
   padding: "8px 12px",
   cursor: "pointer",
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarSelectStyle = {
   width: "100%",
   padding: "8px 10px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   fontSize: 12,
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarInputStyle = {
   width: "100%",
   padding: "8px 10px",
-  borderRadius: 10,
-  border: "1px solid rgba(255, 255, 255, 0.18)",
-  background: "rgba(18, 18, 24, 0.9)",
-  color: "#f5f5f5",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
   fontSize: 12,
+  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarHintStyle = {
   fontSize: 11,
-  opacity: 0.7,
+  color: "var(--color-text-muted)",
 };
 
 const legendListStyle = {
@@ -190,7 +196,7 @@ const legendRowStyle = {
   alignItems: "center",
   justifyContent: "space-between",
   fontSize: 12,
-  color: "rgba(245, 245, 245, 0.85)",
+  color: "var(--color-text)",
 };
 
 const legendActionsStyle = {
@@ -210,11 +216,11 @@ const infoPanelStyle = {
   zIndex: 13,
   width: 260,
   padding: 12,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.92)",
-  color: "#f5f5f5",
-  boxShadow: "0 12px 28px rgba(0, 0, 0, 0.35)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-panel)",
+  color: "var(--color-panel-text)",
+  boxShadow: "var(--shadow-hard)",
   fontSize: 12,
   display: "flex",
   flexDirection: "column",
@@ -227,8 +233,8 @@ const helpOverlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(10, 10, 14, 0.75)",
-  color: "#f5f5f5",
+  backgroundColor: "var(--color-overlay)",
+  color: "var(--color-white)",
   zIndex: 14,
   padding: 24,
 };
@@ -237,10 +243,10 @@ const helpCardStyle = {
   maxWidth: 360,
   width: "100%",
   padding: 16,
-  borderRadius: 12,
-  border: "1px solid rgba(255, 255, 255, 0.1)",
-  background: "rgba(18, 18, 24, 0.96)",
-  boxShadow: "0 18px 30px rgba(0, 0, 0, 0.4)",
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--color-black)",
+  background: "var(--color-panel)",
+  boxShadow: "var(--shadow-hard)",
   fontSize: 13,
   display: "flex",
   flexDirection: "column",
@@ -1063,7 +1069,7 @@ export default function Wall() {
   const wallBackgroundStyle = WALL_STYLES[wallStyleName]?.style ?? WALL_STYLES.whiteCube.style;
 
   return (
-    <section style={wallStyle}>
+    <section style={wallStyle} className="anarchive-wall">
       <ReactFlow
         style={{
           ...wallBackgroundStyle,
@@ -1117,11 +1123,11 @@ export default function Wall() {
         minZoom={0.1}
         maxZoom={3}
       >
-        <Background gap={32} size={1} color="rgba(0, 0, 0, 0.04)" />
+        <Background gap={32} size={1} color="rgba(0, 0, 0, 0.08)" />
         <Controls showInteractive={false} />
         <MiniMap
-          nodeColor="#6a6a6a"
-          maskColor="rgba(15, 15, 18, 0.5)"
+          nodeColor="#111111"
+          maskColor="rgba(17, 17, 17, 0.18)"
         />
       </ReactFlow>
       {isHudCollapsed ? (
