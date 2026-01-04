@@ -122,6 +122,39 @@ const hudContainerStyle = {
   gap: 8,
 };
 
+const focusMapStyle = {
+  position: "absolute",
+  right: 16,
+  bottom: 16,
+  width: 220,
+  height: 160,
+  padding: 10,
+  borderRadius: "var(--radius-md)",
+  border: "2px solid var(--border)",
+  background: "var(--surface)",
+  boxShadow: "var(--shadow-hard)",
+  zIndex: 12,
+  display: "flex",
+  flexDirection: "column",
+  gap: 6,
+};
+
+const focusMapTitleStyle = {
+  fontSize: 11,
+  textTransform: "uppercase",
+  letterSpacing: 0.08,
+  color: "var(--text-muted)",
+};
+
+const focusMapCanvasStyle = {
+  flex: 1,
+  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-sm)",
+  background: "var(--surface-muted)",
+  overflow: "hidden",
+  cursor: "grab",
+};
+
 const hudToggleStyle = {
   border: "2px solid var(--border)",
   borderRadius: 999,
@@ -278,6 +311,12 @@ export default function Wall() {
   const [inspectNodeId, setInspectNodeId] = useState(null);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
+  const [viewportSize, setViewportSize] = useState(() => {
+    if (typeof window === "undefined") {
+      return { width: 0, height: 0 };
+    }
+    return { width: window.innerWidth, height: window.innerHeight };
+  });
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [wallStyleName, setWallStyleName] = useState(() => {
     if (typeof window === "undefined") {
@@ -301,6 +340,8 @@ export default function Wall() {
   const cameraRef = useRef(camera);
   const ignoreNextMoveRef = useRef(false);
   const searchInputRef = useRef(null);
+  const focusMapRef = useRef(null);
+  const focusDragRef = useRef(false);
 
   useEffect(() => {
     nodesRef.current = nodes;
@@ -313,6 +354,16 @@ export default function Wall() {
   useEffect(() => {
     cameraRef.current = camera;
   }, [camera]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+    const handleResize = () =>
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const artifactsById = useMemo(() => {
     const map = new Map();
@@ -412,6 +463,173 @@ export default function Wall() {
       })
       .filter(Boolean);
   }, [artifactsById, nodes]);
+
+  const focusMapData = useMemo(() => {
+    const mapWidth = 200;
+    const mapHeight = 120;
+    if (!nodes.length) {
+      return {
+        mapWidth,
+        mapHeight,
+        minX: 0,
+        minY: 0,
+        scale: 1,
+        offsetX: 0,
+        offsetY: 0,
+        nodeRects: [],
+      };
+    }
+
+    let minX = Number.POSITIVE_INFINITY;
+    let minY = Number.POSITIVE_INFINITY;
+    let maxX = Number.NEGATIVE_INFINITY;
+    let maxY = Number.NEGATIVE_INFINITY;
+    const padding = 120;
+
+    nodes.forEach((node) => {
+      const width = Number.isFinite(node?.style?.width)
+        ? node.style.width
+        : Number.isFinite(node?.width)
+          ? node.width
+          : 220;
+      const height = Number.isFinite(node?.style?.height)
+        ? node.style.height
+        : Number.isFinite(node?.height)
+          ? node.height
+          : 160;
+      const x = Number.isFinite(node?.position?.x) ? node.position.x : 0;
+      const y = Number.isFinite(node?.position?.y) ? node.position.y : 0;
+      minX = Math.min(minX, x - padding);
+      minY = Math.min(minY, y - padding);
+      maxX = Math.max(maxX, x + width + padding);
+      maxY = Math.max(maxY, y + height + padding);
+    });
+
+    const width = Math.max(maxX - minX, 1);
+    const height = Math.max(maxY - minY, 1);
+    const scale = Math.min(mapWidth / width, mapHeight / height);
+    const offsetX = (mapWidth - width * scale) / 2;
+    const offsetY = (mapHeight - height * scale) / 2;
+
+    const nodeRects = nodes.map((node) => {
+      const nodeWidth = Number.isFinite(node?.style?.width)
+        ? node.style.width
+        : Number.isFinite(node?.width)
+          ? node.width
+          : 220;
+      const nodeHeight = Number.isFinite(node?.style?.height)
+        ? node.style.height
+        : Number.isFinite(node?.height)
+          ? node.height
+          : 160;
+      const nodeX = Number.isFinite(node?.position?.x) ? node.position.x : 0;
+      const nodeY = Number.isFinite(node?.position?.y) ? node.position.y : 0;
+      return {
+        id: node.id,
+        x: (nodeX - minX) * scale + offsetX,
+        y: (nodeY - minY) * scale + offsetY,
+        width: nodeWidth * scale,
+        height: nodeHeight * scale,
+      };
+    });
+
+    return {
+      mapWidth,
+      mapHeight,
+      minX,
+      minY,
+      scale,
+      offsetX,
+      offsetY,
+      nodeRects,
+    };
+  }, [nodes]);
+
+  const focusViewportRect = useMemo(() => {
+    const zoom = camera?.zoom ?? 1;
+    const viewWidth = viewportSize.width / zoom;
+    const viewHeight = viewportSize.height / zoom;
+    const viewX = -(camera?.x ?? 0) / zoom;
+    const viewY = -(camera?.y ?? 0) / zoom;
+    const rectX =
+      (viewX - focusMapData.minX) * focusMapData.scale + focusMapData.offsetX;
+    const rectY =
+      (viewY - focusMapData.minY) * focusMapData.scale + focusMapData.offsetY;
+    return {
+      x: rectX,
+      y: rectY,
+      width: viewWidth * focusMapData.scale,
+      height: viewHeight * focusMapData.scale,
+    };
+  }, [
+    camera?.x,
+    camera?.y,
+    camera?.zoom,
+    focusMapData,
+    viewportSize.height,
+    viewportSize.width,
+  ]);
+
+  const moveViewportFromFocusMap = useCallback(
+    (clientX, clientY) => {
+      if (!focusMapRef.current || !reactFlowInstance) {
+        return;
+      }
+      const rect = focusMapRef.current.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return;
+      }
+      const mapX =
+        ((clientX - rect.left) / rect.width) * focusMapData.mapWidth;
+      const mapY =
+        ((clientY - rect.top) / rect.height) * focusMapData.mapHeight;
+      const worldX =
+        (mapX - focusMapData.offsetX) / focusMapData.scale +
+        focusMapData.minX;
+      const worldY =
+        (mapY - focusMapData.offsetY) / focusMapData.scale +
+        focusMapData.minY;
+
+      const zoom = camera?.zoom ?? reactFlowInstance.getZoom?.() ?? 1;
+      const viewWidth = viewportSize.width / zoom;
+      const viewHeight = viewportSize.height / zoom;
+      const nextX = -(worldX - viewWidth / 2) * zoom;
+      const nextY = -(worldY - viewHeight / 2) * zoom;
+      reactFlowInstance.setViewport(
+        {
+          x: nextX,
+          y: nextY,
+          zoom,
+        },
+        { duration: 120 },
+      );
+    },
+    [
+      camera?.zoom,
+      focusMapData,
+      reactFlowInstance,
+      viewportSize.height,
+      viewportSize.width,
+    ],
+  );
+
+  useEffect(() => {
+    const handlePointerMove = (event) => {
+      if (!focusDragRef.current) {
+        return;
+      }
+      moveViewportFromFocusMap(event.clientX, event.clientY);
+    };
+    const handlePointerUp = () => {
+      focusDragRef.current = false;
+    };
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
+    return () => {
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, [moveViewportFromFocusMap]);
 
   const inspectIndex = useMemo(() => {
     if (!inspectNodeId) {
@@ -1132,6 +1350,59 @@ export default function Wall() {
           maskColor="rgba(0, 0, 0, 0.12)"
         />
       </ReactFlow>
+      <div
+        style={{
+          ...focusMapStyle,
+          bottom: isInfoOpen ? 320 : 16,
+        }}
+      >
+        <div style={focusMapTitleStyle}>Focus Map</div>
+        <div
+          ref={focusMapRef}
+          style={focusMapCanvasStyle}
+          onPointerDown={(event) => {
+            focusDragRef.current = true;
+            moveViewportFromFocusMap(event.clientX, event.clientY);
+          }}
+          role="presentation"
+        >
+          <svg
+            width="100%"
+            height="100%"
+            viewBox={`0 0 ${focusMapData.mapWidth} ${focusMapData.mapHeight}`}
+            aria-hidden="true"
+          >
+            <rect
+              x="0"
+              y="0"
+              width={focusMapData.mapWidth}
+              height={focusMapData.mapHeight}
+              fill="var(--surface-muted)"
+            />
+            {focusMapData.nodeRects.map((node) => (
+              <rect
+                key={node.id}
+                x={node.x}
+                y={node.y}
+                width={node.width}
+                height={node.height}
+                fill="var(--surface)"
+                stroke="var(--border)"
+                strokeWidth="1"
+              />
+            ))}
+            <rect
+              x={focusViewportRect.x}
+              y={focusViewportRect.y}
+              width={focusViewportRect.width}
+              height={focusViewportRect.height}
+              fill="none"
+              stroke="var(--accent)"
+              strokeWidth="2"
+            />
+          </svg>
+        </div>
+      </div>
       {isHudCollapsed ? (
         <button
           type="button"

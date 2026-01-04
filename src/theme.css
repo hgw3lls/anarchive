@@ -7,7 +7,10 @@
   --text-muted: #454545;
   --text-inverse: #ffffff;
   --border: #111111;
-  --accent: #ff5a1f;
+
+  /* accent (merge conflict resolved) */
+  --accent: #e10600;
+
   --grid: rgba(0, 0, 0, 0.06);
   --overlay: rgba(12, 12, 12, 0.86);
   --shadow-hard: 4px 4px 0 var(--border);
@@ -16,8 +19,8 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --motion-fast: 160ms;
-  --font-sans: "Space Grotesk", "Inter", "Segoe UI", system-ui, -apple-system,
-    sans-serif;
+  --font-sans: "Space Grotesk", "Inter", "Segoe UI", system-ui,
+    -apple-system, sans-serif;
   --wall-paper: #f7f3ec;
   --wall-archive: #f1ede4;
 }
@@ -100,6 +103,7 @@ a:focus-visible {
   outline-offset: 2px;
 }
 
+/* React Flow UI */
 .react-flow__controls,
 .react-flow__minimap {
   background: var(--surface);
@@ -122,6 +126,7 @@ a:focus-visible {
   fill: var(--text);
 }
 
+/* Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
