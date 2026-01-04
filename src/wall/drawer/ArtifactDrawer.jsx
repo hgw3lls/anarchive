@@ -15,9 +15,15 @@ const drawerStyle = {
   width: "min(420px, 92vw)",
   background: "var(--color-surface)",
   color: "var(--color-text)",
+<<<<<<< ours
   borderLeft: "2px solid var(--color-black)",
   boxShadow: "var(--shadow-hard)",
   padding: "24px 20px",
+=======
+  borderLeft: "var(--border-strong)",
+  boxShadow: "var(--shadow-hard)",
+  padding: "var(--space-5) var(--space-4)",
+>>>>>>> theirs
   overflowY: "auto",
   zIndex: 30,
 };
@@ -28,7 +34,11 @@ const closeButtonStyle = {
   right: 16,
   background: "var(--color-white)",
   color: "var(--color-black)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   borderRadius: "var(--radius-pill)",
   width: 32,
   height: 32,
@@ -41,20 +51,21 @@ const closeButtonStyle = {
 };
 
 const titleStyle = {
-  fontSize: 20,
+  fontSize: "var(--font-size-xl)",
   fontWeight: 600,
-  marginBottom: 12,
+  marginBottom: "var(--space-3)",
   paddingRight: 48,
 };
 
 const tagListStyle = {
   display: "flex",
   flexWrap: "wrap",
-  gap: 8,
-  marginBottom: 16,
+  gap: "var(--space-2)",
+  marginBottom: "var(--space-4)",
 };
 
 const tagStyle = {
+<<<<<<< ours
   padding: "4px 10px",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-offwhite-alt)",
@@ -62,22 +73,40 @@ const tagStyle = {
   color: "var(--color-text)",
   fontWeight: 600,
   fontSize: 12,
+=======
+  padding: "2px 10px",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-offwhite-alt)",
+  border: "var(--border-strong)",
+  color: "var(--color-text)",
+  fontWeight: 600,
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
 };
 
 const sectionTitleStyle = {
-  fontSize: 12,
+  fontSize: "var(--font-size-sm)",
   letterSpacing: 0.12,
   textTransform: "uppercase",
   color: "var(--color-text-muted)",
+<<<<<<< ours
   marginTop: 20,
   marginBottom: 8,
+=======
+  marginTop: "var(--space-5)",
+  marginBottom: "var(--space-2)",
+>>>>>>> theirs
 };
 
 const imageStyle = {
   width: "100%",
   borderRadius: "var(--radius-lg)",
   background: "var(--color-surface-muted)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 };
 
 const relatedListStyle = {
@@ -85,19 +114,28 @@ const relatedListStyle = {
   padding: 0,
   margin: 0,
   display: "grid",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const relatedButtonStyle = {
   width: "100%",
   textAlign: "left",
   background: "var(--color-white)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-md)",
   padding: "10px 12px",
   color: "var(--color-black)",
   cursor: "pointer",
   fontSize: 13,
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-md)",
+  padding: "var(--space-3)",
+  color: "var(--color-black)",
+  cursor: "pointer",
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
@@ -106,15 +144,20 @@ const markdownStyle = {
 };
 
 const controlLabelStyle = {
+<<<<<<< ours
   fontSize: 12,
+=======
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
   color: "var(--color-text)",
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
 };
 
 const controlSelectStyle = {
   width: "100%",
+<<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -130,17 +173,43 @@ const controlButtonStyle = {
   color: "var(--color-black)",
   fontSize: 12,
   padding: "8px 12px",
+=======
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+};
+
+const controlButtonStyle = {
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-md)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+  padding: "var(--space-2) var(--space-3)",
+>>>>>>> theirs
   cursor: "pointer",
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const inspectButtonStyle = {
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: 11,
   padding: "6px 12px",
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-xs)",
+  padding: "var(--space-2) var(--space-3)",
+>>>>>>> theirs
   cursor: "pointer",
   alignSelf: "flex-start",
   fontWeight: 600,
@@ -226,7 +295,11 @@ export default function ArtifactDrawer({
                 allowFullScreen
                 style={{
                   borderRadius: "var(--radius-lg)",
+<<<<<<< ours
                   border: "2px solid var(--color-black)",
+=======
+                  border: "var(--border-strong)",
+>>>>>>> theirs
                 }}
               />
             ) : null}
@@ -237,7 +310,11 @@ export default function ArtifactDrawer({
                 style={{
                   width: "100%",
                   borderRadius: "var(--radius-lg)",
+<<<<<<< ours
                   border: "2px solid var(--color-black)",
+=======
+                  border: "var(--border-strong)",
+>>>>>>> theirs
                 }}
               />
             ) : null}
@@ -246,7 +323,13 @@ export default function ArtifactDrawer({
         {canEditFrame ? (
           <section>
             <div style={sectionTitleStyle}>Frame</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-3)",
+              }}
+            >
               <label style={controlLabelStyle}>
                 Variant
                 <select

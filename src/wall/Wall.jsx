@@ -64,12 +64,21 @@ const overlayStyle = {
 
 const searchInputStyle = {
   width: "100%",
+<<<<<<< ours
   padding: "10px 12px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: 13,
+=======
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
@@ -78,7 +87,11 @@ const searchResultsStyle = {
   margin: 0,
   padding: 0,
   borderRadius: "var(--radius-md)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   background: "var(--color-white)",
   overflow: "hidden",
   boxShadow: "var(--shadow-hard-sm)",
@@ -87,45 +100,66 @@ const searchResultsStyle = {
 const searchResultButtonStyle = {
   width: "100%",
   textAlign: "left",
-  padding: "10px 12px",
+  padding: "var(--space-2) var(--space-3)",
   border: "none",
   background: "var(--color-white)",
   color: "var(--color-black)",
+<<<<<<< ours
   fontSize: 12,
   cursor: "pointer",
   borderBottom: "2px solid var(--color-black)",
+=======
+  fontSize: "var(--font-size-sm)",
+  cursor: "pointer",
+  borderBottom: "var(--border-strong)",
+>>>>>>> theirs
 };
 
 const toolbarStyle = {
   display: "flex",
   flexDirection: "column",
-  gap: 10,
+  gap: "var(--space-3)",
   minWidth: 220,
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
+=======
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+>>>>>>> theirs
   background: "var(--color-panel)",
   boxShadow: "var(--shadow-hard)",
 };
 
 const hudContainerStyle = {
   position: "absolute",
-  top: 16,
-  right: 16,
+  top: "var(--space-4)",
+  right: "var(--space-4)",
   zIndex: 13,
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-end",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const hudToggleStyle = {
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: 12,
   padding: "6px 12px",
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+  padding: "var(--space-2) var(--space-3)",
+>>>>>>> theirs
   cursor: "pointer",
   fontWeight: 600,
   boxShadow: "var(--shadow-hard-sm)",
@@ -133,75 +167,119 @@ const hudToggleStyle = {
 
 const hudOpenButtonStyle = {
   position: "absolute",
-  top: 16,
-  right: 16,
+  top: "var(--space-4)",
+  right: "var(--space-4)",
   zIndex: 13,
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: 12,
   padding: "6px 12px",
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+  padding: "var(--space-2) var(--space-3)",
+>>>>>>> theirs
   cursor: "pointer",
   fontWeight: 600,
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarButtonStyle = {
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-md)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: 12,
   padding: "8px 12px",
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-md)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+  padding: "var(--space-2) var(--space-3)",
+>>>>>>> theirs
   cursor: "pointer",
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarSelectStyle = {
   width: "100%",
+<<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: 12,
+=======
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarInputStyle = {
   width: "100%",
+<<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: 12,
+=======
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarHintStyle = {
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
   color: "var(--color-text-muted)",
 };
 
 const legendListStyle = {
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
 };
 
 const legendRowStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+<<<<<<< ours
   fontSize: 12,
+=======
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
   color: "var(--color-text)",
 };
 
 const legendActionsStyle = {
   display: "flex",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const lockedFlowStyle = {
@@ -211,10 +289,11 @@ const lockedFlowStyle = {
 
 const infoPanelStyle = {
   position: "absolute",
-  right: 16,
-  bottom: 16,
+  right: "var(--space-4)",
+  bottom: "var(--space-4)",
   zIndex: 13,
   width: 260,
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -222,9 +301,18 @@ const infoPanelStyle = {
   color: "var(--color-panel-text)",
   boxShadow: "var(--shadow-hard)",
   fontSize: 12,
+=======
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-panel)",
+  color: "var(--color-panel-text)",
+  boxShadow: "var(--shadow-hard)",
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const helpOverlayStyle = {
@@ -236,21 +324,30 @@ const helpOverlayStyle = {
   backgroundColor: "var(--color-overlay)",
   color: "var(--color-white)",
   zIndex: 14,
-  padding: 24,
+  padding: "var(--space-5)",
 };
 
 const helpCardStyle = {
   maxWidth: 360,
   width: "100%",
+<<<<<<< ours
   padding: 16,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
   background: "var(--color-panel)",
   boxShadow: "var(--shadow-hard)",
   fontSize: 13,
+=======
+  padding: "var(--space-4)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-panel)",
+  boxShadow: "var(--shadow-hard)",
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
   display: "flex",
   flexDirection: "column",
-  gap: 10,
+  gap: "var(--space-3)",
 };
 
 const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
@@ -1148,7 +1245,7 @@ export default function Wall() {
             HUD ▾
           </button>
           <div style={toolbarStyle}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
             <button
               type="button"
               style={toolbarButtonStyle}
@@ -1158,8 +1255,8 @@ export default function Wall() {
             </button>
             <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               Search
             </div>
             <input
@@ -1190,7 +1287,7 @@ export default function Wall() {
                     >
                       <div style={{ fontWeight: 600 }}>{result.title}</div>
                       {result.tags.length ? (
-                        <div style={{ opacity: 0.65, marginTop: 2 }}>
+                        <div style={{ opacity: 0.65, marginTop: "var(--space-1)" }}>
                           {result.tags.join(", ")}
                         </div>
                       ) : null}
@@ -1201,14 +1298,14 @@ export default function Wall() {
             ) : null}
             <div style={toolbarHintStyle}>Press / to focus search</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               View
             </div>
-            <label style={{ fontSize: 12, opacity: 0.8 }}>
+            <label style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-muted)" }}>
               Wall style
               <select
-                style={{ ...toolbarSelectStyle, marginTop: 6 }}
+                style={{ ...toolbarSelectStyle, marginTop: "var(--space-2)" }}
                 value={wallStyleName}
                 onChange={(event) => setWallStyleName(event.target.value)}
               >
@@ -1236,11 +1333,11 @@ export default function Wall() {
             </button>
             <div style={toolbarHintStyle}>Press I for info</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               Boards
             </div>
-            <div style={{ fontSize: 12, opacity: 0.75 }}>
+            <div style={{ fontSize: "var(--font-size-sm)", color: "var(--color-text-muted)" }}>
               Current: {currentBoardTitle}
             </div>
             <select
@@ -1264,8 +1361,8 @@ export default function Wall() {
               )}
             </select>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               Board
             </div>
             <button
@@ -1290,8 +1387,8 @@ export default function Wall() {
               Reset
             </button>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               Publish Edition
             </div>
             <input
@@ -1333,8 +1430,8 @@ export default function Wall() {
               <div style={toolbarHintStyle}>{publishNotice}</div>
             ) : null}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-2)" }}>
+            <div style={{ fontSize: "var(--font-size-sm)", fontWeight: 600, letterSpacing: 0.4 }}>
               Relationships
             </div>
             <div style={legendListStyle}>
@@ -1382,7 +1479,7 @@ export default function Wall() {
       {isInfoOpen ? (
         <aside style={infoPanelStyle}>
           <div style={{ fontWeight: 600, letterSpacing: 0.4 }}>Info</div>
-          <div style={{ opacity: 0.8 }}>
+          <div style={{ color: "var(--color-text-muted)" }}>
             Metadata panel placeholder. Add collection notes or board context
             here.
           </div>
@@ -1391,7 +1488,7 @@ export default function Wall() {
       {isHelpOpen ? (
         <div style={helpOverlayStyle}>
           <div style={helpCardStyle}>
-            <div style={{ fontWeight: 600, fontSize: 14 }}>
+            <div style={{ fontWeight: 600, fontSize: "var(--font-size-lg)" }}>
               Shortcuts
             </div>
             <div> / — Open HUD + focus search</div>

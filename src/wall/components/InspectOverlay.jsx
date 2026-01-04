@@ -16,8 +16,8 @@ const contentStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: 18,
-  padding: "32px 24px 28px",
+  gap: "var(--space-5)",
+  padding: "var(--space-6) var(--space-5)",
   maxWidth: "90vw",
   maxHeight: "90vh",
 };
@@ -43,18 +43,18 @@ const labelStyle = {
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
   maxWidth: "68ch",
 };
 
 const labelTitleStyle = {
-  fontSize: 16,
+  fontSize: "var(--font-size-lg)",
   fontWeight: 600,
   letterSpacing: 0.2,
 };
 
 const labelMetaStyle = {
-  fontSize: 13,
+  fontSize: "var(--font-size-md)",
   opacity: 0.75,
 };
 
@@ -62,11 +62,12 @@ const tagRowStyle = {
   display: "flex",
   justifyContent: "center",
   flexWrap: "wrap",
-  gap: 6,
-  marginTop: 4,
+  gap: "var(--space-2)",
+  marginTop: "var(--space-1)",
 };
 
 const tagStyle = {
+<<<<<<< ours
   padding: "3px 10px",
   borderRadius: "var(--radius-pill)",
   border: "2px solid var(--color-black)",
@@ -74,6 +75,15 @@ const tagStyle = {
   color: "var(--color-black)",
   fontWeight: 600,
   fontSize: 11,
+=======
+  padding: "2px 10px",
+  borderRadius: "var(--radius-pill)",
+  border: "var(--border-strong)",
+  background: "var(--color-accent)",
+  color: "var(--color-black)",
+  fontWeight: 600,
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
 };
 
 const closeButtonStyle = {
@@ -81,7 +91,11 @@ const closeButtonStyle = {
   top: 18,
   right: 18,
   borderRadius: "var(--radius-pill)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   background: "var(--color-white)",
   color: "var(--color-black)",
   width: 36,
@@ -95,7 +109,11 @@ const navButtonStyle = {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   background: "var(--color-white)",
   color: "var(--color-black)",
   width: 56,
@@ -110,10 +128,14 @@ const navButtonStyle = {
 };
 
 const hintStyle = {
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
   opacity: 0.7,
   display: "flex",
-  gap: 12,
+  gap: "var(--space-3)",
   alignItems: "center",
   justifyContent: "center",
 };

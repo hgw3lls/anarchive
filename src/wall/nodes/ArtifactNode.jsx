@@ -6,8 +6,8 @@ const cardStyle = {
   color: "var(--color-text)",
   display: "flex",
   flexDirection: "column",
-  gap: 10,
-  fontSize: 12,
+  gap: "var(--space-3)",
+  fontSize: "var(--font-size-sm)",
   lineHeight: 1.4,
   wordBreak: "break-word",
   position: "relative",
@@ -15,7 +15,11 @@ const cardStyle = {
 
 const titleStyle = {
   fontWeight: 600,
+<<<<<<< ours
   fontSize: 13,
+=======
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
   letterSpacing: 0.2,
 };
 
@@ -44,10 +48,17 @@ const handleStyle = {
 };
 
 const textCardStyle = {
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   background: "var(--color-surface)",
   border: "2px solid var(--color-border)",
+=======
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  background: "var(--color-surface)",
+  border: "var(--border-strong)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
@@ -81,7 +92,13 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
+        <div
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "var(--font-size-xs)",
+            letterSpacing: 0.5,
+          }}
+        >
           Missing artifact
         </div>
         <div>Link this node to an artifact to preview it.</div>
@@ -94,7 +111,13 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
+        <div
+          style={{
+            color: "var(--color-text-muted)",
+            fontSize: "var(--font-size-xs)",
+            letterSpacing: 0.5,
+          }}
+        >
           Artifact {String(artifactId)}
         </div>
         <div>Unable to find artifact details.</div>
@@ -141,7 +164,7 @@ export default function ArtifactNode({ data }) {
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={titleStyle}>{title}</div>
-        {excerpt ? <div style={{ opacity: 0.8 }}>{excerpt}</div> : null}
+        {excerpt ? <div style={{ color: "var(--color-text-muted)" }}>{excerpt}</div> : null}
       </div>
     );
   }
@@ -178,7 +201,9 @@ export default function ArtifactNode({ data }) {
       <Handle type="target" position={Position.Left} style={handleStyle} />
       <Handle type="source" position={Position.Right} style={handleStyle} />
       <div style={titleStyle}>{title}</div>
-      <div style={{ opacity: 0.7 }}>Unsupported artifact type.</div>
+      <div style={{ color: "var(--color-text-muted)" }}>
+        Unsupported artifact type.
+      </div>
     </div>
   );
 }

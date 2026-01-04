@@ -1,5 +1,9 @@
 const captionStyle = {
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
   color: "var(--color-text-muted)",
   letterSpacing: 0.2,
   lineHeight: 1.4,
@@ -10,12 +14,16 @@ const containerBaseStyle = {
   display: "inline-flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: 6,
+  gap: "var(--space-2)",
   width: "100%",
 };
 
 const thinBlackFrameStyle = {
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   background: "var(--color-black)",
   borderRadius: "var(--radius-sm)",
   boxShadow: "var(--shadow-hard-sm)",
@@ -28,7 +36,11 @@ const thinBlackFrameStyle = {
 const floatMountFrameStyle = {
   background: "var(--color-offwhite-alt)",
   borderRadius: "var(--radius-md)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard)",
   display: "inline-flex",
   width: "100%",
@@ -38,7 +50,11 @@ const floatMountFrameStyle = {
 const floatInnerStyle = {
   background: "var(--color-white)",
   borderRadius: "var(--radius-sm)",
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
   display: "inline-flex",
   width: "100%",
