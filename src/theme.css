@@ -17,6 +17,10 @@
   --color-border: #111111;
   --color-border-muted: rgba(17, 17, 17, 0.2);
 <<<<<<< ours
+<<<<<<< ours
+=======
+  --border-strong: 2px solid var(--color-black);
+>>>>>>> theirs
 =======
   --border-strong: 2px solid var(--color-black);
 >>>>>>> theirs
@@ -27,7 +31,10 @@
   --radius-lg: 12px;
   --radius-pill: 999px;
 <<<<<<< ours
+<<<<<<< ours
 =======
+=======
+>>>>>>> theirs
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -39,6 +46,9 @@
   --font-size-md: 13px;
   --font-size-lg: 16px;
   --font-size-xl: 20px;
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 }
 

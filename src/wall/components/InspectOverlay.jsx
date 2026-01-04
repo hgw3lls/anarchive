@@ -68,6 +68,7 @@ const tagRowStyle = {
 
 const tagStyle = {
 <<<<<<< ours
+<<<<<<< ours
   padding: "3px 10px",
   borderRadius: "var(--radius-pill)",
   border: "2px solid var(--color-black)",
@@ -76,6 +77,8 @@ const tagStyle = {
   fontWeight: 600,
   fontSize: 11,
 =======
+=======
+>>>>>>> theirs
   padding: "2px 10px",
   borderRadius: "var(--radius-pill)",
   border: "var(--border-strong)",
@@ -83,6 +86,9 @@ const tagStyle = {
   color: "var(--color-black)",
   fontWeight: 600,
   fontSize: "var(--font-size-xs)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 };
 
@@ -92,7 +98,11 @@ const closeButtonStyle = {
   right: 18,
   borderRadius: "var(--radius-pill)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -110,7 +120,11 @@ const navButtonStyle = {
   top: "50%",
   transform: "translateY(-50%)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -129,7 +143,11 @@ const navButtonStyle = {
 
 const hintStyle = {
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-xs)",
 >>>>>>> theirs

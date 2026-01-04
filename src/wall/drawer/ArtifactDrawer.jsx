@@ -16,9 +16,15 @@ const drawerStyle = {
   background: "var(--color-surface)",
   color: "var(--color-text)",
 <<<<<<< ours
+<<<<<<< ours
   borderLeft: "2px solid var(--color-black)",
   boxShadow: "var(--shadow-hard)",
   padding: "24px 20px",
+=======
+  borderLeft: "var(--border-strong)",
+  boxShadow: "var(--shadow-hard)",
+  padding: "var(--space-5) var(--space-4)",
+>>>>>>> theirs
 =======
   borderLeft: "var(--border-strong)",
   boxShadow: "var(--shadow-hard)",
@@ -35,7 +41,11 @@ const closeButtonStyle = {
   background: "var(--color-white)",
   color: "var(--color-black)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -66,6 +76,7 @@ const tagListStyle = {
 
 const tagStyle = {
 <<<<<<< ours
+<<<<<<< ours
   padding: "4px 10px",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-offwhite-alt)",
@@ -74,6 +85,8 @@ const tagStyle = {
   fontWeight: 600,
   fontSize: 12,
 =======
+=======
+>>>>>>> theirs
   padding: "2px 10px",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-offwhite-alt)",
@@ -81,6 +94,9 @@ const tagStyle = {
   color: "var(--color-text)",
   fontWeight: 600,
   fontSize: "var(--font-size-sm)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
 };
 
@@ -90,8 +106,13 @@ const sectionTitleStyle = {
   textTransform: "uppercase",
   color: "var(--color-text-muted)",
 <<<<<<< ours
+<<<<<<< ours
   marginTop: 20,
   marginBottom: 8,
+=======
+  marginTop: "var(--space-5)",
+  marginBottom: "var(--space-2)",
+>>>>>>> theirs
 =======
   marginTop: "var(--space-5)",
   marginBottom: "var(--space-2)",
@@ -103,7 +124,11 @@ const imageStyle = {
   borderRadius: "var(--radius-lg)",
   background: "var(--color-surface-muted)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -122,12 +147,21 @@ const relatedButtonStyle = {
   textAlign: "left",
   background: "var(--color-white)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-md)",
   padding: "10px 12px",
   color: "var(--color-black)",
   cursor: "pointer",
   fontSize: 13,
+=======
+  border: "var(--border-strong)",
+  borderRadius: "var(--radius-md)",
+  padding: "var(--space-3)",
+  color: "var(--color-black)",
+  cursor: "pointer",
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
   borderRadius: "var(--radius-md)",
@@ -145,7 +179,11 @@ const markdownStyle = {
 
 const controlLabelStyle = {
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 12,
+=======
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-sm)",
 >>>>>>> theirs
@@ -157,6 +195,7 @@ const controlLabelStyle = {
 
 const controlSelectStyle = {
   width: "100%",
+<<<<<<< ours
 <<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
@@ -183,18 +222,33 @@ const controlButtonStyle = {
 };
 
 const controlButtonStyle = {
+=======
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+  background: "var(--color-white)",
+  color: "var(--color-black)",
+  fontSize: "var(--font-size-sm)",
+};
+
+const controlButtonStyle = {
+>>>>>>> theirs
   border: "var(--border-strong)",
   borderRadius: "var(--radius-md)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
   padding: "var(--space-2) var(--space-3)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   cursor: "pointer",
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const inspectButtonStyle = {
+<<<<<<< ours
 <<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
@@ -203,12 +257,17 @@ const inspectButtonStyle = {
   fontSize: 11,
   padding: "6px 12px",
 =======
+=======
+>>>>>>> theirs
   border: "var(--border-strong)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-xs)",
   padding: "var(--space-2) var(--space-3)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   cursor: "pointer",
   alignSelf: "flex-start",
@@ -296,7 +355,11 @@ export default function ArtifactDrawer({
                 style={{
                   borderRadius: "var(--radius-lg)",
 <<<<<<< ours
+<<<<<<< ours
                   border: "2px solid var(--color-black)",
+=======
+                  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
                   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -311,7 +374,11 @@ export default function ArtifactDrawer({
                   width: "100%",
                   borderRadius: "var(--radius-lg)",
 <<<<<<< ours
+<<<<<<< ours
                   border: "2px solid var(--color-black)",
+=======
+                  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
                   border: "var(--border-strong)",
 >>>>>>> theirs

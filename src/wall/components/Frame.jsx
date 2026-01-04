@@ -1,6 +1,10 @@
 const captionStyle = {
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-xs)",
 >>>>>>> theirs
@@ -20,7 +24,11 @@ const containerBaseStyle = {
 
 const thinBlackFrameStyle = {
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -37,7 +45,11 @@ const floatMountFrameStyle = {
   background: "var(--color-offwhite-alt)",
   borderRadius: "var(--radius-md)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -51,7 +63,11 @@ const floatInnerStyle = {
   background: "var(--color-white)",
   borderRadius: "var(--radius-sm)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs

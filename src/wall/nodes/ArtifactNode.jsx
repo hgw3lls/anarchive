@@ -16,7 +16,11 @@ const cardStyle = {
 const titleStyle = {
   fontWeight: 600,
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 13,
+=======
+  fontSize: "var(--font-size-md)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-md)",
 >>>>>>> theirs
@@ -49,15 +53,21 @@ const handleStyle = {
 
 const textCardStyle = {
 <<<<<<< ours
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   background: "var(--color-surface)",
   border: "2px solid var(--color-border)",
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-3)",
   borderRadius: "var(--radius-md)",
   background: "var(--color-surface)",
   border: "var(--border-strong)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };

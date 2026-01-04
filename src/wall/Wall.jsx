@@ -65,6 +65,7 @@ const overlayStyle = {
 const searchInputStyle = {
   width: "100%",
 <<<<<<< ours
+<<<<<<< ours
   padding: "10px 12px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -72,12 +73,17 @@ const searchInputStyle = {
   color: "var(--color-black)",
   fontSize: 13,
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-2) var(--space-3)",
   borderRadius: "var(--radius-md)",
   border: "var(--border-strong)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-md)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
@@ -88,7 +94,11 @@ const searchResultsStyle = {
   padding: 0,
   borderRadius: "var(--radius-md)",
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
+=======
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   border: "var(--border-strong)",
 >>>>>>> theirs
@@ -105,9 +115,15 @@ const searchResultButtonStyle = {
   background: "var(--color-white)",
   color: "var(--color-black)",
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 12,
   cursor: "pointer",
   borderBottom: "2px solid var(--color-black)",
+=======
+  fontSize: "var(--font-size-sm)",
+  cursor: "pointer",
+  borderBottom: "var(--border-strong)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-sm)",
   cursor: "pointer",
@@ -121,9 +137,15 @@ const toolbarStyle = {
   gap: "var(--space-3)",
   minWidth: 220,
 <<<<<<< ours
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
+=======
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-md)",
+  border: "var(--border-strong)",
+>>>>>>> theirs
 =======
   padding: "var(--space-3)",
   borderRadius: "var(--radius-md)",
@@ -146,6 +168,7 @@ const hudContainerStyle = {
 
 const hudToggleStyle = {
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
@@ -153,12 +176,17 @@ const hudToggleStyle = {
   fontSize: 12,
   padding: "6px 12px",
 =======
+=======
+>>>>>>> theirs
   border: "var(--border-strong)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
   padding: "var(--space-2) var(--space-3)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   cursor: "pointer",
   fontWeight: 600,
@@ -171,6 +199,7 @@ const hudOpenButtonStyle = {
   right: "var(--space-4)",
   zIndex: 13,
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
@@ -178,12 +207,17 @@ const hudOpenButtonStyle = {
   fontSize: 12,
   padding: "6px 12px",
 =======
+=======
+>>>>>>> theirs
   border: "var(--border-strong)",
   borderRadius: "var(--radius-pill)",
   background: "var(--color-accent)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
   padding: "var(--space-2) var(--space-3)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   cursor: "pointer",
   fontWeight: 600,
@@ -192,6 +226,7 @@ const hudOpenButtonStyle = {
 
 const toolbarButtonStyle = {
 <<<<<<< ours
+<<<<<<< ours
   border: "2px solid var(--color-black)",
   borderRadius: "var(--radius-md)",
   background: "var(--color-white)",
@@ -199,12 +234,17 @@ const toolbarButtonStyle = {
   fontSize: 12,
   padding: "8px 12px",
 =======
+=======
+>>>>>>> theirs
   border: "var(--border-strong)",
   borderRadius: "var(--radius-md)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
   padding: "var(--space-2) var(--space-3)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   cursor: "pointer",
   boxShadow: "var(--shadow-hard-sm)",
@@ -213,6 +253,7 @@ const toolbarButtonStyle = {
 const toolbarSelectStyle = {
   width: "100%",
 <<<<<<< ours
+<<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -220,12 +261,17 @@ const toolbarSelectStyle = {
   color: "var(--color-black)",
   fontSize: 12,
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-2) var(--space-3)",
   borderRadius: "var(--radius-md)",
   border: "var(--border-strong)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
@@ -233,6 +279,7 @@ const toolbarSelectStyle = {
 const toolbarInputStyle = {
   width: "100%",
 <<<<<<< ours
+<<<<<<< ours
   padding: "8px 10px",
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -240,19 +287,28 @@ const toolbarInputStyle = {
   color: "var(--color-black)",
   fontSize: 12,
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-2) var(--space-3)",
   borderRadius: "var(--radius-md)",
   border: "var(--border-strong)",
   background: "var(--color-white)",
   color: "var(--color-black)",
   fontSize: "var(--font-size-sm)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   boxShadow: "var(--shadow-hard-sm)",
 };
 
 const toolbarHintStyle = {
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 11,
+=======
+  fontSize: "var(--font-size-xs)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-xs)",
 >>>>>>> theirs
@@ -270,7 +326,11 @@ const legendRowStyle = {
   alignItems: "center",
   justifyContent: "space-between",
 <<<<<<< ours
+<<<<<<< ours
   fontSize: 12,
+=======
+  fontSize: "var(--font-size-sm)",
+>>>>>>> theirs
 =======
   fontSize: "var(--font-size-sm)",
 >>>>>>> theirs
@@ -294,6 +354,7 @@ const infoPanelStyle = {
   zIndex: 13,
   width: 260,
 <<<<<<< ours
+<<<<<<< ours
   padding: 12,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -302,6 +363,8 @@ const infoPanelStyle = {
   boxShadow: "var(--shadow-hard)",
   fontSize: 12,
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-3)",
   borderRadius: "var(--radius-md)",
   border: "var(--border-strong)",
@@ -309,6 +372,9 @@ const infoPanelStyle = {
   color: "var(--color-panel-text)",
   boxShadow: "var(--shadow-hard)",
   fontSize: "var(--font-size-sm)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   display: "flex",
   flexDirection: "column",
@@ -331,6 +397,7 @@ const helpCardStyle = {
   maxWidth: 360,
   width: "100%",
 <<<<<<< ours
+<<<<<<< ours
   padding: 16,
   borderRadius: "var(--radius-md)",
   border: "2px solid var(--color-black)",
@@ -338,12 +405,17 @@ const helpCardStyle = {
   boxShadow: "var(--shadow-hard)",
   fontSize: 13,
 =======
+=======
+>>>>>>> theirs
   padding: "var(--space-4)",
   borderRadius: "var(--radius-md)",
   border: "var(--border-strong)",
   background: "var(--color-panel)",
   boxShadow: "var(--shadow-hard)",
   fontSize: "var(--font-size-md)",
+<<<<<<< ours
+>>>>>>> theirs
+=======
 >>>>>>> theirs
   display: "flex",
   flexDirection: "column",
