@@ -3,11 +3,11 @@ import Frame from "../components/Frame.jsx";
 
 const cardStyle = {
   width: 220,
-  color: "var(--color-text)",
+  color: "#1f1f1f",
   display: "flex",
   flexDirection: "column",
-  gap: "var(--space-3)",
-  fontSize: "var(--font-size-sm)",
+  gap: 10,
+  fontSize: 12,
   lineHeight: 1.4,
   wordBreak: "break-word",
   position: "relative",
@@ -15,24 +15,15 @@ const cardStyle = {
 
 const titleStyle = {
   fontWeight: 600,
-<<<<<<< ours
-<<<<<<< ours
   fontSize: 13,
-=======
-  fontSize: "var(--font-size-md)",
->>>>>>> theirs
-=======
-  fontSize: "var(--font-size-md)",
->>>>>>> theirs
-  letterSpacing: 0.2,
 };
 
 const thumbStyle = {
   width: "100%",
   height: "auto",
-  borderRadius: "var(--radius-sm)",
+  borderRadius: 3,
   display: "block",
-  background: "var(--color-surface-muted)",
+  background: "rgba(0, 0, 0, 0.05)",
 };
 
 const overlayStyle = {
@@ -41,9 +32,9 @@ const overlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "var(--color-white)",
+  color: "rgba(255, 255, 255, 0.9)",
   fontSize: 28,
-  textShadow: "2px 2px 0 rgba(0, 0, 0, 0.65)",
+  textShadow: "0 4px 10px rgba(0, 0, 0, 0.45)",
   pointerEvents: "none",
 };
 
@@ -52,24 +43,11 @@ const handleStyle = {
 };
 
 const textCardStyle = {
-<<<<<<< ours
-<<<<<<< ours
   padding: 12,
-  borderRadius: "var(--radius-md)",
-  background: "var(--color-surface)",
-  border: "2px solid var(--color-border)",
-=======
-=======
->>>>>>> theirs
-  padding: "var(--space-3)",
-  borderRadius: "var(--radius-md)",
-  background: "var(--color-surface)",
-  border: "var(--border-strong)",
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-  boxShadow: "var(--shadow-hard-sm)",
+  borderRadius: 12,
+  background: "rgba(255, 255, 255, 0.85)",
+  border: "1px solid rgba(0, 0, 0, 0.08)",
+  boxShadow: "0 10px 18px rgba(0, 0, 0, 0.12)",
 };
 
 const buildCaption = (artifact) => {
@@ -102,13 +80,7 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div
-          style={{
-            color: "var(--color-text-muted)",
-            fontSize: "var(--font-size-xs)",
-            letterSpacing: 0.5,
-          }}
-        >
+        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Missing artifact
         </div>
         <div>Link this node to an artifact to preview it.</div>
@@ -121,13 +93,7 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div
-          style={{
-            color: "var(--color-text-muted)",
-            fontSize: "var(--font-size-xs)",
-            letterSpacing: 0.5,
-          }}
-        >
+        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
           Artifact {String(artifactId)}
         </div>
         <div>Unable to find artifact details.</div>
@@ -174,7 +140,7 @@ export default function ArtifactNode({ data }) {
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
         <div style={titleStyle}>{title}</div>
-        {excerpt ? <div style={{ color: "var(--color-text-muted)" }}>{excerpt}</div> : null}
+        {excerpt ? <div style={{ opacity: 0.8 }}>{excerpt}</div> : null}
       </div>
     );
   }
@@ -211,9 +177,7 @@ export default function ArtifactNode({ data }) {
       <Handle type="target" position={Position.Left} style={handleStyle} />
       <Handle type="source" position={Position.Right} style={handleStyle} />
       <div style={titleStyle}>{title}</div>
-      <div style={{ color: "var(--color-text-muted)" }}>
-        Unsupported artifact type.
-      </div>
+      <div style={{ opacity: 0.7 }}>Unsupported artifact type.</div>
     </div>
   );
 }

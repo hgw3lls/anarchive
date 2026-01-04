@@ -3,12 +3,12 @@ import Frame from "./Frame.jsx";
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "var(--color-overlay)",
+  background: "rgba(10, 10, 14, 0.82)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   zIndex: 50,
-  color: "var(--color-white)",
+  color: "#f5f5f5",
 };
 
 const contentStyle = {
@@ -16,8 +16,8 @@ const contentStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "var(--space-5)",
-  padding: "var(--space-6) var(--space-5)",
+  gap: 18,
+  padding: "32px 24px 28px",
   maxWidth: "90vw",
   maxHeight: "90vh",
 };
@@ -36,25 +36,25 @@ const mediaStyle = {
   maxHeight: "80vh",
   display: "block",
   objectFit: "contain",
-  borderRadius: "var(--radius-sm)",
+  borderRadius: 3,
 };
 
 const labelStyle = {
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
-  gap: "var(--space-2)",
+  gap: 6,
   maxWidth: "68ch",
 };
 
 const labelTitleStyle = {
-  fontSize: "var(--font-size-lg)",
+  fontSize: 16,
   fontWeight: 600,
   letterSpacing: 0.2,
 };
 
 const labelMetaStyle = {
-  fontSize: "var(--font-size-md)",
+  fontSize: 13,
   opacity: 0.75,
 };
 
@@ -62,98 +62,54 @@ const tagRowStyle = {
   display: "flex",
   justifyContent: "center",
   flexWrap: "wrap",
-  gap: "var(--space-2)",
-  marginTop: "var(--space-1)",
+  gap: 6,
+  marginTop: 4,
 };
 
 const tagStyle = {
-<<<<<<< ours
-<<<<<<< ours
   padding: "3px 10px",
-  borderRadius: "var(--radius-pill)",
-  border: "2px solid var(--color-black)",
-  background: "var(--color-accent)",
-  color: "var(--color-black)",
-  fontWeight: 600,
+  borderRadius: 999,
+  border: "1px solid rgba(255, 255, 255, 0.2)",
   fontSize: 11,
-=======
-=======
->>>>>>> theirs
-  padding: "2px 10px",
-  borderRadius: "var(--radius-pill)",
-  border: "var(--border-strong)",
-  background: "var(--color-accent)",
-  color: "var(--color-black)",
-  fontWeight: 600,
-  fontSize: "var(--font-size-xs)",
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
+  opacity: 0.75,
 };
 
 const closeButtonStyle = {
   position: "absolute",
   top: 18,
   right: 18,
-  borderRadius: "var(--radius-pill)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  background: "var(--color-white)",
-  color: "var(--color-black)",
+  borderRadius: 999,
+  border: "1px solid rgba(255, 255, 255, 0.3)",
+  background: "rgba(20, 20, 26, 0.8)",
+  color: "#f5f5f5",
   width: 36,
   height: 36,
   fontSize: 18,
   cursor: "pointer",
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const navButtonStyle = {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  background: "var(--color-white)",
-  color: "var(--color-black)",
+  border: "none",
+  background: "rgba(20, 20, 26, 0.6)",
+  color: "#f5f5f5",
   width: 56,
   height: 56,
-  borderRadius: "var(--radius-pill)",
+  borderRadius: 999,
   cursor: "pointer",
   fontSize: 28,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const hintStyle = {
-<<<<<<< ours
-<<<<<<< ours
   fontSize: 11,
-=======
-  fontSize: "var(--font-size-xs)",
->>>>>>> theirs
-=======
-  fontSize: "var(--font-size-xs)",
->>>>>>> theirs
-  opacity: 0.7,
+  opacity: 0.55,
   display: "flex",
-  gap: "var(--space-3)",
+  gap: 12,
   alignItems: "center",
   justifyContent: "center",
 };

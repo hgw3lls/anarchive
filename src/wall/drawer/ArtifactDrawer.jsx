@@ -3,7 +3,7 @@ import { marked } from "marked";
 const overlayStyle = {
   position: "fixed",
   inset: 0,
-  background: "var(--color-overlay-soft)",
+  background: "rgba(8, 8, 12, 0.55)",
   zIndex: 20,
 };
 
@@ -13,23 +13,11 @@ const drawerStyle = {
   right: 0,
   height: "100vh",
   width: "min(420px, 92vw)",
-  background: "var(--color-surface)",
-  color: "var(--color-text)",
-<<<<<<< ours
-<<<<<<< ours
-  borderLeft: "2px solid var(--color-black)",
-  boxShadow: "var(--shadow-hard)",
+  background: "rgba(20, 20, 26, 0.98)",
+  color: "#f5f5f5",
+  borderLeft: "1px solid rgba(255, 255, 255, 0.08)",
+  boxShadow: "-12px 0 24px rgba(0, 0, 0, 0.35)",
   padding: "24px 20px",
-=======
-  borderLeft: "var(--border-strong)",
-  boxShadow: "var(--shadow-hard)",
-  padding: "var(--space-5) var(--space-4)",
->>>>>>> theirs
-=======
-  borderLeft: "var(--border-strong)",
-  boxShadow: "var(--shadow-hard)",
-  padding: "var(--space-5) var(--space-4)",
->>>>>>> theirs
   overflowY: "auto",
   zIndex: 30,
 };
@@ -38,18 +26,10 @@ const closeButtonStyle = {
   position: "absolute",
   top: 16,
   right: 16,
-  background: "var(--color-white)",
-  color: "var(--color-black)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  borderRadius: "var(--radius-pill)",
+  background: "transparent",
+  color: "#f5f5f5",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: 999,
   width: 32,
   height: 32,
   display: "inline-flex",
@@ -57,81 +37,42 @@ const closeButtonStyle = {
   justifyContent: "center",
   cursor: "pointer",
   fontSize: 16,
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const titleStyle = {
-  fontSize: "var(--font-size-xl)",
+  fontSize: 20,
   fontWeight: 600,
-  marginBottom: "var(--space-3)",
+  marginBottom: 12,
   paddingRight: 48,
 };
 
 const tagListStyle = {
   display: "flex",
   flexWrap: "wrap",
-  gap: "var(--space-2)",
-  marginBottom: "var(--space-4)",
+  gap: 8,
+  marginBottom: 16,
 };
 
 const tagStyle = {
-<<<<<<< ours
-<<<<<<< ours
   padding: "4px 10px",
-  borderRadius: "var(--radius-pill)",
-  background: "var(--color-offwhite-alt)",
-  border: "2px solid var(--color-black)",
-  color: "var(--color-text)",
-  fontWeight: 600,
+  borderRadius: 999,
+  background: "rgba(255, 255, 255, 0.08)",
   fontSize: 12,
-=======
-=======
->>>>>>> theirs
-  padding: "2px 10px",
-  borderRadius: "var(--radius-pill)",
-  background: "var(--color-offwhite-alt)",
-  border: "var(--border-strong)",
-  color: "var(--color-text)",
-  fontWeight: 600,
-  fontSize: "var(--font-size-sm)",
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
 };
 
 const sectionTitleStyle = {
-  fontSize: "var(--font-size-sm)",
+  fontSize: 12,
   letterSpacing: 0.12,
   textTransform: "uppercase",
-  color: "var(--color-text-muted)",
-<<<<<<< ours
-<<<<<<< ours
+  opacity: 0.6,
   marginTop: 20,
   marginBottom: 8,
-=======
-  marginTop: "var(--space-5)",
-  marginBottom: "var(--space-2)",
->>>>>>> theirs
-=======
-  marginTop: "var(--space-5)",
-  marginBottom: "var(--space-2)",
->>>>>>> theirs
 };
 
 const imageStyle = {
   width: "100%",
-  borderRadius: "var(--radius-lg)",
-  background: "var(--color-surface-muted)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
+  borderRadius: 12,
+  background: "rgba(255, 255, 255, 0.04)",
 };
 
 const relatedListStyle = {
@@ -139,38 +80,19 @@ const relatedListStyle = {
   padding: 0,
   margin: 0,
   display: "grid",
-  gap: "var(--space-2)",
+  gap: 8,
 };
 
 const relatedButtonStyle = {
   width: "100%",
   textAlign: "left",
-  background: "var(--color-white)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-  borderRadius: "var(--radius-md)",
+  background: "rgba(255, 255, 255, 0.06)",
+  border: "1px solid rgba(255, 255, 255, 0.08)",
+  borderRadius: 10,
   padding: "10px 12px",
-  color: "var(--color-black)",
+  color: "#f5f5f5",
   cursor: "pointer",
   fontSize: 13,
-=======
-  border: "var(--border-strong)",
-  borderRadius: "var(--radius-md)",
-  padding: "var(--space-3)",
-  color: "var(--color-black)",
-  cursor: "pointer",
-  fontSize: "var(--font-size-md)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
-  borderRadius: "var(--radius-md)",
-  padding: "var(--space-3)",
-  color: "var(--color-black)",
-  cursor: "pointer",
-  fontSize: "var(--font-size-md)",
->>>>>>> theirs
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const markdownStyle = {
@@ -178,101 +100,42 @@ const markdownStyle = {
 };
 
 const controlLabelStyle = {
-<<<<<<< ours
-<<<<<<< ours
   fontSize: 12,
-=======
-  fontSize: "var(--font-size-sm)",
->>>>>>> theirs
-=======
-  fontSize: "var(--font-size-sm)",
->>>>>>> theirs
-  color: "var(--color-text)",
+  opacity: 0.8,
   display: "flex",
   flexDirection: "column",
-  gap: "var(--space-2)",
+  gap: 6,
 };
 
 const controlSelectStyle = {
   width: "100%",
-<<<<<<< ours
-<<<<<<< ours
   padding: "8px 10px",
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--color-black)",
-  background: "var(--color-white)",
-  color: "var(--color-black)",
+  borderRadius: 10,
+  border: "1px solid rgba(255, 255, 255, 0.16)",
+  background: "rgba(18, 18, 24, 0.8)",
+  color: "#f5f5f5",
   fontSize: 12,
 };
 
 const controlButtonStyle = {
-  border: "2px solid var(--color-black)",
-  borderRadius: "var(--radius-md)",
-  background: "var(--color-white)",
-  color: "var(--color-black)",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: 10,
+  background: "rgba(18, 18, 24, 0.9)",
+  color: "#f5f5f5",
   fontSize: 12,
   padding: "8px 12px",
-=======
-  padding: "var(--space-2) var(--space-3)",
-  borderRadius: "var(--radius-md)",
-  border: "var(--border-strong)",
-  background: "var(--color-white)",
-  color: "var(--color-black)",
-  fontSize: "var(--font-size-sm)",
-};
-
-const controlButtonStyle = {
-=======
-  padding: "var(--space-2) var(--space-3)",
-  borderRadius: "var(--radius-md)",
-  border: "var(--border-strong)",
-  background: "var(--color-white)",
-  color: "var(--color-black)",
-  fontSize: "var(--font-size-sm)",
-};
-
-const controlButtonStyle = {
->>>>>>> theirs
-  border: "var(--border-strong)",
-  borderRadius: "var(--radius-md)",
-  background: "var(--color-white)",
-  color: "var(--color-black)",
-  fontSize: "var(--font-size-sm)",
-  padding: "var(--space-2) var(--space-3)",
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
   cursor: "pointer",
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 const inspectButtonStyle = {
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-  borderRadius: "var(--radius-pill)",
-  background: "var(--color-accent)",
-  color: "var(--color-black)",
+  border: "1px solid rgba(255, 255, 255, 0.2)",
+  borderRadius: 999,
+  background: "rgba(255, 255, 255, 0.08)",
+  color: "#f5f5f5",
   fontSize: 11,
   padding: "6px 12px",
-=======
-=======
->>>>>>> theirs
-  border: "var(--border-strong)",
-  borderRadius: "var(--radius-pill)",
-  background: "var(--color-accent)",
-  color: "var(--color-black)",
-  fontSize: "var(--font-size-xs)",
-  padding: "var(--space-2) var(--space-3)",
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
   cursor: "pointer",
   alignSelf: "flex-start",
-  fontWeight: 600,
-  boxShadow: "var(--shadow-hard-sm)",
 };
 
 marked.setOptions({
@@ -352,37 +215,14 @@ export default function ArtifactDrawer({
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                style={{
-                  borderRadius: "var(--radius-lg)",
-<<<<<<< ours
-<<<<<<< ours
-                  border: "2px solid var(--color-black)",
-=======
-                  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-                  border: "var(--border-strong)",
->>>>>>> theirs
-                }}
+                style={{ borderRadius: 12 }}
               />
             ) : null}
             {!artifact.youtubeId && artifact.mp4 ? (
               <video
                 controls
                 src={artifact.mp4}
-                style={{
-                  width: "100%",
-                  borderRadius: "var(--radius-lg)",
-<<<<<<< ours
-<<<<<<< ours
-                  border: "2px solid var(--color-black)",
-=======
-                  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-                  border: "var(--border-strong)",
->>>>>>> theirs
-                }}
+                style={{ width: "100%", borderRadius: 12 }}
               />
             ) : null}
           </div>
@@ -390,13 +230,7 @@ export default function ArtifactDrawer({
         {canEditFrame ? (
           <section>
             <div style={sectionTitleStyle}>Frame</div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--space-3)",
-              }}
-            >
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               <label style={controlLabelStyle}>
                 Variant
                 <select

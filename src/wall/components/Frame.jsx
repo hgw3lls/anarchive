@@ -1,14 +1,6 @@
 const captionStyle = {
-<<<<<<< ours
-<<<<<<< ours
   fontSize: 11,
-=======
-  fontSize: "var(--font-size-xs)",
->>>>>>> theirs
-=======
-  fontSize: "var(--font-size-xs)",
->>>>>>> theirs
-  color: "var(--color-text-muted)",
+  color: "rgba(40, 40, 40, 0.7)",
   letterSpacing: 0.2,
   lineHeight: 1.4,
   pointerEvents: "none",
@@ -18,23 +10,15 @@ const containerBaseStyle = {
   display: "inline-flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  gap: "var(--space-2)",
+  gap: 6,
   width: "100%",
 };
 
 const thinBlackFrameStyle = {
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  background: "var(--color-black)",
-  borderRadius: "var(--radius-sm)",
-  boxShadow: "var(--shadow-hard-sm)",
+  border: "1px solid #111",
+  background: "#0d0d0d",
+  borderRadius: 6,
+  boxShadow: "0 4px 10px rgba(0, 0, 0, 0.18)",
   padding: 1,
   display: "inline-flex",
   width: "100%",
@@ -42,36 +26,18 @@ const thinBlackFrameStyle = {
 };
 
 const floatMountFrameStyle = {
-  background: "var(--color-offwhite-alt)",
-  borderRadius: "var(--radius-md)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  boxShadow: "var(--shadow-hard)",
+  background: "#f5f2ea",
+  borderRadius: 8,
+  boxShadow: "0 10px 24px rgba(0, 0, 0, 0.18)",
   display: "inline-flex",
   width: "100%",
   boxSizing: "border-box",
 };
 
 const floatInnerStyle = {
-  background: "var(--color-white)",
-  borderRadius: "var(--radius-sm)",
-<<<<<<< ours
-<<<<<<< ours
-  border: "2px solid var(--color-black)",
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-=======
-  border: "var(--border-strong)",
->>>>>>> theirs
-  boxShadow: "var(--shadow-hard-sm)",
+  background: "#fffdfa",
+  borderRadius: 4,
+  boxShadow: "0 3px 10px rgba(0, 0, 0, 0.2)",
   display: "inline-flex",
   width: "100%",
   boxSizing: "border-box",
