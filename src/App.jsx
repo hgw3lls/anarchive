@@ -2,9 +2,21 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Wall from "./wall/Wall.jsx";
 
 const sidebarSections = [
-  { title: "Boards", count: 5, tags: ["Sequence", "Threshold", "Witness"] },
-  { title: "Artifacts", count: 128, tags: ["Image", "Text", "Video"] },
-  { title: "Edges", count: 312, tags: ["Echoes", "Samples"] },
+  {
+    title: "Boards",
+    count: 5,
+    tags: ["Sequence", "Threshold", "Witness"],
+  },
+  {
+    title: "Artifacts",
+    count: 128,
+    tags: ["Image", "Text", "Video"],
+  },
+  {
+    title: "Edges",
+    count: 312,
+    tags: ["Echoes", "Samples"],
+  },
 ];
 
 const recentItems = [
@@ -31,7 +43,9 @@ export default function App() {
 
   useEffect(() => {
     const handleKey = (event) => {
-      if (event.defaultPrevented) return;
+      if (event.defaultPrevented) {
+        return;
+      }
 
       const isTypingTarget =
         event.target instanceof HTMLElement &&
@@ -62,36 +76,36 @@ export default function App() {
         </div>
 
         <div className="app-masthead__crumbs" aria-label="Breadcrumb">
-          <span className="app-masthead__crumb">Archive</span>
+          <span className="app-masthead__crumb ui-chip">Archive</span>
           <span className="app-masthead__crumb-sep">▣</span>
-          <span className="app-masthead__crumb">Index</span>
+          <span className="app-masthead__crumb ui-chip">Index</span>
           <span className="app-masthead__crumb-sep">▣</span>
-          <span className="app-masthead__crumb app-masthead__crumb--active">
+          <span className="app-masthead__crumb app-masthead__crumb--active ui-chip">
             {routeLabel}
           </span>
         </div>
 
         <nav className="app-masthead__nav">
-          <button type="button" className="app-masthead__chip">
+          <button type="button" className="app-masthead__chip ui-button">
             Archive
           </button>
-          <button type="button" className="app-masthead__chip">
+          <button type="button" className="app-masthead__chip ui-button">
             Studio
           </button>
-          <button type="button" className="app-masthead__chip">
+          <button type="button" className="app-masthead__chip ui-button">
             Timeline
           </button>
         </nav>
 
         <div className="app-masthead__status">
-          <span className="app-masthead__pill">You are here: {routeLabel}</span>
-          <span className="app-masthead__pill">Last updated: {lastUpdated}</span>
-          <span className="app-masthead__pill">Items: {totalCount}</span>
+          <span className="app-masthead__pill ui-chip">You are here: {routeLabel}</span>
+          <span className="app-masthead__pill ui-chip">Last updated: {lastUpdated}</span>
+          <span className="app-masthead__pill ui-chip">Items: {totalCount}</span>
 
           {isDev ? (
             <button
               type="button"
-              className="app-masthead__pill app-masthead__pill--toggle"
+              className="app-masthead__pill app-masthead__pill--toggle ui-button"
               onClick={() => setDebugGrid((current) => !current)}
             >
               Debug Grid: {debugGrid ? "On" : "Off"}
@@ -115,7 +129,7 @@ export default function App() {
             <div className="app-sidebar__heading">Index</div>
             <button
               type="button"
-              className="app-sidebar__toggle"
+              className="app-sidebar__toggle ui-button"
               onClick={() => setIsIndexOpen((current) => !current)}
             >
               {isIndexOpen ? "Collapse" : "Expand"}
@@ -128,11 +142,11 @@ export default function App() {
               ref={searchRef}
               type="search"
               placeholder="Search index..."
-              className="app-sidebar__input"
+              className="app-sidebar__input ui-input"
             />
           </label>
 
-          <div className="app-sidebar__section">
+          <div className="app-sidebar__section ui-card ui-card--tape">
             <div className="app-sidebar__section-title">Major Sections</div>
             {sidebarSections.map((section) => (
               <div key={section.title} className="app-sidebar__row">
@@ -142,7 +156,7 @@ export default function App() {
             ))}
           </div>
 
-          <div className="app-sidebar__section">
+          <div className="app-sidebar__section ui-card ui-card--tape">
             <div className="app-sidebar__section-title">Recent</div>
             {recentItems.map((item) => (
               <div key={item.title} className="app-sidebar__recent">
@@ -155,7 +169,10 @@ export default function App() {
           <div className="app-sidebar__tags">
             {sidebarSections.flatMap((section) =>
               section.tags.map((tag) => (
-                <span key={`${section.title}-${tag}`} className="app-sidebar__tag">
+                <span
+                  key={`${section.title}-${tag}`}
+                  className="app-sidebar__tag ui-chip"
+                >
                   {tag}
                 </span>
               )),
