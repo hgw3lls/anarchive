@@ -262,6 +262,7 @@ export default function Wall({ searchTerm = "" }) {
   const cameraRef = useRef(camera);
   const ignoreNextMoveRef = useRef(false);
   const searchInputRef = useRef(null);
+  const wallRef = useRef(null);
 
   useEffect(() => {
     nodesRef.current = nodes;
