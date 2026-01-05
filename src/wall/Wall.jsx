@@ -571,7 +571,7 @@ export default function Wall({ searchTerm = "" }) {
   ]);
 
   const moveViewportFromFocusMap = useCallback(
-    (clientX, clientY) => {
+    (clientX, clientY, nextZoom) => {
       if (!focusMapRef.current || !reactFlowInstance) {
         return;
       }
@@ -590,7 +590,8 @@ export default function Wall({ searchTerm = "" }) {
         (mapY - focusMapData.offsetY) / focusMapData.scale +
         focusMapData.minY;
 
-      const zoom = camera?.zoom ?? reactFlowInstance.getZoom?.() ?? 1;
+      const currentZoom = camera?.zoom ?? reactFlowInstance.getZoom?.() ?? 1;
+      const zoom = nextZoom ?? currentZoom;
       const viewWidth = viewportSize.width / zoom;
       const viewHeight = viewportSize.height / zoom;
       const nextX = -(worldX - viewWidth / 2) * zoom;
@@ -611,6 +612,20 @@ export default function Wall({ searchTerm = "" }) {
       viewportSize.height,
       viewportSize.width,
     ],
+  );
+
+  const handleFocusMapWheel = useCallback(
+    (event) => {
+      if (!reactFlowInstance || !focusMapRef.current) {
+        return;
+      }
+      event.preventDefault();
+      const currentZoom = camera?.zoom ?? reactFlowInstance.getZoom?.() ?? 1;
+      const zoomDelta = event.deltaY > 0 ? 0.9 : 1.1;
+      const nextZoom = Math.min(3, Math.max(0.1, currentZoom * zoomDelta));
+      moveViewportFromFocusMap(event.clientX, event.clientY, nextZoom);
+    },
+    [camera?.zoom, moveViewportFromFocusMap, reactFlowInstance],
   );
 
   useEffect(() => {
@@ -1364,8 +1379,14 @@ export default function Wall({ searchTerm = "" }) {
             style={focusMapCanvasStyle}
             onPointerDown={(event) => {
               focusDragRef.current = true;
+              event.currentTarget.setPointerCapture?.(event.pointerId);
               moveViewportFromFocusMap(event.clientX, event.clientY);
             }}
+            onPointerUp={(event) => {
+              focusDragRef.current = false;
+              event.currentTarget.releasePointerCapture?.(event.pointerId);
+            }}
+            onWheel={handleFocusMapWheel}
             role="presentation"
           >
             <svg
