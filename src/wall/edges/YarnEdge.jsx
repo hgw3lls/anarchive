@@ -90,6 +90,24 @@ export default function YarnEdge({
   const edgeLabel = label;
   const baseStyle = getEdgeStyle(edgeKind);
   const strands = buildStrands(id, 4);
+  const labelOffsets = [
+    "var(--space-1)",
+    "var(--space-2)",
+    "var(--space-3)",
+    "var(--space-4)",
+  ];
+  const labelOffsetIndex = Math.floor(hashToUnit(id) * labelOffsets.length);
+  const labelOffsetIndexY = Math.floor(
+    hashToUnit(`${id}-offset-y`) * labelOffsets.length,
+  );
+  const labelOffset = labelOffsets[labelOffsetIndex] ?? "var(--space-2)";
+  const labelOffsetY = labelOffsets[labelOffsetIndexY] ?? "var(--space-2)";
+  const labelDirectionX = hashToUnit(`${id}-dir-x`) > 0.5 ? 1 : -1;
+  const labelDirectionY = hashToUnit(`${id}-dir-y`) > 0.5 ? 1 : -1;
+  const labelShiftX =
+    labelDirectionX > 0 ? labelOffset : `calc(${labelOffset} * -1)`;
+  const labelShiftY =
+    labelDirectionY > 0 ? labelOffsetY : `calc(${labelOffsetY} * -1)`;
 
   const shadowStyle = {
     stroke: baseStyle.stroke,
@@ -207,7 +225,7 @@ export default function YarnEdge({
             className="nodrag nopan"
             style={{
               position: "absolute",
-              transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+              transform: `translate(-50%, -50%) translate(calc(${labelX}px + ${labelShiftX}), calc(${labelY}px + ${labelShiftY}))`,
               background: "var(--surface)",
               border: "var(--border-2) solid var(--border)",
               padding: "var(--space-1) var(--space-2)",
