@@ -76,6 +76,82 @@ body {
   font-family: var(--font-sans);
   font-size: var(--fs-base);
   letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 var(--space-3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-2);
+  text-underline-offset: var(--space-1);
+  text-decoration-color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: "Space Mono", "IBM Plex Mono", "Fira Code", "SFMono-Regular",
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+code,
+kbd {
+  background: var(--surface-muted);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  padding: 0 var(--space-1);
+  font-size: 0.95em;
+}
+
+pre {
+  background: var(--surface-muted);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-1);
+  overflow-x: auto;
 }
 
 ::selection {
@@ -131,9 +207,11 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
-a:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+a:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--border-3) solid var(--accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 2px var(--text-inverse);
 }
 
 /* React Flow UI */
@@ -159,6 +237,31 @@ a:focus-visible {
   fill: var(--text);
 }
 
+/* Brutalist scrollbars */
+* {
+  scrollbar-color: var(--text) var(--surface-muted);
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--surface-muted);
+  border: var(--border-2) solid var(--border);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--text);
+  border: var(--border-2) solid var(--border);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--surface-muted);
+}
+
 /* Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -168,5 +271,26 @@ a:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --text: #000000;
+    --text-muted: #1a1a1a;
+    --border: #000000;
+    --shadow-1: 0 0 0 var(--border);
+    --shadow-2: 0 0 0 var(--border);
+    --shadow-3: 0 0 0 var(--border);
+  }
+
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible,
+  [tabindex]:focus-visible {
+    outline-color: var(--text);
+    box-shadow: 0 0 0 3px var(--accent);
   }
 }
