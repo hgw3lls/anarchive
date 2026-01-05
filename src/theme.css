@@ -56,6 +56,11 @@
 
   --wall-paper: #f7f3ec;
   --wall-archive: #f1ede4;
+
+  --hud-toolbar-width: 13.75rem;
+  --hud-focus-map-width: 13.75rem;
+  --hud-focus-map-height: 10rem;
+  --hud-info-width: 16.25rem;
 }
 
 *,
@@ -409,6 +414,99 @@ body {
     linear-gradient(to right, var(--grid) 1px, transparent 1px),
     linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
   background-size: 48px 48px;
+}
+
+.wall-hud {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: var(--z-hud);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.wall-hud__toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: var(--hud-toolbar-width);
+  width: min(100%, var(--hud-toolbar-width));
+  padding: var(--space-3);
+  border-radius: var(--radius-2);
+  border: var(--border-2) solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+}
+
+.wall-hud-stack {
+  position: absolute;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: var(--z-hud);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-end;
+}
+
+.wall-focus-map {
+  width: min(100%, var(--hud-focus-map-width));
+  height: var(--hud-focus-map-height);
+  padding: var(--space-2);
+  border-radius: var(--radius-2);
+  border: var(--border-2) solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.wall-info-panel {
+  position: relative;
+  z-index: var(--z-panel);
+  width: min(100%, var(--hud-info-width));
+  padding: var(--space-3);
+  border-radius: var(--radius-2);
+  border: var(--border-2) solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-2);
+  font-size: var(--fs-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+@media (max-width: 48rem) {
+  :root {
+    --hud-toolbar-width: 100%;
+    --hud-focus-map-width: 11.5rem;
+    --hud-focus-map-height: 8rem;
+    --hud-info-width: 100%;
+  }
+
+  .wall-hud {
+    top: auto;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+    align-items: stretch;
+  }
+
+  .wall-hud__toolbar {
+    width: 100%;
+  }
+
+  .wall-hud-stack {
+    top: var(--space-3);
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: auto;
+    align-items: stretch;
+  }
 }
 
 .app-frame[data-scanlines="true"] .app-main::before {

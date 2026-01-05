@@ -99,45 +99,6 @@ const searchResultButtonStyle = {
   boxShadow: "var(--shadow-1)",
 };
 
-const toolbarStyle = {
-  display: "flex",
-  flexDirection: "column",
-  gap: "var(--space-3)",
-  minWidth: 220,
-  padding: "var(--space-3)",
-  borderRadius: "var(--radius-2)",
-  border: "var(--border-2) solid var(--border)",
-  background: "var(--surface)",
-  boxShadow: "var(--shadow-2)",
-};
-
-const hudContainerStyle = {
-  position: "absolute",
-  top: "var(--space-4)",
-  right: "var(--space-4)",
-  zIndex: "var(--z-hud)",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "flex-end",
-  gap: "var(--space-2)",
-};
-
-const focusMapStyle = {
-  position: "absolute",
-  right: "var(--space-4)",
-  bottom: "var(--space-4)",
-  width: 220,
-  height: 160,
-  padding: "var(--space-2)",
-  borderRadius: "var(--radius-2)",
-  border: "var(--border-2) solid var(--border)",
-  background: "var(--surface)",
-  boxShadow: "var(--shadow-2)",
-  zIndex: "var(--z-hud)",
-  display: "flex",
-  flexDirection: "column",
-  gap: "var(--space-2)",
-};
 
 const focusMapTitleStyle = {
   fontSize: "var(--fs-xs)",
@@ -243,23 +204,6 @@ const lockedFlowStyle = {
   filter: "grayscale(0.2) contrast(0.95)",
 };
 
-const infoPanelStyle = {
-  position: "absolute",
-  right: "var(--space-4)",
-  bottom: "var(--space-4)",
-  zIndex: "var(--z-panel)",
-  width: 260,
-  padding: "var(--space-3)",
-  borderRadius: "var(--radius-2)",
-  border: "var(--border-2) solid var(--border)",
-  background: "var(--surface)",
-  color: "var(--text)",
-  boxShadow: "var(--shadow-2)",
-  fontSize: "var(--fs-sm)",
-  display: "flex",
-  flexDirection: "column",
-  gap: "var(--space-2)",
-};
 
 const helpOverlayStyle = {
   position: "absolute",
@@ -1350,58 +1294,66 @@ export default function Wall() {
           maskColor="rgba(0, 0, 0, 0.12)"
         />
       </ReactFlow>
-      <div
-        style={{
-          ...focusMapStyle,
-          bottom: isInfoOpen ? 320 : 16,
-        }}
-      >
-        <div style={focusMapTitleStyle}>Focus Map</div>
-        <div
-          ref={focusMapRef}
-          style={focusMapCanvasStyle}
-          onPointerDown={(event) => {
-            focusDragRef.current = true;
-            moveViewportFromFocusMap(event.clientX, event.clientY);
-          }}
-          role="presentation"
-        >
-          <svg
-            width="100%"
-            height="100%"
-            viewBox={`0 0 ${focusMapData.mapWidth} ${focusMapData.mapHeight}`}
-            aria-hidden="true"
+      <div className="wall-hud-stack">
+        <div className="wall-focus-map">
+          <div style={focusMapTitleStyle}>Focus Map</div>
+          <div
+            ref={focusMapRef}
+            style={focusMapCanvasStyle}
+            onPointerDown={(event) => {
+              focusDragRef.current = true;
+              moveViewportFromFocusMap(event.clientX, event.clientY);
+            }}
+            role="presentation"
           >
-            <rect
-              x="0"
-              y="0"
-              width={focusMapData.mapWidth}
-              height={focusMapData.mapHeight}
-              fill="var(--surface-muted)"
-            />
-            {focusMapData.nodeRects.map((node) => (
+            <svg
+              width="100%"
+              height="100%"
+              viewBox={`0 0 ${focusMapData.mapWidth} ${focusMapData.mapHeight}`}
+              aria-hidden="true"
+            >
               <rect
-                key={node.id}
-                x={node.x}
-                y={node.y}
-                width={node.width}
-                height={node.height}
-                fill="var(--surface)"
-                stroke="var(--border)"
-                strokeWidth="1"
+                x="0"
+                y="0"
+                width={focusMapData.mapWidth}
+                height={focusMapData.mapHeight}
+                fill="var(--surface-muted)"
               />
-            ))}
-            <rect
-              x={focusViewportRect.x}
-              y={focusViewportRect.y}
-              width={focusViewportRect.width}
-              height={focusViewportRect.height}
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="2"
-            />
-          </svg>
+              {focusMapData.nodeRects.map((node) => (
+                <rect
+                  key={node.id}
+                  x={node.x}
+                  y={node.y}
+                  width={node.width}
+                  height={node.height}
+                  fill="var(--surface)"
+                  stroke="var(--border)"
+                  strokeWidth="1"
+                />
+              ))}
+              <rect
+                x={focusViewportRect.x}
+                y={focusViewportRect.y}
+                width={focusViewportRect.width}
+                height={focusViewportRect.height}
+                fill="none"
+                stroke="var(--accent)"
+                strokeWidth="2"
+              />
+            </svg>
+          </div>
         </div>
+        {isInfoOpen ? (
+          <aside className="wall-info-panel">
+            <div style={{ fontWeight: 600, letterSpacing: "0.04em" }}>
+              Info
+            </div>
+            <div style={{ opacity: 0.8 }}>
+              Metadata panel placeholder. Add collection notes or board context
+              here.
+            </div>
+          </aside>
+        ) : null}
       </div>
       {isHudCollapsed ? (
         <button
@@ -1412,7 +1364,7 @@ export default function Wall() {
           Open HUD
         </button>
       ) : (
-        <div style={hudContainerStyle}>
+        <div className="wall-hud">
           <button
             type="button"
             style={hudToggleStyle}
@@ -1420,7 +1372,7 @@ export default function Wall() {
           >
             HUD ▾
           </button>
-          <div style={toolbarStyle}>
+          <div className="wall-hud__toolbar">
           <div
             style={{
               display: "flex",
@@ -1738,15 +1690,6 @@ export default function Wall() {
           </div>
         </div>
       )}
-      {isInfoOpen ? (
-        <aside style={infoPanelStyle}>
-          <div style={{ fontWeight: 600, letterSpacing: "0.04em" }}>Info</div>
-          <div style={{ opacity: 0.8 }}>
-            Metadata panel placeholder. Add collection notes or board context
-            here.
-          </div>
-        </aside>
-      ) : null}
       {isHelpOpen ? (
         <div style={helpOverlayStyle}>
           <div style={helpCardStyle}>
