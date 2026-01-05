@@ -54,6 +54,7 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     return params.get("scanlines") === "on";
   });
+  const [sidebarSearchTerm, setSidebarSearchTerm] = useState("");
   const [noiseEnabled] = useState(() => {
     if (typeof window === "undefined") {
       return true;
@@ -68,6 +69,10 @@ export default function App() {
     () => sidebarSections.reduce((sum, section) => sum + section.count, 0),
     [],
   );
+  const handleSidebarSearchSelect = (value) => {
+    setSidebarSearchTerm(value);
+    searchRef.current?.focus();
+  };
   const routeLabel = "Wall";
   const lastUpdated = "5 min ago";
 
@@ -174,13 +179,20 @@ export default function App() {
               type="search"
               placeholder="Search index..."
               className="app-sidebar__input ui-input"
+              value={sidebarSearchTerm}
+              onChange={(event) => setSidebarSearchTerm(event.target.value)}
             />
           </label>
           <div className="app-sidebar__card-grid">
             <div className="app-sidebar__section ui-card ui-card--tape">
               <div className="app-sidebar__section-title">Major Sections</div>
               {sidebarSections.map((section) => (
-                <div key={section.title} className="app-sidebar__row">
+                <button
+                  key={section.title}
+                  type="button"
+                  className="app-sidebar__row app-sidebar__row-button ui-button"
+                  onClick={() => handleSidebarSearchSelect(section.title)}
+                >
                   <div className="app-sidebar__row-main">
                     <span className="app-sidebar__title">{section.title}</span>
                     <span className="app-sidebar__badge ui-chip">
@@ -188,31 +200,38 @@ export default function App() {
                     </span>
                   </div>
                   <span className="app-sidebar__count">{section.count}</span>
-                </div>
+                </button>
               ))}
             </div>
             <div className="app-sidebar__section ui-card ui-card--tape">
               <div className="app-sidebar__section-title">Recent</div>
               {recentItems.map((item) => (
-                <div key={item.title} className="app-sidebar__recent">
+                <button
+                  key={item.title}
+                  type="button"
+                  className="app-sidebar__recent app-sidebar__row-button ui-button"
+                  onClick={() => handleSidebarSearchSelect(item.title)}
+                >
                   <div className="app-sidebar__row-main">
                     <span className="app-sidebar__title">{item.title}</span>
                     <span className="app-sidebar__badge ui-chip">Seen</span>
                   </div>
                   <span className="app-sidebar__meta">{item.updated}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
           <div className="app-sidebar__tags">
             {sidebarSections.flatMap((section) =>
               section.tags.map((tag) => (
-                <span
+                <button
                   key={`${section.title}-${tag}`}
-                  className="app-sidebar__tag ui-chip"
+                  type="button"
+                  className="app-sidebar__tag app-sidebar__tag-button ui-chip"
+                  onClick={() => handleSidebarSearchSelect(tag)}
                 >
                   {tag}
-                </span>
+                </button>
               )),
             )}
           </div>
@@ -221,7 +240,7 @@ export default function App() {
           </div>
         </aside>
         <main className="app-main">
-          <Wall />
+          <Wall searchTerm={sidebarSearchTerm} />
         </main>
       </div>
     </div>

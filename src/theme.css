@@ -365,6 +365,14 @@ body {
   font-size: var(--fs-sm);
 }
 
+.app-sidebar__row-button {
+  width: 100%;
+  justify-content: space-between;
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  gap: var(--space-3);
+}
+
 .app-sidebar__row-main {
   display: flex;
   flex-direction: column;
@@ -393,6 +401,10 @@ body {
 
 .app-sidebar__tag {
   padding: var(--space-1) var(--space-2);
+}
+
+.app-sidebar__tag-button {
+  cursor: pointer;
 }
 
 .app-sidebar__hint {

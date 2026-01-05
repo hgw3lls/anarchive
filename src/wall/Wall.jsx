@@ -236,7 +236,7 @@ const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
 
 const fitViewOptions = { padding: 0.2 };
 
-export default function Wall() {
+export default function Wall({ searchTerm = "" }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [allEdges, setAllEdges] = useEdgesState([]);
   const [artifacts, setArtifacts] = useState([]);
@@ -247,7 +247,7 @@ export default function Wall() {
   const [reactFlowInstance, setReactFlowInstance] = useState(null);
   const [error, setError] = useState(null);
   const [selectedArtifactId, setSelectedArtifactId] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [hudSearchTerm, setHudSearchTerm] = useState("");
   const [isArrangeMode, setIsArrangeMode] = useState(false);
   const [isLocked, setIsLocked] = useState(false);
   const [isHudCollapsed, setIsHudCollapsed] = useState(true);
@@ -319,6 +319,11 @@ export default function Wall() {
     return map;
   }, [artifacts]);
 
+  const normalizedSearchTerm = useMemo(
+    () => searchTerm.trim().toLowerCase(),
+    [searchTerm],
+  );
+
   const nodeTypes = useMemo(
     () => ({
       artifact: ArtifactNode,
@@ -361,12 +366,55 @@ export default function Wall() {
   const currentBoardTitle =
     currentBoardEntry?.title ?? currentBoardId ?? "Board";
 
-  const visibleEdges = useMemo(() => {
+  const filteredNodes = useMemo(() => {
+    if (!normalizedSearchTerm) {
+      return nodes;
+    }
+    return nodes.filter((node) => {
+      const artifactId = node?.data?.artifactId;
+      const artifact = artifactId
+        ? artifactsById.get(String(artifactId))
+        : null;
+      const title =
+        artifact?.title ??
+        node?.data?.title ??
+        node?.data?.label ??
+        node?.id ??
+        "";
+      const tags = Array.isArray(artifact?.tags)
+        ? artifact.tags
+        : artifact?.tags
+          ? [artifact.tags]
+          : [];
+      const kind = node?.data?.kind ?? artifact?.kind ?? artifact?.type ?? "";
+      const searchTarget = [title, kind, ...tags]
+        .map((value) => String(value ?? ""))
+        .join(" ")
+        .toLowerCase();
+      return searchTarget.includes(normalizedSearchTerm);
+    });
+  }, [artifactsById, nodes, normalizedSearchTerm]);
+
+  const filteredNodeIds = useMemo(
+    () => new Set(filteredNodes.map((node) => node.id)),
+    [filteredNodes],
+  );
+
+  const kindFilteredEdges = useMemo(() => {
     return allEdges.filter((edge) => {
       const kind = edge?.data?.kind ?? "sequence";
       return enabledKinds.has(kind);
     });
   }, [allEdges, enabledKinds]);
+
+  const visibleEdges = useMemo(() => {
+    if (!normalizedSearchTerm) {
+      return kindFilteredEdges;
+    }
+    return kindFilteredEdges.filter(
+      (edge) => filteredNodeIds.has(edge.source) && filteredNodeIds.has(edge.target),
+    );
+  }, [filteredNodeIds, kindFilteredEdges, normalizedSearchTerm]);
 
   const selectedArtifact = useMemo(() => {
     if (!selectedArtifactId) {
@@ -379,14 +427,14 @@ export default function Wall() {
     if (!selectedArtifactId) {
       return null;
     }
-    const match = nodes.find(
+    const match = filteredNodes.find(
       (node) => String(node?.data?.artifactId) === String(selectedArtifactId),
     );
     return match?.id ?? null;
-  }, [nodes, selectedArtifactId]);
+  }, [filteredNodes, selectedArtifactId]);
 
   const inspectableNodes = useMemo(() => {
-    return nodes
+    return filteredNodes
       .map((node) => {
         const artifactId = node?.data?.artifactId;
         if (!artifactId) {
@@ -406,12 +454,12 @@ export default function Wall() {
         };
       })
       .filter(Boolean);
-  }, [artifactsById, nodes]);
+  }, [artifactsById, filteredNodes]);
 
   const focusMapData = useMemo(() => {
     const mapWidth = 200;
     const mapHeight = 120;
-    if (!nodes.length) {
+    if (!filteredNodes.length) {
       return {
         mapWidth,
         mapHeight,
@@ -430,7 +478,7 @@ export default function Wall() {
     let maxY = Number.NEGATIVE_INFINITY;
     const padding = 120;
 
-    nodes.forEach((node) => {
+    filteredNodes.forEach((node) => {
       const width = Number.isFinite(node?.style?.width)
         ? node.style.width
         : Number.isFinite(node?.width)
@@ -455,7 +503,7 @@ export default function Wall() {
     const offsetX = (mapWidth - width * scale) / 2;
     const offsetY = (mapHeight - height * scale) / 2;
 
-    const nodeRects = nodes.map((node) => {
+    const nodeRects = filteredNodes.map((node) => {
       const nodeWidth = Number.isFinite(node?.style?.width)
         ? node.style.width
         : Number.isFinite(node?.width)
@@ -487,7 +535,7 @@ export default function Wall() {
       offsetY,
       nodeRects,
     };
-  }, [nodes]);
+  }, [filteredNodes]);
 
   const focusViewportRect = useMemo(() => {
     const zoom = camera?.zoom ?? 1;
@@ -586,7 +634,7 @@ export default function Wall() {
   const inspectArtifact = inspectEntry?.artifact ?? null;
 
   const searchResults = useMemo(() => {
-    const trimmed = searchTerm.trim().toLowerCase();
+    const trimmed = hudSearchTerm.trim().toLowerCase();
     if (!trimmed) {
       return [];
     }
@@ -615,7 +663,7 @@ export default function Wall() {
         };
       })
       .filter(Boolean);
-  }, [artifacts, searchTerm]);
+  }, [artifacts, hudSearchTerm]);
 
   const relatedArtifacts = useMemo(() => {
     if (!selectedNodeId) {
@@ -632,7 +680,7 @@ export default function Wall() {
     });
     const results = [];
     relatedIds.forEach((_, nodeId) => {
-      const relatedNode = nodes.find((node) => node.id === nodeId);
+      const relatedNode = filteredNodes.find((node) => node.id === nodeId);
       const artifactId = relatedNode?.data?.artifactId;
       if (!artifactId) {
         return;
@@ -646,7 +694,7 @@ export default function Wall() {
       }
     });
     return results;
-  }, [artifactsById, nodes, selectedNodeId, visibleEdges]);
+  }, [artifactsById, filteredNodes, selectedNodeId, visibleEdges]);
 
   const inspectLabel = useMemo(() => {
     if (!inspectArtifact) {
@@ -1239,7 +1287,7 @@ export default function Wall() {
           ...wallBackgroundStyle,
           ...(isLocked ? lockedFlowStyle : null),
         }}
-        nodes={nodes}
+        nodes={filteredNodes}
         edges={visibleEdges}
         proOptions={{ hideAttribution: true }}
         nodeTypes={nodeTypes}
@@ -1409,8 +1457,8 @@ export default function Wall() {
               ref={searchInputRef}
               type="search"
               placeholder="Search titles or tags..."
-              value={searchTerm}
-              onChange={(event) => setSearchTerm(event.target.value)}
+              value={hudSearchTerm}
+              onChange={(event) => setHudSearchTerm(event.target.value)}
               style={searchInputStyle}
             />
             {searchResults.length ? (
