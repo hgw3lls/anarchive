@@ -28,26 +28,14 @@ const recentItems = [
 export default function App() {
   const [debugGrid, setDebugGrid] = useState(false);
   const [isIndexOpen, setIsIndexOpen] = useState(true);
-<<<<<<< ours
-  const searchRef = useRef(null);
-
-  const isDev = import.meta.env.DEV;
-  const debugToggle = useMemo(() => (isDev ? debugGrid : false), [debugGrid, isDev]);
-
-=======
   const [scanlines, setScanlines] = useState(false);
   const searchRef = useRef(null);
   const isDev = import.meta.env.DEV;
   const debugToggle = useMemo(() => (isDev ? debugGrid : false), [debugGrid, isDev]);
->>>>>>> theirs
   const totalCount = useMemo(
     () => sidebarSections.reduce((sum, section) => sum + section.count, 0),
     [],
   );
-<<<<<<< ours
-
-=======
->>>>>>> theirs
   const routeLabel = "Wall";
   const lastUpdated = "5 min ago";
 
@@ -56,58 +44,34 @@ export default function App() {
       if (event.defaultPrevented) {
         return;
       }
-<<<<<<< ours
-
       const isTypingTarget =
         event.target instanceof HTMLElement &&
         ["INPUT", "TEXTAREA"].includes(event.target.tagName);
-
-=======
-      const isTypingTarget =
-        event.target instanceof HTMLElement &&
-        ["INPUT", "TEXTAREA"].includes(event.target.tagName);
->>>>>>> theirs
       if (event.key === "/" && !isTypingTarget) {
         event.preventDefault();
         setIsIndexOpen(true);
         searchRef.current?.focus();
       }
-<<<<<<< ours
-
-=======
->>>>>>> theirs
       if (event.key?.toLowerCase() === "i" && !isTypingTarget) {
         event.preventDefault();
         setIsIndexOpen((current) => !current);
       }
     };
-<<<<<<< ours
-
-=======
->>>>>>> theirs
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, []);
 
   return (
-<<<<<<< ours
-    <div className="app-frame" data-debug={debugToggle ? "true" : "false"}>
-=======
     <div
       className="app-frame"
       data-debug={debugToggle ? "true" : "false"}
       data-scanlines={scanlines ? "true" : "false"}
     >
->>>>>>> theirs
       <header className="app-masthead">
         <div className="app-masthead__title">
           <span className="app-masthead__label">Anarchive</span>
           <span className="app-masthead__sub">Brutalist Wall</span>
         </div>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
         <div className="app-masthead__crumbs" aria-label="Breadcrumb">
           <span className="app-masthead__crumb ui-chip">Archive</span>
           <span className="app-masthead__crumb-sep">▣</span>
@@ -117,10 +81,6 @@ export default function App() {
             {routeLabel}
           </span>
         </div>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
         <nav className="app-masthead__nav">
           <button type="button" className="app-masthead__chip ui-button">
             Archive
@@ -132,14 +92,6 @@ export default function App() {
             Timeline
           </button>
         </nav>
-<<<<<<< ours
-
-        <div className="app-masthead__status">
-          <span className="app-masthead__pill ui-chip">You are here: {routeLabel}</span>
-          <span className="app-masthead__pill ui-chip">Last updated: {lastUpdated}</span>
-          <span className="app-masthead__pill ui-chip">Items: {totalCount}</span>
-
-=======
         <div className="app-masthead__status">
           <span className="app-masthead__pill ui-chip">
             You are here: {routeLabel}
@@ -155,7 +107,6 @@ export default function App() {
           >
             Scanlines: {scanlines ? "On" : "Off"}
           </button>
->>>>>>> theirs
           {isDev ? (
             <button
               type="button"
@@ -167,10 +118,6 @@ export default function App() {
           ) : null}
         </div>
       </header>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
       <div
         className="app-body"
         style={{
@@ -192,10 +139,6 @@ export default function App() {
               {isIndexOpen ? "Collapse" : "Expand"}
             </button>
           </div>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
           <label className="app-sidebar__search">
             <span>Search</span>
             <input
@@ -205,29 +148,6 @@ export default function App() {
               className="app-sidebar__input ui-input"
             />
           </label>
-<<<<<<< ours
-
-          <div className="app-sidebar__section ui-card ui-card--tape">
-            <div className="app-sidebar__section-title">Major Sections</div>
-            {sidebarSections.map((section) => (
-              <div key={section.title} className="app-sidebar__row">
-                <span className="app-sidebar__title">{section.title}</span>
-                <span className="app-sidebar__count">{section.count}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="app-sidebar__section ui-card ui-card--tape">
-            <div className="app-sidebar__section-title">Recent</div>
-            {recentItems.map((item) => (
-              <div key={item.title} className="app-sidebar__recent">
-                <span className="app-sidebar__title">{item.title}</span>
-                <span className="app-sidebar__meta">{item.updated}</span>
-              </div>
-            ))}
-          </div>
-
-=======
           <div className="app-sidebar__card-grid">
             <div className="app-sidebar__section ui-card ui-card--tape">
               <div className="app-sidebar__section-title">Major Sections</div>
@@ -256,7 +176,6 @@ export default function App() {
               ))}
             </div>
           </div>
->>>>>>> theirs
           <div className="app-sidebar__tags">
             {sidebarSections.flatMap((section) =>
               section.tags.map((tag) => (
@@ -269,18 +188,10 @@ export default function App() {
               )),
             )}
           </div>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
           <div className="app-sidebar__hint">
             Press <span>/</span> to search · Press <span>I</span> to toggle index
           </div>
         </aside>
-<<<<<<< ours
-
-=======
->>>>>>> theirs
         <main className="app-main">
           <Wall />
         </main>
