@@ -27,8 +27,8 @@ const WALL_STYLE_STORAGE_KEY = "anarchive.wallStyle";
 const CAPTION_STORAGE_KEY = "anarchive.showCaptions";
 
 const wallStyle = {
-  width: "100vw",
-  height: "100vh",
+  width: "100%",
+  height: "100%",
   position: "relative",
   color: "var(--text)",
   fontFamily: "var(--font-sans)",
