@@ -25,6 +25,8 @@ const recentItems = [
   { title: "Echoes 1994", updated: "Apr 02" },
 ];
 
+const navItems = ["Archive", "Studio", "Timeline"];
+
 export default function App() {
   const [debugGrid, setDebugGrid] = useState(() => {
     if (typeof window === "undefined") {
@@ -54,6 +56,7 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     return params.get("scanlines") === "on";
   });
+  const [activeView, setActiveView] = useState("Archive");
   const [sidebarSearchTerm, setSidebarSearchTerm] = useState("");
   const [noiseEnabled] = useState(() => {
     if (typeof window === "undefined") {
@@ -73,7 +76,7 @@ export default function App() {
     setSidebarSearchTerm(value);
     searchRef.current?.focus();
   };
-  const routeLabel = "Wall";
+  const routeLabel = `${activeView} Route`;
   const lastUpdated = "5 min ago";
 
   useEffect(() => {
@@ -120,15 +123,17 @@ export default function App() {
           </span>
         </div>
         <nav className="app-masthead__nav">
-          <button type="button" className="app-masthead__chip ui-button">
-            Archive
-          </button>
-          <button type="button" className="app-masthead__chip ui-button">
-            Studio
-          </button>
-          <button type="button" className="app-masthead__chip ui-button">
-            Timeline
-          </button>
+          {navItems.map((item) => (
+            <button
+              key={item}
+              type="button"
+              className="app-masthead__chip ui-button"
+              onClick={() => setActiveView(item)}
+              aria-current={activeView === item ? "page" : undefined}
+            >
+              {item}
+            </button>
+          ))}
         </nav>
         <div className="app-masthead__status">
           <span className="app-masthead__pill ui-chip">
