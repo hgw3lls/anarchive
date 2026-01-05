@@ -2,13 +2,13 @@ import { EdgeLabelRenderer, getBezierPath } from "reactflow";
 
 const kindStyles = {
   sequence: {
-    stroke: "var(--border)",
+    stroke: "var(--text)",
     strokeWidth: 2.2,
     strokeDasharray: "0",
     strokeOpacity: 0.85,
   },
   echoes: {
-    stroke: "var(--border)",
+    stroke: "var(--text-muted)",
     strokeWidth: 1.8,
     strokeDasharray: "4 6",
     strokeOpacity: 0.55,
@@ -20,13 +20,13 @@ const kindStyles = {
     strokeOpacity: 0.9,
   },
   samples: {
-    stroke: "var(--border)",
+    stroke: "var(--text-muted)",
     strokeWidth: 1.6,
     strokeDasharray: "2 6",
     strokeOpacity: 0.5,
   },
   witness: {
-    stroke: "var(--border)",
+    stroke: "var(--text-muted)",
     strokeWidth: 1.4,
     strokeDasharray: "1 7",
     strokeOpacity: 0.35,
@@ -35,7 +35,7 @@ const kindStyles = {
 
 const getEdgeStyle = (kind) =>
   kindStyles[kind] ?? {
-    stroke: "var(--border)",
+    stroke: "var(--text-muted)",
     strokeWidth: 1.8,
     strokeDasharray: "3 6",
     strokeOpacity: 0.55,
@@ -98,7 +98,7 @@ export default function YarnEdge({
   };
 
   const highlightStyle = {
-    stroke: "var(--surface)",
+    stroke: "var(--text-inverse)",
     strokeWidth: Math.max(baseStyle.strokeWidth - 1, 0.6),
     strokeOpacity: 0.35,
   };
@@ -209,15 +209,15 @@ export default function YarnEdge({
               position: "absolute",
               transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
               background: "var(--surface)",
-              border: "2px solid var(--border)",
-              padding: "4px 8px",
-              borderRadius: 999,
+              border: "var(--border-2) solid var(--border)",
+              padding: "var(--space-1) var(--space-2)",
+              borderRadius: "var(--radius-pill)",
               color: "var(--text)",
-              fontSize: 11,
-              letterSpacing: "0.04em",
+              fontSize: "var(--fs-xs)",
+              letterSpacing: "0.08em",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
-              boxShadow: "var(--shadow-soft)",
+              boxShadow: "var(--shadow-1)",
               pointerEvents: "none",
             }}
           >

@@ -6,8 +6,8 @@ const cardStyle = {
   color: "var(--text)",
   display: "flex",
   flexDirection: "column",
-  gap: 10,
-  fontSize: 12,
+  gap: "var(--space-3)",
+  fontSize: "var(--fs-sm)",
   lineHeight: 1.4,
   wordBreak: "break-word",
   position: "relative",
@@ -15,13 +15,13 @@ const cardStyle = {
 
 const titleStyle = {
   fontWeight: 600,
-  fontSize: 13,
+  fontSize: "var(--fs-md)",
 };
 
 const thumbStyle = {
   width: "100%",
   height: "auto",
-  borderRadius: "var(--radius-sm)",
+  borderRadius: "var(--radius-1)",
   display: "block",
   background: "var(--surface-muted)",
 };
@@ -33,7 +33,7 @@ const overlayStyle = {
   alignItems: "center",
   justifyContent: "center",
   color: "var(--text-inverse)",
-  fontSize: 28,
+  fontSize: "var(--fs-2xl)",
   textShadow: "2px 2px 0 rgba(0, 0, 0, 0.35)",
   pointerEvents: "none",
 };
@@ -43,11 +43,11 @@ const handleStyle = {
 };
 
 const textCardStyle = {
-  padding: 12,
-  borderRadius: "var(--radius-md)",
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-2)",
   background: "var(--surface)",
-  border: "2px solid var(--border)",
-  boxShadow: "var(--shadow-hard)",
+  border: "var(--border-2) solid var(--border)",
+  boxShadow: "var(--shadow-2)",
 };
 
 const buildCaption = (artifact) => {
@@ -80,7 +80,13 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
+        <div
+          style={{
+            opacity: 0.7,
+            fontSize: "var(--fs-xs)",
+            letterSpacing: "0.05em",
+          }}
+        >
           Missing artifact
         </div>
         <div>Link this node to an artifact to preview it.</div>
@@ -93,7 +99,13 @@ export default function ArtifactNode({ data }) {
       <div style={{ ...cardStyle, ...textCardStyle }}>
         <Handle type="target" position={Position.Left} style={handleStyle} />
         <Handle type="source" position={Position.Right} style={handleStyle} />
-        <div style={{ opacity: 0.7, fontSize: 11, letterSpacing: 0.5 }}>
+        <div
+          style={{
+            opacity: 0.7,
+            fontSize: "var(--fs-xs)",
+            letterSpacing: "0.05em",
+          }}
+        >
           Artifact {String(artifactId)}
         </div>
         <div>Unable to find artifact details.</div>

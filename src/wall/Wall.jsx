@@ -57,185 +57,185 @@ const overlayStyle = {
   justifyContent: "center",
   backgroundColor: "var(--overlay)",
   color: "var(--text-inverse)",
-  fontSize: 16,
+  fontSize: "var(--fs-lg)",
   fontWeight: 600,
-  zIndex: 10,
+  zIndex: "var(--z-overlay)",
 };
 
 const searchInputStyle = {
   width: "100%",
-  padding: "10px 12px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-1)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 13,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-md)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const searchResultsStyle = {
   listStyle: "none",
   margin: 0,
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-1)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
-  boxShadow: "var(--shadow-hard)",
+  boxShadow: "var(--shadow-2)",
   overflow: "hidden",
   display: "grid",
-  gap: 8,
-  padding: 8,
+  gap: "var(--space-2)",
+  padding: "var(--space-2)",
 };
 
 const searchResultButtonStyle = {
   width: "100%",
   textAlign: "left",
-  padding: "10px 12px",
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
+  padding: "var(--space-2) var(--space-3)",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-1)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
+  fontSize: "var(--fs-sm)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const toolbarStyle = {
   display: "flex",
   flexDirection: "column",
-  gap: 10,
+  gap: "var(--space-3)",
   minWidth: 220,
-  padding: 12,
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-2)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
-  boxShadow: "var(--shadow-hard)",
+  boxShadow: "var(--shadow-2)",
 };
 
 const hudContainerStyle = {
   position: "absolute",
-  top: 16,
-  right: 16,
-  zIndex: 13,
+  top: "var(--space-4)",
+  right: "var(--space-4)",
+  zIndex: "var(--z-hud)",
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-end",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const focusMapStyle = {
   position: "absolute",
-  right: 16,
-  bottom: 16,
+  right: "var(--space-4)",
+  bottom: "var(--space-4)",
   width: 220,
   height: 160,
-  padding: 10,
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-2)",
+  borderRadius: "var(--radius-2)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
-  boxShadow: "var(--shadow-hard)",
-  zIndex: 12,
+  boxShadow: "var(--shadow-2)",
+  zIndex: "var(--z-hud)",
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
 };
 
 const focusMapTitleStyle = {
-  fontSize: 11,
+  fontSize: "var(--fs-xs)",
   textTransform: "uppercase",
-  letterSpacing: 0.08,
+  letterSpacing: "0.08em",
   color: "var(--text-muted)",
 };
 
 const focusMapCanvasStyle = {
   flex: 1,
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-1)",
   background: "var(--surface-muted)",
   overflow: "hidden",
   cursor: "grab",
 };
 
 const hudToggleStyle = {
-  border: "2px solid var(--border)",
-  borderRadius: 999,
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-pill)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  padding: "6px 12px",
+  fontSize: "var(--fs-sm)",
+  padding: "var(--space-2) var(--space-3)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const hudOpenButtonStyle = {
   position: "absolute",
-  top: 16,
-  right: 16,
-  zIndex: 13,
-  border: "2px solid var(--border)",
-  borderRadius: 999,
+  top: "var(--space-4)",
+  right: "var(--space-4)",
+  zIndex: "var(--z-hud)",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-pill)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  padding: "6px 12px",
+  fontSize: "var(--fs-sm)",
+  padding: "var(--space-2) var(--space-3)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const toolbarButtonStyle = {
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-1)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  padding: "8px 12px",
+  fontSize: "var(--fs-sm)",
+  padding: "var(--space-2) var(--space-3)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const toolbarSelectStyle = {
   width: "100%",
-  padding: "8px 10px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-1)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-sm)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const toolbarInputStyle = {
   width: "100%",
-  padding: "8px 10px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-1)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-sm)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const toolbarHintStyle = {
-  fontSize: 11,
+  fontSize: "var(--fs-xs)",
   color: "var(--text-muted)",
 };
 
 const legendListStyle = {
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
 };
 
 const legendRowStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
-  fontSize: 12,
+  fontSize: "var(--fs-sm)",
   color: "var(--text)",
 };
 
 const legendActionsStyle = {
   display: "flex",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const lockedFlowStyle = {
@@ -245,20 +245,20 @@ const lockedFlowStyle = {
 
 const infoPanelStyle = {
   position: "absolute",
-  right: 16,
-  bottom: 16,
-  zIndex: 13,
+  right: "var(--space-4)",
+  bottom: "var(--space-4)",
+  zIndex: "var(--z-panel)",
   width: 260,
-  padding: 12,
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-3)",
+  borderRadius: "var(--radius-2)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  boxShadow: "var(--shadow-hard)",
-  fontSize: 12,
+  boxShadow: "var(--shadow-2)",
+  fontSize: "var(--fs-sm)",
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const helpOverlayStyle = {
@@ -269,23 +269,23 @@ const helpOverlayStyle = {
   justifyContent: "center",
   backgroundColor: "var(--overlay)",
   color: "var(--text-inverse)",
-  zIndex: 14,
-  padding: 24,
+  zIndex: "var(--z-modal)",
+  padding: "var(--space-6)",
 };
 
 const helpCardStyle = {
   maxWidth: 360,
   width: "100%",
-  padding: 16,
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-4)",
+  borderRadius: "var(--radius-2)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  boxShadow: "var(--shadow-hard)",
-  fontSize: 13,
+  boxShadow: "var(--shadow-2)",
+  fontSize: "var(--fs-md)",
   display: "flex",
   flexDirection: "column",
-  gap: 10,
+  gap: "var(--space-3)",
 };
 
 const ALL_KINDS = ["sequence", "echoes", "threshold", "samples", "witness"];
@@ -1421,7 +1421,13 @@ export default function Wall() {
             HUD ▾
           </button>
           <div style={toolbarStyle}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
             <button
               type="button"
               style={toolbarButtonStyle}
@@ -1431,8 +1437,20 @@ export default function Wall() {
             </button>
             <div style={toolbarHintStyle}>Press A to toggle Arrange</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               Search
             </div>
             <input
@@ -1463,7 +1481,12 @@ export default function Wall() {
                     >
                       <div style={{ fontWeight: 600 }}>{result.title}</div>
                       {result.tags.length ? (
-                        <div style={{ opacity: 0.65, marginTop: 2 }}>
+                        <div
+                          style={{
+                            opacity: 0.65,
+                            marginTop: "var(--space-1)",
+                          }}
+                        >
                           {result.tags.join(", ")}
                         </div>
                       ) : null}
@@ -1474,14 +1497,29 @@ export default function Wall() {
             ) : null}
             <div style={toolbarHintStyle}>Press / to focus search</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               View
             </div>
-            <label style={{ fontSize: 12, opacity: 0.8 }}>
+            <label style={{ fontSize: "var(--fs-sm)", opacity: 0.8 }}>
               Wall style
               <select
-                style={{ ...toolbarSelectStyle, marginTop: 6 }}
+                style={{
+                  ...toolbarSelectStyle,
+                  marginTop: "var(--space-2)",
+                }}
                 value={wallStyleName}
                 onChange={(event) => setWallStyleName(event.target.value)}
               >
@@ -1509,11 +1547,23 @@ export default function Wall() {
             </button>
             <div style={toolbarHintStyle}>Press I for info</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               Boards
             </div>
-            <div style={{ fontSize: 12, opacity: 0.75 }}>
+            <div style={{ fontSize: "var(--fs-sm)", opacity: 0.75 }}>
               Current: {currentBoardTitle}
             </div>
             <select
@@ -1537,8 +1587,20 @@ export default function Wall() {
               )}
             </select>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               Board
             </div>
             <button
@@ -1563,8 +1625,20 @@ export default function Wall() {
               Reset
             </button>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               Publish Edition
             </div>
             <input
@@ -1606,8 +1680,20 @@ export default function Wall() {
               <div style={toolbarHintStyle}>{publishNotice}</div>
             ) : null}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: 0.4 }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--space-2)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: "var(--fs-sm)",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+              }}
+            >
               Relationships
             </div>
             <div style={legendListStyle}>
@@ -1654,7 +1740,7 @@ export default function Wall() {
       )}
       {isInfoOpen ? (
         <aside style={infoPanelStyle}>
-          <div style={{ fontWeight: 600, letterSpacing: 0.4 }}>Info</div>
+          <div style={{ fontWeight: 600, letterSpacing: "0.04em" }}>Info</div>
           <div style={{ opacity: 0.8 }}>
             Metadata panel placeholder. Add collection notes or board context
             here.
@@ -1664,7 +1750,7 @@ export default function Wall() {
       {isHelpOpen ? (
         <div style={helpOverlayStyle}>
           <div style={helpCardStyle}>
-            <div style={{ fontWeight: 600, fontSize: 14 }}>
+            <div style={{ fontWeight: 600, fontSize: "var(--fs-base)" }}>
               Shortcuts
             </div>
             <div> / — Open HUD + focus search</div>

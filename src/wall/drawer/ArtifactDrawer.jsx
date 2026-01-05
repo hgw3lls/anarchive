@@ -4,7 +4,7 @@ const overlayStyle = {
   position: "fixed",
   inset: 0,
   background: "var(--overlay)",
-  zIndex: 20,
+  zIndex: "var(--z-overlay)",
 };
 
 const drawerStyle = {
@@ -15,68 +15,68 @@ const drawerStyle = {
   width: "min(420px, 92vw)",
   background: "var(--surface)",
   color: "var(--text)",
-  borderLeft: "2px solid var(--border)",
-  boxShadow: "var(--shadow-hard)",
-  padding: "24px 20px",
+  borderLeft: "var(--border-2) solid var(--border)",
+  boxShadow: "var(--shadow-2)",
+  padding: "var(--space-6) var(--space-5)",
   overflowY: "auto",
-  zIndex: 30,
+  zIndex: "var(--z-modal)",
 };
 
 const closeButtonStyle = {
   position: "absolute",
-  top: 16,
-  right: 16,
+  top: "var(--space-4)",
+  right: "var(--space-4)",
   background: "var(--surface)",
   color: "var(--text)",
-  border: "2px solid var(--border)",
-  borderRadius: 999,
-  width: 32,
-  height: 32,
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-pill)",
+  width: "var(--space-7)",
+  height: "var(--space-7)",
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
   cursor: "pointer",
-  fontSize: 16,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-lg)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const titleStyle = {
-  fontSize: 20,
+  fontSize: "var(--fs-xl)",
   fontWeight: 600,
-  marginBottom: 12,
-  paddingRight: 48,
+  marginBottom: "var(--space-3)",
+  paddingRight: "calc(var(--space-8) + var(--space-2))",
 };
 
 const tagListStyle = {
   display: "flex",
   flexWrap: "wrap",
-  gap: 8,
-  marginBottom: 16,
+  gap: "var(--space-2)",
+  marginBottom: "var(--space-4)",
 };
 
 const tagStyle = {
-  padding: "4px 10px",
-  borderRadius: 999,
+  padding: "var(--space-1) var(--space-3)",
+  borderRadius: "var(--radius-pill)",
   background: "var(--accent)",
-  color: "var(--text)",
-  fontSize: 12,
+  color: "var(--text-inverse)",
+  fontSize: "var(--fs-sm)",
 };
 
 const sectionTitleStyle = {
-  fontSize: 12,
-  letterSpacing: 0.12,
+  fontSize: "var(--fs-sm)",
+  letterSpacing: "0.12em",
   textTransform: "uppercase",
   color: "var(--text-muted)",
-  marginTop: 20,
-  marginBottom: 8,
+  marginTop: "var(--space-5)",
+  marginBottom: "var(--space-2)",
 };
 
 const imageStyle = {
   width: "100%",
-  borderRadius: "var(--radius-md)",
-  border: "2px solid var(--border)",
+  borderRadius: "var(--radius-2)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface-muted)",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const relatedListStyle = {
@@ -84,20 +84,20 @@ const relatedListStyle = {
   padding: 0,
   margin: 0,
   display: "grid",
-  gap: 8,
+  gap: "var(--space-2)",
 };
 
 const relatedButtonStyle = {
   width: "100%",
   textAlign: "left",
   background: "var(--surface)",
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
-  padding: "10px 12px",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-1)",
+  padding: "var(--space-2) var(--space-3)",
   color: "var(--text)",
   cursor: "pointer",
-  fontSize: 13,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-md)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const markdownStyle = {
@@ -105,45 +105,45 @@ const markdownStyle = {
 };
 
 const controlLabelStyle = {
-  fontSize: 12,
+  fontSize: "var(--fs-sm)",
   color: "var(--text-muted)",
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
 };
 
 const controlSelectStyle = {
   width: "100%",
-  padding: "8px 10px",
-  borderRadius: "var(--radius-sm)",
-  border: "2px solid var(--border)",
+  padding: "var(--space-2) var(--space-3)",
+  borderRadius: "var(--radius-1)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  boxShadow: "var(--shadow-soft)",
+  fontSize: "var(--fs-sm)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const controlButtonStyle = {
-  border: "2px solid var(--border)",
-  borderRadius: "var(--radius-sm)",
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-1)",
   background: "var(--surface)",
   color: "var(--text)",
-  fontSize: 12,
-  padding: "8px 12px",
+  fontSize: "var(--fs-sm)",
+  padding: "var(--space-2) var(--space-3)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const inspectButtonStyle = {
-  border: "2px solid var(--border)",
-  borderRadius: 999,
+  border: "var(--border-2) solid var(--border)",
+  borderRadius: "var(--radius-pill)",
   background: "var(--accent)",
-  color: "var(--text)",
-  fontSize: 11,
-  padding: "6px 12px",
+  color: "var(--text-inverse)",
+  fontSize: "var(--fs-xs)",
+  padding: "var(--space-2) var(--space-3)",
   cursor: "pointer",
   alignSelf: "flex-start",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 marked.setOptions({
@@ -224,9 +224,9 @@ export default function ArtifactDrawer({
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 style={{
-                  borderRadius: "var(--radius-md)",
-                  border: "2px solid var(--border)",
-                  boxShadow: "var(--shadow-soft)",
+                  borderRadius: "var(--radius-2)",
+                  border: "var(--border-2) solid var(--border)",
+                  boxShadow: "var(--shadow-1)",
                 }}
               />
             ) : null}
@@ -236,9 +236,9 @@ export default function ArtifactDrawer({
                 src={artifact.mp4}
                 style={{
                   width: "100%",
-                  borderRadius: "var(--radius-md)",
-                  border: "2px solid var(--border)",
-                  boxShadow: "var(--shadow-soft)",
+                  borderRadius: "var(--radius-2)",
+                  border: "var(--border-2) solid var(--border)",
+                  boxShadow: "var(--shadow-1)",
                 }}
               />
             ) : null}
@@ -247,7 +247,13 @@ export default function ArtifactDrawer({
         {canEditFrame ? (
           <section>
             <div style={sectionTitleStyle}>Frame</div>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-3)",
+              }}
+            >
               <label style={controlLabelStyle}>
                 Variant
                 <select

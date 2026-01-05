@@ -1,24 +1,56 @@
 /* Global theme */
 :root {
-  --bg: #f6f2ea;
-  --surface: #fffdf6;
-  --surface-muted: #efe9df;
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --surface-muted: #e9e6df;
   --text: #111111;
-  --text-muted: #454545;
+  --text-muted: #4b4b4b;
   --text-inverse: #ffffff;
   --border: #111111;
-
-  /* accent (merge conflict resolved) */
   --accent: #e10600;
-
+  --accent-2: #ffb020;
   --grid: rgba(0, 0, 0, 0.06);
-  --overlay: rgba(12, 12, 12, 0.86);
-  --shadow-hard: 4px 4px 0 var(--border);
-  --shadow-soft: 2px 2px 0 var(--border);
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --overlay: rgba(10, 10, 10, 0.86);
+
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13px;
+  --fs-base: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 24px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+
+  --border-1: 1px;
+  --border-2: 2px;
+  --border-3: 3px;
+
+  --radius-1: 4px;
+  --radius-2: 8px;
+  --radius-3: 12px;
+  --radius-pill: 999px;
+
+  --shadow-1: 2px 2px 0 var(--border);
+  --shadow-2: 4px 4px 0 var(--border);
+  --shadow-3: 6px 6px 0 var(--border);
+
+  --z-base: 1;
+  --z-hud: 10;
+  --z-panel: 20;
+  --z-overlay: 40;
+  --z-modal: 50;
+
   --motion-fast: 160ms;
+  --motion-medium: 220ms;
+  --motion-slow: 320ms;
   --font-sans: "Space Grotesk", "Inter", "Segoe UI", system-ui,
     -apple-system, sans-serif;
   --wall-paper: #f7f3ec;
@@ -42,6 +74,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
+  font-size: var(--fs-base);
   letter-spacing: 0.01em;
 }
 
@@ -63,23 +96,23 @@ input[type="search"],
 select,
 textarea {
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-soft);
-  padding: 8px 10px;
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-2) var(--space-3);
 }
 
 input[type="checkbox"] {
   accent-color: var(--accent);
-  width: 16px;
-  height: 16px;
+  width: var(--space-4);
+  height: var(--space-4);
 }
 
 button {
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-soft);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  box-shadow: var(--shadow-1);
   cursor: pointer;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -107,14 +140,14 @@ a:focus-visible {
 .react-flow__controls,
 .react-flow__minimap {
   background: var(--surface);
-  border: 2px solid var(--border);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-hard);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  box-shadow: var(--shadow-2);
 }
 
 .react-flow__controls-button {
   background: var(--surface);
-  border-bottom: 2px solid var(--border);
+  border-bottom: var(--border-2) solid var(--border);
   color: var(--text);
 }
 

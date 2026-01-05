@@ -7,7 +7,7 @@ const overlayStyle = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  zIndex: 50,
+  zIndex: "var(--z-modal)",
   color: "var(--text-inverse)",
 };
 
@@ -16,8 +16,9 @@ const contentStyle = {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: 18,
-  padding: "32px 24px 28px",
+  gap: "var(--space-4)",
+  padding:
+    "var(--space-7) var(--space-6) calc(var(--space-6) + var(--space-1))",
   maxWidth: "90vw",
   maxHeight: "90vh",
 };
@@ -36,31 +37,31 @@ const mediaStyle = {
   maxHeight: "80vh",
   display: "block",
   objectFit: "contain",
-  borderRadius: "var(--radius-sm)",
+  borderRadius: "var(--radius-1)",
 };
 
 const labelStyle = {
   textAlign: "center",
   display: "flex",
   flexDirection: "column",
-  gap: 6,
+  gap: "var(--space-2)",
   maxWidth: "68ch",
   background: "var(--surface)",
   color: "var(--text)",
-  border: "2px solid var(--border)",
-  boxShadow: "var(--shadow-hard)",
-  borderRadius: "var(--radius-md)",
-  padding: "12px 16px",
+  border: "var(--border-2) solid var(--border)",
+  boxShadow: "var(--shadow-2)",
+  borderRadius: "var(--radius-2)",
+  padding: "var(--space-3) var(--space-4)",
 };
 
 const labelTitleStyle = {
-  fontSize: 16,
+  fontSize: "var(--fs-lg)",
   fontWeight: 600,
-  letterSpacing: 0.2,
+  letterSpacing: "0.02em",
 };
 
 const labelMetaStyle = {
-  fontSize: 13,
+  fontSize: "var(--fs-md)",
   color: "var(--text-muted)",
 };
 
@@ -68,57 +69,57 @@ const tagRowStyle = {
   display: "flex",
   justifyContent: "center",
   flexWrap: "wrap",
-  gap: 6,
-  marginTop: 4,
+  gap: "var(--space-2)",
+  marginTop: "var(--space-1)",
 };
 
 const tagStyle = {
-  padding: "3px 10px",
-  borderRadius: 999,
-  border: "2px solid var(--border)",
+  padding: "var(--space-1) var(--space-3)",
+  borderRadius: "var(--radius-pill)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface-muted)",
-  fontSize: 11,
+  fontSize: "var(--fs-xs)",
   color: "var(--text)",
 };
 
 const closeButtonStyle = {
   position: "absolute",
-  top: 18,
-  right: 18,
-  borderRadius: 999,
-  border: "2px solid var(--border)",
+  top: "var(--space-4)",
+  right: "var(--space-4)",
+  borderRadius: "var(--radius-pill)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  width: 36,
-  height: 36,
-  fontSize: 18,
+  width: "calc(var(--space-7) + var(--space-1))",
+  height: "calc(var(--space-7) + var(--space-1))",
+  fontSize: "var(--fs-lg)",
   cursor: "pointer",
-  boxShadow: "var(--shadow-soft)",
+  boxShadow: "var(--shadow-1)",
 };
 
 const navButtonStyle = {
   position: "absolute",
   top: "50%",
   transform: "translateY(-50%)",
-  border: "2px solid var(--border)",
+  border: "var(--border-2) solid var(--border)",
   background: "var(--surface)",
   color: "var(--text)",
-  width: 56,
-  height: 56,
-  borderRadius: 999,
+  width: "calc(var(--space-8) + var(--space-4))",
+  height: "calc(var(--space-8) + var(--space-4))",
+  borderRadius: "var(--radius-pill)",
   cursor: "pointer",
-  fontSize: 28,
+  fontSize: "var(--fs-2xl)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  boxShadow: "var(--shadow-hard)",
+  boxShadow: "var(--shadow-2)",
 };
 
 const hintStyle = {
-  fontSize: 11,
+  fontSize: "var(--fs-xs)",
   color: "var(--text-muted)",
   display: "flex",
-  gap: 12,
+  gap: "var(--space-3)",
   alignItems: "center",
   justifyContent: "center",
 };
@@ -181,7 +182,7 @@ export default function InspectOverlay({
       </button>
       <button
         type="button"
-        style={{ ...navButtonStyle, left: 24 }}
+        style={{ ...navButtonStyle, left: "var(--space-6)" }}
         onClick={(event) => {
           event.stopPropagation();
           onPrev?.();
@@ -192,7 +193,7 @@ export default function InspectOverlay({
       </button>
       <button
         type="button"
-        style={{ ...navButtonStyle, right: 24 }}
+        style={{ ...navButtonStyle, right: "var(--space-6)" }}
         onClick={(event) => {
           event.stopPropagation();
           onNext?.();
