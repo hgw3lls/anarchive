@@ -151,12 +151,7 @@ export default function App() {
           ) : null}
         </div>
       </header>
-      <div
-        className="app-body"
-        style={{
-          gridTemplateColumns: isIndexOpen ? "minmax(220px, 260px) 1fr" : "72px 1fr",
-        }}
-      >
+      <div className="app-body" data-index-open={isIndexOpen ? "true" : "false"}>
         <aside
           className="app-sidebar"
           data-open={isIndexOpen ? "true" : "false"}
