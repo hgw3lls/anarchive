@@ -255,12 +255,7 @@ export default function Wall({ searchTerm = "" }) {
   const [inspectNodeId, setInspectNodeId] = useState(null);
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const [viewportSize, setViewportSize] = useState(() => {
-    if (typeof window === "undefined") {
-      return { width: 0, height: 0 };
-    }
-    return { width: window.innerWidth, height: window.innerHeight };
-  });
+  const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 });
   const [enabledKinds, setEnabledKinds] = useState(new Set(ALL_KINDS));
   const [wallStyleName, setWallStyleName] = useState(() => {
     if (typeof window === "undefined") {
@@ -286,6 +281,7 @@ export default function Wall({ searchTerm = "" }) {
   const searchInputRef = useRef(null);
   const focusMapRef = useRef(null);
   const focusDragRef = useRef(false);
+  const wallRef = useRef(null);
 
   useEffect(() => {
     nodesRef.current = nodes;
@@ -303,10 +299,22 @@ export default function Wall({ searchTerm = "" }) {
     if (typeof window === "undefined") {
       return undefined;
     }
-    const handleResize = () =>
-      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const element = wallRef.current;
+    if (!element) {
+      return undefined;
+    }
+    const updateSize = () => {
+      const rect = element.getBoundingClientRect();
+      setViewportSize({ width: rect.width, height: rect.height });
+    };
+    updateSize();
+    if (typeof ResizeObserver === "undefined") {
+      window.addEventListener("resize", updateSize);
+      return () => window.removeEventListener("resize", updateSize);
+    }
+    const observer = new ResizeObserver(() => updateSize());
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   const artifactsById = useMemo(() => {
@@ -538,11 +546,13 @@ export default function Wall({ searchTerm = "" }) {
   }, [filteredNodes]);
 
   const focusViewportRect = useMemo(() => {
-    const zoom = camera?.zoom ?? 1;
+    const viewport =
+      camera ?? reactFlowInstance?.getViewport?.() ?? { x: 0, y: 0, zoom: 1 };
+    const zoom = viewport.zoom ?? 1;
     const viewWidth = viewportSize.width / zoom;
     const viewHeight = viewportSize.height / zoom;
-    const viewX = -(camera?.x ?? 0) / zoom;
-    const viewY = -(camera?.y ?? 0) / zoom;
+    const viewX = -(viewport.x ?? 0) / zoom;
+    const viewY = -(viewport.y ?? 0) / zoom;
     const rectX =
       (viewX - focusMapData.minX) * focusMapData.scale + focusMapData.offsetX;
     const rectY =
@@ -554,10 +564,8 @@ export default function Wall({ searchTerm = "" }) {
       height: viewHeight * focusMapData.scale,
     };
   }, [
-    camera?.x,
-    camera?.y,
-    camera?.zoom,
     focusMapData,
+    reactFlowInstance,
     viewportSize.height,
     viewportSize.width,
   ]);
@@ -1281,7 +1289,7 @@ export default function Wall({ searchTerm = "" }) {
   const wallBackgroundStyle = WALL_STYLES[wallStyleName]?.style ?? WALL_STYLES.whiteCube.style;
 
   return (
-    <section style={wallStyle}>
+    <section ref={wallRef} style={wallStyle}>
       <ReactFlow
         style={{
           ...wallBackgroundStyle,
@@ -1294,7 +1302,13 @@ export default function Wall({ searchTerm = "" }) {
         edgeTypes={edgeTypes}
         onNodesChange={onNodesChange}
         onEdgesChange={handleEdgesChange}
-        onInit={setReactFlowInstance}
+        onInit={(instance) => {
+          setReactFlowInstance(instance);
+          const viewport = instance.getViewport?.();
+          if (viewport) {
+            setCamera(viewport);
+          }
+        }}
         onNodeClick={(_, node) =>
           setSelectedArtifactId(String(node?.data?.artifactId ?? node.id))
         }
