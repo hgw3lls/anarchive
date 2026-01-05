@@ -253,6 +253,35 @@ body {
   padding: var(--space-3);
 }
 
+.app-sidebar__card-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 1080px) {
+  .app-sidebar__card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+}
+
+@media (min-width: 1400px) {
+  .app-sidebar__card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.app-sidebar__card-grid:hover .ui-card {
+  opacity: 0.6;
+  filter: grayscale(0.2);
+}
+
+.app-sidebar__card-grid .ui-card:hover {
+  opacity: 1;
+  filter: none;
+  box-shadow: var(--shadow-3);
+}
+
 .app-sidebar__section-title {
   position: relative;
   padding-top: var(--space-2);
@@ -261,6 +290,200 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.14em;
   color: var(--text-muted);
+}
+
+.app-sidebar__section-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--border-3);
+  background: var(--border);
+}
+
+.app-sidebar__section-title::after {
+  content: "INDEX";
+  position: absolute;
+  top: calc(var(--space-2) * -1);
+  left: var(--space-2);
+  background: var(--accent);
+  color: var(--text-inverse);
+  border: var(--border-2) solid var(--border);
+  padding: 0 var(--space-2);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+}
+
+.app-sidebar__row,
+.app-sidebar__recent {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--fs-xs);
+}
+
+.app-sidebar__row-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.app-sidebar__count {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.app-sidebar__meta {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+
+.app-sidebar__badge {
+  align-self: flex-start;
+}
+
+.app-sidebar__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.app-sidebar__tag {
+  padding: var(--space-1) var(--space-2);
+}
+
+.app-sidebar__hint {
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.app-sidebar__hint span {
+  color: var(--text);
+}
+
+.app-main {
+  position: relative;
+  min-height: 0;
+  background-color: var(--wall-paper);
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.app-frame[data-scanlines="true"] .app-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.08),
+    rgba(0, 0, 0, 0.08) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.25;
+  z-index: var(--z-base);
+}
+
+.app-frame[data-debug="true"] .app-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(225, 6, 0, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(225, 6, 0, 0.45) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: var(--z-overlay);
+}
+
+.app-frame[data-debug="true"] * {
+  outline: 1px dashed rgba(17, 17, 17, 0.35);
+  outline-offset: -1px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 var(--space-3);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: var(--border-2);
+  text-underline-offset: var(--space-1);
+  text-decoration-color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: "Space Mono", "IBM Plex Mono", "Fira Code", "SFMono-Regular",
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+code,
+kbd {
+  background: var(--surface-muted);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  padding: 0 var(--space-1);
+  font-size: 0.95em;
+}
+
+pre {
+  background: var(--surface-muted);
+  border: var(--border-2) solid var(--border);
+  border-radius: var(--radius-1);
+  padding: var(--space-3);
+  box-shadow: var(--shadow-1);
+  overflow-x: auto;
 }
 
 .app-sidebar__section-title::before {
@@ -671,33 +894,16 @@ a:focus-visible,
     background-image: none;
   }
 
+  .app-frame[data-scanlines="true"] .app-main::before {
+    opacity: 0.1;
+  }
+
   .ui-card {
     box-shadow: var(--shadow-2);
   }
 
   .ui-card--tape::after {
     opacity: 0.5;
-  }
-}
-
-@media (prefers-contrast: more) {
-  :root {
-    --text: #000000;
-    --text-muted: #1a1a1a;
-    --border: #000000;
-    --shadow-1: 0 0 0 var(--border);
-    --shadow-2: 0 0 0 var(--border);
-    --shadow-3: 0 0 0 var(--border);
-  }
-
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible,
-  a:focus-visible,
-  [tabindex]:focus-visible {
-    outline-color: var(--text);
-    box-shadow: 0 0 0 3px var(--accent);
   }
 }
 
