@@ -96,7 +96,7 @@ body {
 
 .app-masthead {
   display: grid;
-  grid-template-columns: minmax(220px, 1.1fr) minmax(240px, 1fr) minmax(220px, 1fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(240px, 1.2fr);
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4) var(--space-5);
@@ -162,7 +162,7 @@ body {
 .app-masthead__nav {
   display: flex;
   gap: var(--space-2);
-  justify-content: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
 }
 
@@ -190,12 +190,8 @@ body {
 .app-body {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(220px, 260px) 1fr;
+  grid-template-columns: 1fr;
   min-height: 0;
-}
-
-.app-body[data-index-open="false"] {
-  grid-template-columns: 72px 1fr;
 }
 
 .app-sidebar {
