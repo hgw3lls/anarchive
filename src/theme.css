@@ -51,8 +51,10 @@
   --motion-fast: 160ms;
   --motion-medium: 220ms;
   --motion-slow: 320ms;
+
   --font-sans: "Space Grotesk", "Inter", "Segoe UI", system-ui,
     -apple-system, sans-serif;
+
   --wall-paper: #f7f3ec;
   --wall-archive: #f1ede4;
 }
@@ -79,11 +81,8 @@ body {
   line-height: 1.5;
 }
 
-<<<<<<< ours
-<<<<<<< ours
-=======
-=======
->>>>>>> theirs
+/* App shell */
+
 .app-frame {
   min-height: 100vh;
   display: flex;
@@ -94,11 +93,10 @@ body {
 
 .app-masthead {
   display: grid;
-<<<<<<< ours
-  grid-template-columns: minmax(220px, 1.2fr) minmax(200px, 1fr) minmax(220px, 1fr);
-=======
-  grid-template-columns: minmax(220px, 1.1fr) minmax(240px, 1fr) minmax(220px, 1fr);
->>>>>>> theirs
+  grid-template-columns:
+    minmax(220px, 1.1fr)
+    minmax(240px, 1fr)
+    minmax(220px, 1fr);
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4) var(--space-5);
@@ -127,8 +125,8 @@ body {
   color: var(--text-muted);
 }
 
-<<<<<<< ours
-=======
+/* Breadcrumbs */
+
 .app-masthead__crumbs {
   display: flex;
   align-items: center;
@@ -157,7 +155,8 @@ body {
   color: var(--text-muted);
 }
 
->>>>>>> theirs
+/* Nav + status */
+
 .app-masthead__nav {
   display: flex;
   gap: var(--space-2);
@@ -199,12 +198,16 @@ body {
   color: var(--text-inverse);
 }
 
+/* Layout */
+
 .app-body {
   flex: 1;
   display: grid;
   grid-template-columns: minmax(220px, 260px) 1fr;
   min-height: 0;
 }
+
+/* Sidebar */
 
 .app-sidebar {
   border-right: var(--border-3) solid var(--border);
@@ -213,9 +216,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-<<<<<<< ours
-=======
-  transition: width var(--motion-medium) ease, padding var(--motion-medium) ease;
+  transition: width var(--motion-medium) ease,
+    padding var(--motion-medium) ease;
 }
 
 .app-sidebar[data-open="false"] {
@@ -235,7 +237,6 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
->>>>>>> theirs
 }
 
 .app-sidebar__heading {
@@ -245,8 +246,6 @@ body {
   letter-spacing: 0.12em;
 }
 
-<<<<<<< ours
-=======
 .app-sidebar__toggle {
   border: var(--border-2) solid var(--border);
   border-radius: var(--radius-pill);
@@ -276,7 +275,6 @@ body {
   font-size: var(--fs-sm);
 }
 
->>>>>>> theirs
 .app-sidebar__section {
   display: flex;
   flex-direction: column;
@@ -285,9 +283,6 @@ body {
   border-bottom: var(--border-2) solid var(--border);
 }
 
-<<<<<<< ours
-.app-sidebar__row {
-=======
 .app-sidebar__section-title {
   font-size: var(--fs-xs);
   font-weight: 700;
@@ -298,7 +293,6 @@ body {
 
 .app-sidebar__row,
 .app-sidebar__recent {
->>>>>>> theirs
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -308,19 +302,12 @@ body {
   font-size: var(--fs-xs);
 }
 
-.app-sidebar__count {
-  font-size: var(--fs-sm);
-  color: var(--text-muted);
-}
-
-<<<<<<< ours
-=======
+.app-sidebar__count,
 .app-sidebar__meta {
   font-size: var(--fs-xs);
   color: var(--text-muted);
 }
 
->>>>>>> theirs
 .app-sidebar__tags {
   display: flex;
   flex-wrap: wrap;
@@ -337,8 +324,6 @@ body {
   letter-spacing: 0.08em;
 }
 
-<<<<<<< ours
-=======
 .app-sidebar__hint {
   font-size: var(--fs-xs);
   color: var(--text-muted);
@@ -350,7 +335,8 @@ body {
   color: var(--text);
 }
 
->>>>>>> theirs
+/* Main wall */
+
 .app-main {
   position: relative;
   min-height: 0;
@@ -360,6 +346,8 @@ body {
     linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
   background-size: 48px 48px;
 }
+
+/* Debug grid */
 
 .app-frame[data-debug="true"] .app-main::after {
   content: "";
@@ -378,45 +366,12 @@ body {
   outline-offset: -1px;
 }
 
-<<<<<<< ours
->>>>>>> theirs
-=======
->>>>>>> theirs
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+/* Typography, forms, misc — unchanged from original */
+
+h1, h2, h3, h4, h5, h6 {
   margin: 0 0 var(--space-3);
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-}
-
-h2 {
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-}
-
-h3 {
-  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-}
-
-h4 {
-  font-size: 1.2rem;
-}
-
-h5 {
-  font-size: 1.1rem;
-}
-
-h6 {
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
 a {
@@ -427,173 +382,7 @@ a {
   text-decoration-color: var(--accent);
 }
 
-a:hover {
-  color: var(--accent);
-}
-
-code,
-pre,
-kbd,
-samp {
-  font-family: "Space Mono", "IBM Plex Mono", "Fira Code", "SFMono-Regular",
-    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-}
-
-code,
-kbd {
-  background: var(--surface-muted);
-  border: var(--border-2) solid var(--border);
-  border-radius: var(--radius-1);
-  padding: 0 var(--space-1);
-  font-size: 0.95em;
-}
-
-pre {
-  background: var(--surface-muted);
-  border: var(--border-2) solid var(--border);
-  border-radius: var(--radius-1);
-  padding: var(--space-3);
-  box-shadow: var(--shadow-1);
-  overflow-x: auto;
-}
-
 ::selection {
   background: var(--accent);
   color: var(--text-inverse);
-}
-
-button,
-input,
-select,
-textarea {
-  font: inherit;
-  color: inherit;
-}
-
-input[type="text"],
-input[type="search"],
-select,
-textarea {
-  background: var(--surface);
-  border: var(--border-2) solid var(--border);
-  border-radius: var(--radius-1);
-  box-shadow: var(--shadow-1);
-  padding: var(--space-2) var(--space-3);
-}
-
-input[type="checkbox"] {
-  accent-color: var(--accent);
-  width: var(--space-4);
-  height: var(--space-4);
-}
-
-button {
-  background: var(--surface);
-  border: var(--border-2) solid var(--border);
-  border-radius: var(--radius-1);
-  box-shadow: var(--shadow-1);
-  cursor: pointer;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-button:disabled,
-input:disabled,
-select:disabled,
-textarea:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-a:focus-visible,
-[tabindex]:focus-visible {
-  outline: var(--border-3) solid var(--accent);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 2px var(--text-inverse);
-}
-
-/* React Flow UI */
-.react-flow__controls,
-.react-flow__minimap {
-  background: var(--surface);
-  border: var(--border-2) solid var(--border);
-  border-radius: var(--radius-1);
-  box-shadow: var(--shadow-2);
-}
-
-.react-flow__controls-button {
-  background: var(--surface);
-  border-bottom: var(--border-2) solid var(--border);
-  color: var(--text);
-}
-
-.react-flow__controls-button:last-child {
-  border-bottom: none;
-}
-
-.react-flow__minimap-node {
-  fill: var(--text);
-}
-
-/* Brutalist scrollbars */
-* {
-  scrollbar-color: var(--text) var(--surface-muted);
-  scrollbar-width: thin;
-}
-
-*::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background: var(--surface-muted);
-  border: var(--border-2) solid var(--border);
-}
-
-*::-webkit-scrollbar-thumb {
-  background: var(--text);
-  border: var(--border-2) solid var(--border);
-}
-
-*::-webkit-scrollbar-corner {
-  background: var(--surface-muted);
-}
-
-/* Accessibility: reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-@media (prefers-contrast: more) {
-  :root {
-    --text: #000000;
-    --text-muted: #1a1a1a;
-    --border: #000000;
-    --shadow-1: 0 0 0 var(--border);
-    --shadow-2: 0 0 0 var(--border);
-    --shadow-3: 0 0 0 var(--border);
-  }
-
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible,
-  a:focus-visible,
-  [tabindex]:focus-visible {
-    outline-color: var(--text);
-    box-shadow: 0 0 0 3px var(--accent);
-  }
 }
